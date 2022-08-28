@@ -1,0 +1,123 @@
+@use './utils' as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-family: -apple-system, 'Poppins', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background-color: $gray-color;
+  color: $black-color;
+}
+
+section {
+  @include flex-center;
+  padding: 2rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+svg {
+  color: $white-color;
+}
+
+.active {
+  border-bottom: 4px solid $blue-color;
+  color: $blue-color !important;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+.hide {
+  display: none;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+input,
+button {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid $med-gray-color;
+  padding: 0.5rem;
+}
+
+input.btn,
+.btn,
+.industriesBtn button {
+  border-radius: 0.2rem;
+  border: none;
+  color: $white-color;
+  background-color: $green-color;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: $btn-shadow;
+  padding: 0.5rem 1rem;
+}
+
+// .btn-danger {
+//   background-color: #dc3545;
+// }
+
+// .btn-danger:hover {
+//   background-color: #f14f5f;
+//   font-weight: 600;
+// }
+
+.error {
+  margin-top: 1rem;
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 0.3rem;
+  border-radius: 0.25rem;
+  width: 100%;
+  text-align: center;
+}
+
+form {
+  @include flex-center-col;
+  margin: 1rem auto;
+  gap: 0.5rem;
+  width: 600px;
+  padding: 2rem;
+  background-color: $white-color;
+
+  & label {
+    width: 100%;
+  }
+
+  & label select {
+    @include flex-center-col;
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  & input,
+  select,
+  option {
+    color: $black-color;
+    border-radius: 0;
+  }
+
+  & input[type='submit'] {
+    margin-top: 1rem;
+    background-color: rgb(0, 124, 207);
+    transition: 0.3s;
+
+    &:hover {
+      background-color: rgba(0, 124, 207, 0.7);
+    }
+  }
+}
