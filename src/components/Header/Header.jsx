@@ -22,6 +22,7 @@ const Header = () => {
         <Link to='/'>
           {/* <img src='' alt='logo' /> */}
           <h1>FABRIKA DEVS</h1>
+          <h1>TESTE</h1>
         </Link>
         <div>
           {!user && <NavLink to='/login'>Entrar</NavLink>}
