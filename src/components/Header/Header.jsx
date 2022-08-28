@@ -21,7 +21,7 @@ const Header = () => {
       <div>
         <Link to='/'>
           {/* <img src='' alt='logo' /> */}
-          <h1>DEV FACTORY</h1>
+          <h1>FABRIKA DEVS</h1>
         </Link>
         <div>
           {!user && <NavLink to='/login'>Entrar</NavLink>}
