@@ -2,9 +2,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 
-// Styles
-import styles from './Register.module.scss';
-
 const Register = () => {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');

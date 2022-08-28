@@ -2,17 +2,14 @@
 import ContentList from '../../components/ContentList/ContentList';
 import VideoPlayer from '../../components/VideoPlayer/VideoPlayer';
 
-// Styles
-import styles from './Course.module.scss';
-
 // Mock
 import categories from '../../mock';
 
 const Course = () => (
-  <div className={styles.course_container}>
+  <div>
     <VideoPlayer />
 
-    <div className={styles.video_list}>
+    <div>
       <h1>Conteúdo do Curso</h1>
       {categories &&
         categories.map((category) => (

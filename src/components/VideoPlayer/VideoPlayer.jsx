@@ -1,12 +1,9 @@
-// Styles
-import styles from './VideoPlayer.module.scss';
-
 const VideoPlayer = () => {
   return (
-    <div className={styles.video_player}>
+    <div>
       <h1>VIDEO</h1>
 
-      <button className='btn'>Baixar arquivos</button>
+      <button>Baixar arquivos</button>
       <h2>Descrição:</h2>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas

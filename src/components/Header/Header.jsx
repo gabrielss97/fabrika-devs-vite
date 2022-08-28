@@ -7,9 +7,6 @@ import { NavLink, Link } from 'react-router-dom';
 // Context
 import { useAuthValue } from '../../context/AuthContext';
 
-// Styles
-import styles from './Header.module.scss';
-
 const Header = () => {
   const { user } = useAuthValue();
   // const { logout } = useAuth();
@@ -17,7 +14,7 @@ const Header = () => {
   const admin = false;
 
   return (
-    <header className={styles.header}>
+    <header>
       <div>
         <Link to='/'>
           {/* <img src='' alt='logo' /> */}
@@ -31,17 +28,7 @@ const Header = () => {
             <div>
               <p>{'username'}</p>
               {/* <img src='' alt='userLogo' /> */}
-              <div
-                style={{
-                  width: '50px',
-                  height: '50px',
-                  borderRadius: '50%',
-                  backgroundColor: 'black',
-                  color: 'white',
-                  textAlign: 'center',
-                }}>
-                IMG FAKE
-              </div>
+              <div>IMG FAKE</div>
             </div>
           )}
         </div>
