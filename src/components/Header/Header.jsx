@@ -38,8 +38,7 @@ const Header = () => {
                   backgroundColor: 'black',
                   color: 'white',
                   textAlign: 'center',
-                }}
-              >
+                }}>
                 IMG FAKE
               </div>
             </div>

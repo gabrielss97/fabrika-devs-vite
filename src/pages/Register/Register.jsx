@@ -50,7 +50,7 @@ const Register = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <h2>Registro de usuário</h2>
-        <label>
+        <label htmlFor='displayName'>
           <span>Nome:</span>
           <input
             type='text'
@@ -62,7 +62,7 @@ const Register = () => {
             autoComplete='on'
           />
         </label>
-        <label>
+        <label htmlFor='email'>
           <span>E-mail:</span>
           <input
             type='email'
@@ -74,7 +74,7 @@ const Register = () => {
             autoComplete='on'
           />
         </label>
-        <label>
+        <label htmlFor='password'>
           <span>Senha:</span>
           <input
             type='password'
@@ -86,7 +86,7 @@ const Register = () => {
             autoComplete='on'
           />
         </label>
-        <label>
+        <label htmlFor='confirmPassword'>
           <span>Confirmação de senha:</span>
 
           <input
@@ -103,14 +103,12 @@ const Register = () => {
         {loading && (
           <input
             type='submit'
-            value={'Registrando...'}
+            value='Registrando...'
             className='btn btn-disabled'
             disabled
           />
         )}
-        {!loading && (
-          <input type='submit' value={'Registrar'} className='btn' />
-        )}
+        {!loading && <input type='submit' value='Registrar' className='btn' />}
         {error && <p className='error'>{error}</p>}
       </form>
     </div>

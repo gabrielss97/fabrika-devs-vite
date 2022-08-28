@@ -1,4 +1,5 @@
-import { db } from '../firebase/config';
+/* eslint-disable import/prefer-default-export */
+import db from '../firebase/config';
 
 import {
   getAuth,
@@ -35,7 +36,7 @@ export const useAuth = () => {
       const { user } = await createUserWithEmailAndPassword(
         auth,
         data.email,
-        data.password,
+        data.password
       );
 
       await updateProfile(user, { displayName: data.displayName });

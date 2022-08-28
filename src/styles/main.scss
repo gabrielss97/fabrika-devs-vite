@@ -1,5 +1,15 @@
 @use './utils' as *;
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .teste-classe-tw {
+    @apply flex flex-col items-center gap-4;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;

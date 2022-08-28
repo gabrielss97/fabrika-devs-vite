@@ -26,15 +26,15 @@ import EditProfile from './pages/EditProfile/EditProfile';
 function App() {
   const user = true;
   // const [user, setUser] = useState(undefined);
-  const { auth } = useAuth();
+  // const { auth } = useAuth();
 
   const admin = true;
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      setUser(user);
-    });
-  }, [auth]);
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (userParams) => {
+  //     setUser(userParams);
+  //   });
+  // }, [auth]);
 
   const loadingUser = user === undefined;
 
