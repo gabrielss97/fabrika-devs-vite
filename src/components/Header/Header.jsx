@@ -1,68 +1,102 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 // Router
 import { NavLink, Link } from 'react-router-dom';
 
 // Hooks
-// import { useAuth } from '../../hooks/useAuth';
+import { useState } from 'react';
+import { useAuth } from '../../hooks/useAuth';
 
 // Context
 import { useAuthValue } from '../../context/AuthContext';
 
 // Assets
 import logo from '../../assets/logo-fabrica-devs.png';
+import userDefault from '../../assets/user.png';
 
 const Header = () => {
-  const { user } = useAuthValue();
-  // const { logout } = useAuth();
+  const [showModal, setShowModal] = useState(false);
 
-  const admin = false;
+  const { user } = useAuthValue();
+  const { logout } = useAuth();
+
+  const admin = true;
 
   return (
     <header>
-      <div className='flex'>
+      <div className='flex justify-between items-center bg-cWhite h-20 text-cWhite shadow-md p-4 border-b-1 border-cLtGray'>
         <Link to='/'>
-          <img src={logo} alt='logo' />
+          <img src={logo} alt='logo' className='w-14' />
         </Link>
         <div>
           {!user && <NavLink to='/login'>Entrar</NavLink>}
 
           {user && (
-            <div>
-              <p>{'username'}</p>
-              {/* <img src='' alt='userLogo' /> */}
-              <div>IMG FAKE</div>
+            <div
+              className='w-12 h-12 rounded-full text-cWhtie text-center cursor-pointer relative'
+              onClick={() => setShowModal(!showModal)}>
+              <img src={userDefault} alt='user' />
+              {/* MODAL */}
+              {user && !admin && (
+                <ul
+                  className={`${
+                    showModal ? '' : 'hidden'
+                  } relative w-56 right-44 bg-cWhite text-cBlack shadow-lg border-1 border-cLtGray font-bold rounded-md mt-1 z-10`}>
+                  <li className='header-li'>
+                    <NavLink to='/course' className='hover:text-cBlue'>
+                      Curso
+                    </NavLink>
+                  </li>
+                  <li className='header-li'>
+                    <NavLink to='/profile' className='hover:text-cBlue'>
+                      Perfil
+                    </NavLink>
+                  </li>
+                  <li className='header-li'>
+                    <NavLink
+                      to='/'
+                      onClick={logout}
+                      className='hover:text-cBlue'>
+                      Sair
+                    </NavLink>
+                  </li>
+                </ul>
+              )}
+              {user && admin && (
+                <ul
+                  className={`${
+                    showModal ? '' : 'hidden'
+                  } relative w-56 right-44 bg-cWhite text-cBlack shadow-lg border-1 border-cLtGray font-bold rounded-md mt-1  z-10`}>
+                  <li className='header-li'>
+                    <NavLink to='/panel/users' className='hover:text-cBlue'>
+                      Usuários
+                    </NavLink>
+                  </li>
+                  <li className='header-li'>
+                    <NavLink
+                      to='/panel/video-upload'
+                      className='hover:text-cBlue'>
+                      Conteúdo
+                    </NavLink>
+                  </li>
+                  <li className='header-li'>
+                    <NavLink to='/panel/profile' className='hover:text-cBlue'>
+                      Perfil
+                    </NavLink>
+                  </li>
+                  <li className=' hover:text-cBlue px-16 py-2 w-full '>
+                    <NavLink
+                      to='/'
+                      onClick={logout}
+                      className='hover:text-cBlue'>
+                      Sair
+                    </NavLink>
+                  </li>
+                </ul>
+              )}
             </div>
           )}
         </div>
-
-        {/* MODAL */}
-
-        {user && !admin && (
-          <ul>
-            <li>
-              <NavLink to='/course'>Curso</NavLink>
-            </li>
-            <li>
-              <NavLink to='/profile'>Perfil</NavLink>
-            </li>
-            <li>
-              <NavLink to='/profile/edit'>Editar Perfil</NavLink>
-            </li>
-          </ul>
-        )}
-
-        {user && admin && (
-          <ul>
-            <li>
-              <NavLink to='/panel/users'>Usuários</NavLink>
-            </li>
-            <li>
-              <NavLink to='/panel/video-upload'>Conteúdo</NavLink>
-            </li>
-            <li>
-              <NavLink to='/panel/edit-profile'>Profile</NavLink>
-            </li>
-          </ul>
-        )}
       </div>
     </header>
   );

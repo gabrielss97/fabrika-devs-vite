@@ -1,4 +1,8 @@
+/* eslint-disable import/order */
+/* eslint-disable consistent-return */
+/* eslint-disable arrow-body-style */
 /* eslint-disable import/prefer-default-export */
+/* eslint-disable no-unused-vars */
 import db from '../firebase/config';
 
 import {
@@ -23,6 +27,7 @@ export const useAuth = () => {
 
   const checkCancelled = () => {
     if (cancelled) {
+      // eslint-disable-next-line no-useless-return
       return;
     }
   };
@@ -57,6 +62,12 @@ export const useAuth = () => {
     }
   };
 
+  // logout
+  const logout = () => {
+    checkCancelled();
+    signOut();
+  };
+
   useEffect(() => {
     return () => {
       setCancelled(true);
@@ -68,5 +79,6 @@ export const useAuth = () => {
     createUser,
     error,
     loading,
+    logout,
   };
 };

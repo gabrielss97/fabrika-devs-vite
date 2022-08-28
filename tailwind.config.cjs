@@ -18,10 +18,14 @@ module.exports = {
     },
     colors: {
       cWhite: '#ffffff',
-      cGray: '#f5f5f5',
+      cLtGray: '#f5f5f5',
+      cDkGray: '#d1d7dc',
       cBlack: '#111111',
       cGreen: '#62b132',
       cBlue: '#2d6aa9',
+    },
+    borderWidth: {
+      1: '1px',
     },
   },
   plugins: [],
