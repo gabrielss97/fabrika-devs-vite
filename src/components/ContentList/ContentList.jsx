@@ -8,16 +8,24 @@ const ContentList = ({ category }) => {
   const [active, setActive] = useState(false);
 
   return (
-    <div>
-      <div onClick={() => setActive(!active)}>
-        <h2>{category.category}</h2>
-        <RiArrowDropDownLine className={active ? 'rotate' : ''} />
+    <>
+      <div
+        onClick={() => setActive(!active)}
+        className=' flex justify-between text-cBlue font-bold cursor-pointer  bg-cLtGray rounded-md p-4 mb-1'>
+        <h2 className='text-xl'>{category.category}</h2>
+        <RiArrowDropDownLine
+          className={`${active ? 'rotate-180' : ''} text-2xl`}
+        />
       </div>
-      <div className={!active ? 'hide' : ''}>
+      <div className={!active ? 'hidden' : ''}>
         {category.videos &&
-          category.videos.map((video) => <p key={video.id}>{video.title}</p>)}
+          category.videos.map((video) => (
+            <p key={video.id} className='text-cDkGray p-2'>
+              {video.title}
+            </p>
+          ))}
       </div>
-    </div>
+    </>
   );
 };
 

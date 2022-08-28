@@ -47,12 +47,12 @@ export const useAuth = () => {
       await updateProfile(user, { displayName: data.displayName });
       setLoading(false);
       return user;
-    } catch (error) {
+    } catch (e) {
       let systemErrorMsg;
 
-      if (error.message.includes('Password')) {
+      if (e.message.includes('Password')) {
         systemErrorMsg = 'A senha precisa ter pelo menos 6 caracteres.';
-      } else if (error.message.includes('email-already')) {
+      } else if (e.message.includes('email-already')) {
         systemErrorMsg = 'E-mail já cadastrado.';
       } else {
         systemErrorMsg = 'Ocorreu um erro, tente novamente mais tarde.';
@@ -62,10 +62,48 @@ export const useAuth = () => {
     }
   };
 
-  // logout
+  // Login
+  const login = async (user) => {
+    checkCancelled();
+    setLoading(true);
+    setError(false);
+
+    try {
+      await signInWithEmailAndPassword(auth, user.email, user.password);
+      setLoading(false);
+    } catch (e) {
+      let systemErrorMsg;
+
+      if (e.message.includes('wrong-password')) {
+        systemErrorMsg = 'Senha incorreta.';
+      } else if (e.message.includes('user-not-found')) {
+        systemErrorMsg = 'Usuário não cadastrado.';
+      } else {
+        systemErrorMsg = 'Ocorreu um erro, tente novamente mais tarde.';
+      }
+      setError(systemErrorMsg);
+      setLoading(false);
+    }
+  };
+
+  // Logout
   const logout = () => {
     checkCancelled();
-    signOut();
+    signOut(auth);
+  };
+
+  // Update User
+
+  // Delete User
+  const removeUser = (userId) => {
+    checkCancelled();
+    setLoading(true);
+
+    try {
+      deleteUser(userId);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
@@ -79,6 +117,8 @@ export const useAuth = () => {
     createUser,
     error,
     loading,
+    login,
     logout,
+    removeUser,
   };
 };

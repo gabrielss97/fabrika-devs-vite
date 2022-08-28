@@ -6,11 +6,19 @@
 
 @layer components {
   .header-li {
-    @apply px-16 py-2 w-full border-b-1 border-cDkGray;
+    @apply px-16 py-2 w-full border-b-1 border-cMdGray;
   }
 
   .download-btn {
     @apply p-2 bg-cBlue text-cLtGray font-bold rounded-md shadow-lg;
+  }
+
+  .btn {
+    @apply p-2 bg-cBlue text-cLtGray font-bold rounded-md shadow-lg;
+  }
+
+  .form-input {
+    @apply p-2 rounded-md outline-none mt-2;
   }
 }
 
@@ -26,57 +34,6 @@ body {
   min-height: 100vh;
 }
 
-// .react-tabs {
-//   -webkit-tap-highlight-color: transparent;
-
-//   &__tab-list {
-//     border: none !important;
-//     margin: 0 0 10px;
-//     padding: 0;
-//   }
-
-//   &__tab {
-//     display: inline-block;
-//     border: none !important;
-//     border-bottom: 3px solid #2d6aa9 !important;
-//     bottom: -1px;
-//     position: relative;
-//     list-style: none;
-//     padding: 6px 12px;
-//     cursor: pointer;
-
-//     &--selected {
-//       background: #fff;
-//       border-color: #aaa;
-//       color: black;
-//       // border-bottom: 3px solid #2d6aa9 !important;
-//       border-radius: 0 !important;
-//     }
-
-//     &:focus {
-//       outline: none;
-
-//       &:after {
-//         content: '';
-//         position: absolute;
-//         height: 5px;
-//         left: -4px;
-//         right: -4px;
-//         bottom: -5px;
-//         background: #fff;
-//       }
-//     }
-//   }
-
-//   &__tab-panel {
-//     display: none;
-
-//     &--selected {
-//       display: block;
-//     }
-//   }
-// }
-
 .react-tabs {
   &__tab-list {
     border-bottom: none !important;
@@ -91,6 +48,7 @@ body {
     list-style: none;
     padding: 1rem 2rem !important;
     cursor: pointer;
+    color: #7a7a7a !important;
 
     &--selected {
       border-color: #2d6aa9 !important;

@@ -19,9 +19,11 @@ module.exports = {
     colors: {
       cWhite: '#ffffff',
       cLtGray: '#f5f5f5',
-      cDkGray: '#d1d7dc',
+      cMdGray: '#d1d7dc',
+      cDkGray: '#7a7a7a',
       cBlack: '#111111',
       cGreen: '#62b132',
+      cLtBlue: '#4294e6',
       cBlue: '#2d6aa9',
     },
     borderWidth: {

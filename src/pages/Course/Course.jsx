@@ -49,14 +49,11 @@ const Course = () => {
             </p>
           </div>
         </TabPanel>
-        <TabPanel>
-          <div className='absolute right-0 w-80'>
-            <h1>Conteúdo do Curso</h1>
-            {categories &&
-              categories.map((category) => (
-                <ContentList category={category} key={category.id} />
-              ))}
-          </div>
+        <TabPanel className='p-4'>
+          {categories &&
+            categories.map((category) => (
+              <ContentList category={category} key={category.id} />
+            ))}
         </TabPanel>
       </Tabs>
     </div>

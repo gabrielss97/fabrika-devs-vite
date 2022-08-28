@@ -41,9 +41,9 @@ const Header = () => {
                 <ul
                   className={`${
                     showModal ? '' : 'hidden'
-                  } relative w-56 right-44 bg-cWhite text-cBlack shadow-lg border-1 border-cLtGray font-bold rounded-md mt-1 z-10`}>
+                  } relative w-72 right-60 bg-cWhite text-cBlack shadow-lg border-1 border-cLtGray font-bold rounded-md mt-1 z-10`}>
                   <li className='header-li'>
-                    <NavLink to='/course' className='hover:text-cBlue'>
+                    <NavLink to='/' className='hover:text-cBlue'>
                       Curso
                     </NavLink>
                   </li>
@@ -66,17 +66,15 @@ const Header = () => {
                 <ul
                   className={`${
                     showModal ? '' : 'hidden'
-                  } relative w-56 right-44 bg-cWhite text-cBlack shadow-lg border-1 border-cLtGray font-bold rounded-md mt-1  z-10`}>
+                  } relative w-72 right-60 bg-cWhite text-cBlack shadow-lg border-1 border-cLtGray font-bold rounded-md mt-1  z-10`}>
                   <li className='header-li'>
                     <NavLink to='/panel/users' className='hover:text-cBlue'>
-                      Usuários
+                      Painel de Usuários
                     </NavLink>
                   </li>
                   <li className='header-li'>
-                    <NavLink
-                      to='/panel/video-upload'
-                      className='hover:text-cBlue'>
-                      Conteúdo
+                    <NavLink to='/panel/videos' className='hover:text-cBlue'>
+                      Painel de Vídeos
                     </NavLink>
                   </li>
                   <li className='header-li'>
