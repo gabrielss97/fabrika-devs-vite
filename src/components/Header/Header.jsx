@@ -7,6 +7,9 @@ import { NavLink, Link } from 'react-router-dom';
 // Context
 import { useAuthValue } from '../../context/AuthContext';
 
+// Assets
+import logo from '../../assets/logo-fabrica-devs.png';
+
 const Header = () => {
   const { user } = useAuthValue();
   // const { logout } = useAuth();
@@ -15,10 +18,9 @@ const Header = () => {
 
   return (
     <header>
-      <div>
+      <div className='flex'>
         <Link to='/'>
-          {/* <img src='' alt='logo' /> */}
-          <h1>FABRIKA DEVS</h1>
+          <img src={logo} alt='logo' />
         </Link>
         <div>
           {!user && <NavLink to='/login'>Entrar</NavLink>}
