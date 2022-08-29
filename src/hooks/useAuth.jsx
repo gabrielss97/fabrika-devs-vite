@@ -14,6 +14,8 @@ import {
   signOut,
 } from 'firebase/auth';
 
+import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
+
 import { useEffect, useState } from 'react';
 
 export const useAuth = () => {
@@ -44,9 +46,14 @@ export const useAuth = () => {
         data.password
       );
 
-      await updateProfile(user, { displayName: data.displayName });
+      const userData = {
+        name: data.displayName,
+      };
+
+      // Aiciona o usuario ao banco de dados com o mesmo UID da Auth
+      await setDoc(doc(db, 'users', user.uid), userData);
+
       setLoading(false);
-      return user;
     } catch (e) {
       let systemErrorMsg;
 
@@ -94,6 +101,8 @@ export const useAuth = () => {
 
   // Update User
 
+  const updateUser = async (userData) => {};
+
   // Delete User
   const removeUser = (userId) => {
     checkCancelled();
@@ -101,8 +110,10 @@ export const useAuth = () => {
 
     try {
       deleteUser(userId);
+      setLoading(false);
     } catch (e) {
-      console.log(e);
+      setError(e);
+      setLoading(false);
     }
   };
 
@@ -119,6 +130,7 @@ export const useAuth = () => {
     loading,
     login,
     logout,
+    updateUser,
     removeUser,
   };
 };

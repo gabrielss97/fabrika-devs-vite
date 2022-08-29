@@ -20,6 +20,10 @@
   .form-input {
     @apply p-2 rounded-md outline-none mt-2;
   }
+
+  .form-label {
+    @apply flex flex-col  w-full;
+  }
 }
 
 * {

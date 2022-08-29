@@ -14,13 +14,11 @@ import { useAuthValue } from '../../context/AuthContext';
 import logo from '../../assets/logo-fabrica-devs.png';
 import userDefault from '../../assets/user.png';
 
-const Header = () => {
+const Header = ({ admin }) => {
   const [showModal, setShowModal] = useState(false);
 
   const { user } = useAuthValue();
   const { logout } = useAuth();
-
-  const admin = true;
 
   return (
     <header>

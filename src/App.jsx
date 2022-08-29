@@ -18,19 +18,27 @@ import Header from './components/Header/Header';
 // Pages
 import Course from './pages/Course/Course';
 import Login from './pages/Login/Login';
-import Users from './pages/Users/Users';
+import Users from './components/AddUserForm/AddUserForm';
 import Profile from './pages/Profile/Profile';
 import EditProfile from './pages/EditProfile/EditProfile';
 import Videos from './pages/Videos/Videos';
 
 function App() {
   const [user, setUser] = useState(undefined);
+  const [admin, setAdmin] = useState(true);
   const { auth } = useAuth();
 
-  const admin = true;
-
   useEffect(() => {
-    onAuthStateChanged(auth, (userParams) => {
+    onAuthStateChanged(auth, async (userParams) => {
+      // if (userParams) {
+      // console.log(userParams);
+      // await user.getIdTokenResult().then((idTokenResult) => {
+      //   setAdmin(idTokenResult.claims.admin);
+      // se for true  -> setAdmin(true)
+      //
+      // });
+      // }
+
       setUser(userParams);
     });
   }, [auth]);
@@ -43,7 +51,7 @@ function App() {
   return (
     <div className='App'>
       <AuthProvider value={{ user }}>
-        <Header />
+        <Header admin={admin} />
         <Routes>
           <Route
             path='/'
@@ -73,6 +81,7 @@ function App() {
             path='/panel/profile'
             element={user && admin ? <Profile /> : <Navigate to='/' />}
           />
+          <Route path='/*' element={<Navigate to='/' />} />
         </Routes>
       </AuthProvider>
     </div>

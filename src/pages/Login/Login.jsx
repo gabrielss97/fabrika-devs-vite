@@ -34,7 +34,7 @@ const Login = () => {
       <form
         onSubmit={handleSubmit}
         className='flex flex-col items-center justify-center gap-6 py-8 px-8 bg-cLtGray rounded-md w-full shadow-md'>
-        <label htmlFor='email' className='flex flex-col  w-full'>
+        <label htmlFor='email' className='form-label'>
           <span className='font-bold text-cBlue'>E-mail:</span>
           <input
             type='email'
@@ -43,9 +43,10 @@ const Login = () => {
             value={email || ''}
             onChange={(e) => setEmail(e.target.value)}
             className='form-input'
+            autoComplete='on'
           />
         </label>
-        <label htmlFor='password' className='flex flex-col w-full'>
+        <label htmlFor='password' className='form-label'>
           <span className='font-bold text-cBlue'>Senha:</span>
           <input
             type='password'
@@ -54,6 +55,7 @@ const Login = () => {
             value={password || ''}
             onChange={(e) => setPassword(e.target.value)}
             className='form-input'
+            autoComplete='on'
           />
         </label>
         {!loading && (
