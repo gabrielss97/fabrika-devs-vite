@@ -14,7 +14,7 @@
   }
 
   .btn {
-    @apply p-2 bg-cBlue text-cLtGray font-bold rounded-md shadow-lg;
+    @apply p-2 bg-cBlue text-cLtGray font-bold rounded-md shadow-lg cursor-pointer;
   }
 
   .form-input {

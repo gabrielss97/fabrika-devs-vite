@@ -112,7 +112,7 @@ export const useAuth = () => {
       deleteUser(userId);
       setLoading(false);
     } catch (e) {
-      setError(e);
+      setError(e.message);
       setLoading(false);
     }
   };

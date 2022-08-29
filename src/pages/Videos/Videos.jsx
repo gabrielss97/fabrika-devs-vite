@@ -1,12 +1,10 @@
 import React from 'react';
+import AddVideoForm from '../../components/AddVideoForm/AddVideoForm';
 
 const Videos = () => {
-  const video = 'video';
   return (
     <div>
-      <div>
-        <div>{video}</div>
-      </div>
+      <AddVideoForm />
     </div>
   );
 };

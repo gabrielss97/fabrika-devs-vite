@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 
-const Register = () => {
+const AddUserForm = () => {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -119,4 +119,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default AddUserForm;
