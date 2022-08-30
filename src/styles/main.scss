@@ -5,16 +5,20 @@
 @tailwind utilities;
 
 @layer components {
+  .form {
+    @apply flex flex-col items-center justify-center gap-5 py-8 px-4 bg-cLtGray  rounded-t-md md:rounded w-full shadow-md md:max-w-2xl md:my-0 md:mx-auto md:absolute md:top-28 md:right-0 md:left-0 md:z-10;
+  }
+
   .header-li {
     @apply px-16 py-2 w-full border-b-1 border-cMdGray;
   }
 
   .download-btn {
-    @apply p-2 bg-cBlue text-cLtGray font-bold rounded-md shadow-lg;
+    @apply p-2 bg-cBlue text-cWhite font-bold rounded-md shadow-lg;
   }
 
   .btn {
-    @apply p-2 bg-cBlue text-cLtGray font-bold rounded-md shadow-lg cursor-pointer;
+    @apply p-2 bg-cBlue text-cWhite font-bold rounded-md shadow-lg cursor-pointer hover:bg-cLtBlue transition;
   }
 
   .form-input {

@@ -1,4 +1,7 @@
 /* eslint-disable no-else-return */
+// Icons
+import { BiX } from 'react-icons/bi';
+
 // Hooks
 import { useEffect, useState } from 'react';
 import { useUpload } from '../../hooks/useUpload';
@@ -7,8 +10,9 @@ import { useInsertDocument } from '../../hooks/useInsertDocument';
 // Context
 import { useAuthValue } from '../../context/AuthContext';
 
-const AddVideoForm = () => {
+const AddVideoForm = ({ setActive }) => {
   // Form States
+  const [category, setCategory] = useState('html');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [videoUpload, setVideoUpload] = useState(null);
@@ -55,8 +59,16 @@ const AddVideoForm = () => {
     e.preventDefault();
 
     // Valida os campos
-    if (videoPath === '' && title === '' && description === '') {
+    if (
+      category === '' &&
+      videoPath === '' &&
+      title === '' &&
+      description === ''
+    ) {
       setError('Por favor preencha todos os campos.');
+      return;
+    } else if (category === '') {
+      setError('Por escolha uma categoria.');
       return;
     } else if (title === '') {
       setError('Por envie um título.');
@@ -71,6 +83,7 @@ const AddVideoForm = () => {
 
     // Cria o objeto que será inserido no banco de dados
     const video = {
+      category,
       title,
       description,
       videoUrl: videoPath,
@@ -88,6 +101,8 @@ const AddVideoForm = () => {
     setVideoUpload(null);
     setFileUpload(null);
     clearPaths();
+    document.getElementById('inputFile').value = '';
+    document.getElementById('inputVideo').value = '';
   };
 
   // Se houver algum erro ou mensagem no upload, atualiza o state com o erro ou msg do upload
@@ -118,12 +133,26 @@ const AddVideoForm = () => {
   }, [error, message]);
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className='flex flex-col items-center justify-center gap-5 py-8 px-4 bg-cLtGray  rounded-t-md w-full shadow-md'>
-      <h1 className='text-2xl text-cBlue  font-bold text-center'>
-        Enviar vídeo
-      </h1>
+    <form onSubmit={handleSubmit} className='form'>
+      <div className='flex justify-between items-center  w-full mx-auto text-2xl  font-bold text-cBlue cursor-pointer'>
+        <h1 className=' text-center'>Enviar vídeo</h1>
+        <BiX className='font-medium' onClick={() => setActive(false)} />
+      </div>
+      <label htmlFor='category' className='form-label'>
+        <span>Categoria:</span>
+        <select
+          name='category'
+          className='form-input'
+          vaue={category}
+          onChange={(e) => setCategory(e.target.value)}>
+          <option value='html'>HTML</option>
+          <option value='css'>CSS</option>
+          <option value='javascript'>JavaScript</option>
+          <option value='reactjs'>React JS</option>
+          <option value='github'>GitHub</option>
+          <option value='linkedin'>Linkedin</option>
+        </select>
+      </label>
       <label htmlFor='title' className='form-label'>
         <span>Título:</span>
         <input
@@ -150,21 +179,25 @@ const AddVideoForm = () => {
       </label>
       <label htmlFor='file' className='form-label'>
         <span>Material:</span>
-        <div className='flex'>
+        <div className='flex items-center'>
           <input
             type='file'
             name='file'
+            id='inputFile'
             // onChange={(e) => uploadFile('files', e.target.files[0])}
             onChange={(e) => setFileUpload(e.target.files[0])}
             className='form-input text-sm max-w-full'
-            autoComplete='on'
             disabled={filePath !== '' && fileUpload !== null}
           />
           {filePath === '' && (
             <button
               type='button'
               onClick={handleFileUpload}
-              className='text-left px-2 ml-10 b-1 bg-cLtBlue rounded text-cWhite'>
+              className={`text-left px-2 py-1 font-bold ml-10 b-1 ${
+                fileLoading
+                  ? 'bg-cDkGray'
+                  : ' bg-cLtBlue hover:bg-cBlue transition'
+              } rounded-3xl text-cWhite shadow-md border-1 border-cBlue`}>
               {!fileLoading && 'Enviar'}
               {fileLoading && 'Enviando...'}
             </button>
@@ -174,20 +207,24 @@ const AddVideoForm = () => {
       <label htmlFor='video' className='form-label'>
         <span>Vídeo:</span>
 
-        <div className='flex'>
+        <div className='flex items-center'>
           <input
             type='file'
+            id='inputVideo'
             name='video'
             onChange={(e) => setVideoUpload(e.target.files[0])}
             className='form-input text-sm max-w-full'
-            autoComplete='on'
             disabled={videoPath !== '' && videoUpload !== null}
           />
           {videoPath === '' && (
             <button
               type='button'
               onClick={handleVideoUpload}
-              className='text-left px-2 ml-10 b-1 bg-cLtBlue rounded text-cWhite'>
+              className={`text-left px-2 py-1 font-bold ml-10 b-1 ${
+                videoLoading
+                  ? 'bg-cDkGray'
+                  : ' bg-cLtBlue hover:bg-cBlue transition'
+              } rounded-3xl text-cWhite shadow-md border-1 border-cBlue`}>
               {!videoLoading && 'Enviar'}
               {videoLoading && 'Enviando...'}
             </button>
@@ -195,11 +232,32 @@ const AddVideoForm = () => {
         </div>
       </label>
 
-      {!error && !insertLoading && (
+      {!error && !insertLoading && !videoLoading && !fileLoading && (
         <input type='submit' value='Cadastrar vídeo' className='btn' />
       )}
       {insertLoading && (
-        <input type='submit' value='Cadastrando...' className='btn' />
+        <input
+          type='submit'
+          value='Cadastrando...'
+          className='btn  bg-cDkGray'
+          disabled
+        />
+      )}
+      {fileLoading && (
+        <input
+          type='submit'
+          value='Aguarde'
+          className='btn bg-cDkGray'
+          disabled
+        />
+      )}
+      {videoLoading && (
+        <input
+          type='submit'
+          value='Aguarde'
+          className='btn bg-cDkGray'
+          disabled
+        />
       )}
       {error && <p className='error'>{error}</p>}
     </form>
