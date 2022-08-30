@@ -24,6 +24,7 @@ const AddVideoForm = () => {
   // Hook de Upload de arquivos
   const {
     uploadFile,
+    clearPaths,
     error: uploadError,
     message: uploadMessage,
     fileLoading,
@@ -86,6 +87,7 @@ const AddVideoForm = () => {
     setTitle('');
     setVideoUpload(null);
     setFileUpload(null);
+    clearPaths();
   };
 
   // Se houver algum erro ou mensagem no upload, atualiza o state com o erro ou msg do upload
@@ -156,7 +158,7 @@ const AddVideoForm = () => {
             onChange={(e) => setFileUpload(e.target.files[0])}
             className='form-input text-sm max-w-full'
             autoComplete='on'
-            disabled={filePath !== ''}
+            disabled={filePath !== '' && fileUpload !== null}
           />
           {filePath === '' && (
             <button
@@ -179,7 +181,7 @@ const AddVideoForm = () => {
             onChange={(e) => setVideoUpload(e.target.files[0])}
             className='form-input text-sm max-w-full'
             autoComplete='on'
-            disabled={videoPath !== ''}
+            disabled={videoPath !== '' && videoUpload !== null}
           />
           {videoPath === '' && (
             <button

@@ -126,6 +126,12 @@ export const useUpload = () => {
     );
   };
 
+  // Limpar Paths
+  const clearPaths = () => {
+    setFilePath('');
+    setVideoPath('');
+  };
+
   // Ao sair da fução irá executar o cleanup
   useEffect(() => {
     return () => {
@@ -135,6 +141,7 @@ export const useUpload = () => {
 
   return {
     uploadFile,
+    clearPaths,
     error,
     message,
     progress,
