@@ -9,7 +9,7 @@ import {
   getDownloadURL,
 } from 'firebase/storage';
 
-export const useUploadFile = () => {
+export const useUpload = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(null);
   const [message, setMessage] = useState(null);

@@ -1,6 +1,7 @@
 // Hooks
 import { useEffect, useState } from 'react';
-import { useUploadFile } from '../../hooks/useUploadFile';
+import { useUpload } from '../../hooks/useUpload';
+import { useInsertDocument } from '../../hooks/useInsertDocument';
 
 const AddVideoForm = () => {
   const [title, setTitle] = useState('');
@@ -17,7 +18,9 @@ const AddVideoForm = () => {
     loading,
     filePath,
     videoPath,
-  } = useUploadFile();
+  } = useUpload();
+
+  const { insertDocument, response } = useInsertDocument('videos');
 
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
@@ -43,12 +46,14 @@ const AddVideoForm = () => {
       setError('Por envie uma descrição.');
     }
 
-    console.log(filePath, videoPath);
-    // const video = {
-    //   title,
-    //   videoUrl,
-    //   description,
-    // };
+    const video = {
+      title,
+      description,
+      videoUrl: videoPath,
+      files: filePath,
+    };
+
+    insertDocument(video);
   };
 
   useEffect(() => {
