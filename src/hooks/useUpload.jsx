@@ -1,4 +1,3 @@
-// /* eslint-disable consistent-return */
 import { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 
@@ -10,44 +9,66 @@ import {
 } from 'firebase/storage';
 
 export const useUpload = () => {
+  // Message states
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(null);
   const [message, setMessage] = useState(null);
-  const [progress, setProgress] = useState([]);
+  const [progress, setProgress] = useState(null);
+
+  // Loading States
+  const [fileLoading, setFileLoading] = useState(false);
+  const [videoLoading, setVideoLoading] = useState(false);
+
+  // Path States
   const [filePath, setFilePath] = useState('');
   const [videoPath, setVideoPath] = useState('');
 
-  // Cleanup
-  const [cancelled, setCancelled] = useState(false);
-  const checkCancelled = () => {
-    if (cancelled) {
-      // eslint-disable-next-line no-useless-return
+  // Cleanup (Evita o memory leak)
+  const [canceled, setCanceled] = useState(false);
+  const checkCanceled = () => {
+    if (canceled) {
       return;
     }
   };
 
+  // Função que envia o arquivo para a Storage do Firebase
   const uploadFile = (collection, file) => {
-    checkCancelled();
-    setLoading(true);
+    checkCanceled();
+    if (collection === 'files') {
+      setFileLoading(true);
+    } else if (collection === 'videos') {
+      setVideoLoading(true);
+    }
 
-    if (file === null) return;
+    // Se for vazio, retorna um erro
+    if (file === null) {
+      setError('Envie um arquivo!');
+      if (collection === 'files') {
+        setFileLoading(false);
+      } else if (collection === 'videos') {
+        setVideoLoading(false);
+      }
+      return;
+    }
 
+    // Método do FB para acessar a storage
     const storage = getStorage();
+    // Referencia da Storage, passando a coleção e o nome do arquivo que será inserido
     const storageRef = ref(storage, `${collection}/${Date.now()}${v4()}`);
+    // Método do FB para Enviar o arquivo, passando a referencia e o arquivo
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    // Listen for state changes, errors, and completion of the upload.
+    // Observa mudanças no estado, erros e a finalização do upload
     uploadTask.on(
       'state_changed',
       (snapshot) => {
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        // Pega o progresso do upload, incluindo o numero de bytes enviados e o total enviado
+
         const progressStatus =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setProgress(`Progresso: ${progressStatus} % completo`);
         switch (snapshot.state) {
           case 'paused':
             setMessage('Envio pausado');
-
             break;
 
           default:
@@ -56,43 +77,59 @@ export const useUpload = () => {
         }
       },
       (e) => {
-        // A full list of error codes is available at
+        // Lista completa de erros
         // https://firebase.google.com/docs/storage/web/handle-errors
         switch (e.code) {
           case 'storage/unauthorized':
             setError('O usuário não tem autorização para acessar o objeto.');
-            setLoading(false);
+            if (collection === 'files') {
+              setFileLoading(false);
+            } else if (collection === 'videos') {
+              setVideoLoading(false);
+            }
             break;
           case 'storage/canceled':
             setError('O usuário cancelou o upload');
-            setLoading(false);
+            if (collection === 'files') {
+              setFileLoading(false);
+            } else if (collection === 'videos') {
+              setVideoLoading(false);
+            }
             break;
           default:
             setError('Ocorreu um erro, tente novamente.');
-            setLoading(false);
+            if (collection === 'files') {
+              setFileLoading(false);
+            } else if (collection === 'videos') {
+              setVideoLoading(false);
+            }
             break;
         }
       },
-      () => {
-        // Upload completed successfully, now we can get the download URL
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          if (collection === 'files') {
-            setFilePath(downloadURL);
-          }
-          if (collection === 'videos') {
-            setVideoPath(downloadURL);
-          }
-        });
-        setLoading(false);
+      async () => {
+        // Upload completo, agora pegamos a URL
+        const res = await getDownloadURL(uploadTask.snapshot.ref);
+
+        if (collection === 'files') {
+          setFilePath(res);
+        }
+        if (collection === 'videos') {
+          setVideoPath(res);
+        }
+
+        if (collection === 'files') {
+          setFileLoading(false);
+        } else if (collection === 'videos') {
+          setVideoLoading(false);
+        }
       }
     );
-
-    // return ;
   };
 
+  // Ao sair da fução irá executar o cleanup
   useEffect(() => {
     return () => {
-      setCancelled(true);
+      setCanceled(true);
     };
   }, []);
 
@@ -101,7 +138,8 @@ export const useUpload = () => {
     error,
     message,
     progress,
-    loading,
+    fileLoading,
+    videoLoading,
     filePath,
     videoPath,
   };

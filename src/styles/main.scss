@@ -24,6 +24,10 @@
   .form-label {
     @apply flex flex-col  w-full;
   }
+
+  .error {
+    @apply mt-4 text-[#721c24] bg-[#f8d7da] border-1 border-[#f5c6cb] p-2 rounded text-center;
+  }
 }
 
 * {

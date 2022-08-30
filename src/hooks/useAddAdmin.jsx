@@ -1,4 +1,3 @@
-/* eslint-disable arrow-body-style */
 // import db from '../firebase/config';
 
 // import { getAuth } from 'firebase/auth';
