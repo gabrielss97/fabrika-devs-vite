@@ -48,9 +48,11 @@ export const useAuth = () => {
       );
 
       const newUser = {
-        name: data.displayName,
-        createdAt: Timestamp.now(),
         id: user.uid,
+        admin: false,
+        name: data.displayName,
+        email: data.email,
+        createdAt: Timestamp.now(),
       };
 
       // Aiciona o usuario ao banco de dados com o mesmo UID da Auth

@@ -4,10 +4,12 @@ import { useFetchDocument } from '../../hooks/useFetchDocument';
 
 import userDefault from '../../assets/user.png';
 import { useAuth } from '../../hooks/useAuth';
+import { useUpdateDocument } from '../../hooks/useUpdateDocument';
 
 const Profile = ({ user }) => {
   const { document: userProfile } = useFetchDocument('users', user.uid);
   const { updateUserPassword, error: authError } = useAuth();
+  const { updateDocument, response } = useUpdateDocument('users');
 
   const [userImage, setUserImage] = useState('');
   const [userName, setUserName] = useState('');
@@ -19,8 +21,8 @@ const Profile = ({ user }) => {
 
   useEffect(() => {
     if (userProfile) {
-      if (userProfile.imageUrl) {
-        setUserImage(userProfile.imageUrl);
+      if (userProfile.userImage) {
+        setUserImage(userProfile.userImage);
       }
       if (userProfile.name) {
         setUserName(userProfile.name);
@@ -42,12 +44,29 @@ const Profile = ({ user }) => {
 
     if (password !== confirmPassword) {
       setError('Por favor, insira senhas iguais.');
+      return;
     }
+
+    const data = {
+      userImage,
+      userName,
+    };
+
+    updateDocument(user.uid, data);
 
     if (password === confirmPassword) {
       updateUserPassword(user, password);
     }
   };
+
+  // Remove o erro da tela em 3s
+  useEffect(() => {
+    if (error !== '') {
+      setTimeout(() => {
+        setError('');
+      }, 3000);
+    }
+  }, [error]);
 
   return (
     <div>
@@ -57,8 +76,12 @@ const Profile = ({ user }) => {
           className='w-full  flex flex-col  items-center'
           // className='form min-h-[900px] justify-start'
         >
-          {userImage && <img src={userImage} alt={userName} className='w-60' />}
-          {!userImage && <img src={userDefault} alt='user' className='w-60' />}
+          {userImage && (
+            <img src={userImage} alt={userName} className='w-60 rounded-full' />
+          )}
+          {!userImage && (
+            <img src={userDefault} alt='user' className='w-60' rounded-full />
+          )}
           <label className='form-label' htmlFor='username'>
             <span>Nome:</span>
             <input
@@ -76,6 +99,7 @@ const Profile = ({ user }) => {
               name='image'
               type='text'
               value={userImage || ''}
+              placeholder='Insira o URL da imagem'
               onChange={(e) => setUserImage(e.target.value)}
             />
           </label>
@@ -111,7 +135,21 @@ const Profile = ({ user }) => {
             />
           </label>
 
-          <input type='submit' value='Atualizar dados' className='btn  mt-8' />
+          {!response.loading && (
+            <input
+              type='submit'
+              value='Atualizar dados'
+              className='btn  mt-8'
+            />
+          )}
+          {response.loading && (
+            <input
+              type='submit'
+              value='Atualizando'
+              className='btn bg-cLtGray mt-8'
+              disabled
+            />
+          )}
           {error && <p className='error'>{error}</p>}
         </form>
       </div>

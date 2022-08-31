@@ -1,6 +1,5 @@
 // Icons
-import { CgRemove } from 'react-icons/cg';
-import { AiOutlineEdit } from 'react-icons/ai';
+import { CgRemove, CgEye } from 'react-icons/cg';
 
 // Hooks
 import { useDeleteDocument } from '../../hooks/useDeleteDocument';
@@ -34,8 +33,8 @@ const UsersList = () => {
             className='flex justify-between items-center p-4 bg-cLtGray mb-2 rounded-md'>
             <p className='w-1/2 text-cDkGray'>{user.name}</p>
             <div className='flex gap-4 w-1/4 justify-end'>
-              <button type='button' className=' text-cBlue text-lg'>
-                <AiOutlineEdit />
+              <button type='button' className=' text-cGreen text-lg'>
+                <CgEye />
               </button>
               <button
                 type='button'
