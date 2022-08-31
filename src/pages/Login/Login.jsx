@@ -27,8 +27,8 @@ const Login = () => {
   }, [AuthError]);
 
   return (
-    <div className='flex flex-col items-center justify-center p-4 mt-16'>
-      <h1 className='text-2xl text-cBlue mb-5 font-bold'>
+    <div className='flex flex-col items-center justify-center p-4 mt-16 md:w-1/2 lg:w-1/3 md:mx-auto'>
+      <h1 className='text-2xl text-center text-cBlue mb-5 font-bold'>
         Entre para assisistir as aulas!
       </h1>
       <form

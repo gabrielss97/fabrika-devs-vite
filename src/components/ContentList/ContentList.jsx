@@ -1,31 +1,48 @@
+import { v4 } from 'uuid';
+
 // Icons
-import { useState } from 'react';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 
-// Styles
+// Hooks
+import { useState } from 'react';
 
-const ContentList = ({ category }) => {
-  const [active, setActive] = useState(false);
+const ContentList = ({ category, videos, setCurrentVideo }) => {
+  // State para dimiuir e expandir os conteúdos
+  const [active, setActive] = useState(true);
 
   return (
-    <>
-      <div
-        onClick={() => setActive(!active)}
-        className=' flex justify-between text-cBlue font-bold cursor-pointer  bg-cLtGray rounded-md p-4 mb-1'>
-        <h2 className='text-xl'>{category.category}</h2>
-        <RiArrowDropDownLine
-          className={`${active ? 'rotate-180' : ''} text-2xl`}
-        />
+    <div className='w-full md:max-w-7xl mx-auto'>
+      <div>
+        <div key={v4()}>
+          <div
+            onClick={() => setActive(!active)}
+            className=' flex justify-between  text-cBlack font-bold cursor-pointer p-2 '>
+            <p className=' text-lg uppercase font-bold'>{category}</p>
+            <RiArrowDropDownLine
+              className={`${active ? 'rotate-180' : ''} text-2xl`}
+            />
+          </div>
+          {videos.map((video) => {
+            if (video.category === category) {
+              return (
+                <div
+                  key={v4()}
+                  className={`py-2 px-4 cursor-pointer  ${
+                    !active ? 'hidden' : ''
+                  }`}>
+                  <button
+                    type='button'
+                    className='w-full text-start text-cDkGray'
+                    onClick={() => setCurrentVideo(video)}>
+                    {video.title}
+                  </button>
+                </div>
+              );
+            }
+          })}
+        </div>
       </div>
-      <div className={!active ? 'hidden' : ''}>
-        {category.videos &&
-          category.videos.map((video) => (
-            <p key={video.id} className='text-cDkGray p-2'>
-              {video.title}
-            </p>
-          ))}
-      </div>
-    </>
+    </div>
   );
 };
 

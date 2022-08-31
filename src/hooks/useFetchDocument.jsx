@@ -26,7 +26,7 @@ export const useFetchDocument = (docCollection, id) => {
 
         const docSnapshot = await getDoc(docRef);
 
-        setDocument(docSnapshot.data);
+        setDocument(docSnapshot.data());
 
         setLoading(false);
       } catch (e) {

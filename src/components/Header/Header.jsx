@@ -5,6 +5,7 @@ import { NavLink, Link } from 'react-router-dom';
 
 // Icons
 import { CgProfile, CgLogOut, CgPlayButtonR, CgUserList } from 'react-icons/cg';
+import { RiSettings3Fill } from 'react-icons/ri';
 
 // Hooks
 import { useState } from 'react';
@@ -43,28 +44,24 @@ const Header = ({ admin }) => {
                   className={`${
                     showModal ? '' : 'hidden'
                   } relative w-64 right-56 bg-cWhite text-cBlack shadow-lg border-1 border-cLtGray font-bold rounded-md mt-1 z-10`}>
-                  <li className='header-li'>
-                    <CgPlayButtonR />
-                    <NavLink to='/' className='hover:text-cBlue'>
+                  <NavLink to='/' className='hover:text-cBlue'>
+                    <li className='header-li'>
+                      <CgPlayButtonR />
                       Conteúdo
-                    </NavLink>
-                  </li>
-                  <li className='header-li'>
-                    <CgProfile />
-                    <NavLink to='/profile' className='hover:text-cBlue'>
+                    </li>
+                  </NavLink>
+                  <NavLink to='/profile' className='hover:text-cBlue'>
+                    <li className='header-li'>
+                      <CgProfile />
                       Perfil
-                    </NavLink>
-                  </li>
-                  <li className='header-li border-none hover:text-cBlue px-16 py-2 w-full '>
-                    <CgLogOut />
-
-                    <NavLink
-                      to='/'
-                      onClick={logout}
-                      className='hover:text-cBlue'>
+                    </li>
+                  </NavLink>
+                  <NavLink to='/' onClick={logout} className='hover:text-cBlue'>
+                    <li className='header-li border-none hover:text-cBlue px-16 py-2 w-full '>
+                      <CgLogOut />
                       Sair
-                    </NavLink>
-                  </li>
+                    </li>
+                  </NavLink>
                 </ul>
               )}
               {user && admin && (
@@ -72,36 +69,36 @@ const Header = ({ admin }) => {
                   className={`${
                     showModal ? '' : 'hidden'
                   } relative w-80 right-72 bg-cWhite text-cBlack shadow-lg border-1 border-cLtGray font-bold rounded-md mt-1  z-10`}>
-                  <li className='header-li'>
-                    <CgUserList />
-                    <NavLink to='/panel/users' className='hover:text-cBlue'>
+                  <NavLink to='/' className='hover:text-cBlue'>
+                    <li className='header-li'>
+                      <RiSettings3Fill />
+                      Dashboard
+                    </li>
+                  </NavLink>
+                  <NavLink to='/panel/users' className='hover:text-cBlue'>
+                    <li className='header-li'>
+                      <CgUserList />
                       Painel de Usuários
-                    </NavLink>
-                  </li>
-                  <li className='header-li'>
-                    <CgPlayButtonR />
-
-                    <NavLink to='/panel/videos' className='hover:text-cBlue'>
+                    </li>
+                  </NavLink>
+                  <NavLink to='/panel/videos' className='hover:text-cBlue'>
+                    <li className='header-li'>
+                      <CgPlayButtonR />
                       Painel de Vídeos
-                    </NavLink>
-                  </li>
-                  <li className='header-li'>
-                    <CgProfile />
-
-                    <NavLink to='/panel/profile' className='hover:text-cBlue'>
+                    </li>
+                  </NavLink>
+                  <NavLink to='/panel/profile' className='hover:text-cBlue'>
+                    <li className='header-li'>
+                      <CgProfile />
                       Perfil
-                    </NavLink>
-                  </li>
-                  <li className='header-li border-none hover:text-cBlue px-16 py-2 w-full '>
-                    <CgLogOut />
-
-                    <NavLink
-                      to='/'
-                      onClick={logout}
-                      className='hover:text-cBlue'>
+                    </li>
+                  </NavLink>
+                  <NavLink to='/' onClick={logout} className='hover:text-cBlue'>
+                    <li className='header-li border-none hover:text-cBlue px-16 py-2 w-full '>
+                      <CgLogOut />
                       Sair
-                    </NavLink>
-                  </li>
+                    </li>
+                  </NavLink>
                 </ul>
               )}
             </div>

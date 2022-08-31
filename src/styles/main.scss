@@ -46,6 +46,28 @@ body {
   min-height: 100vh;
 }
 
+.heightCalc {
+  min-height: calc(100vh - 80px);
+  overflow-y: scroll;
+}
+
+.heightCalc-noscroll {
+  min-height: calc(100vh - 80px);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d7dc;
+  border-radius: 1rem;
+}
+
 .react-tabs {
   &__tab-list {
     border-bottom: none !important;

@@ -251,7 +251,7 @@ const AddVideoForm = ({ setActive }) => {
           disabled
         />
       )}
-      {fileLoading && (
+      {fileLoading && !videoLoading && (
         <input
           type='submit'
           value='Aguarde'
