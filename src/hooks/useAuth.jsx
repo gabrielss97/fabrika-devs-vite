@@ -14,7 +14,7 @@ import {
   signOut,
 } from 'firebase/auth';
 
-import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
+import { setDoc, doc, Timestamp } from 'firebase/firestore';
 
 import { useEffect, useState } from 'react';
 
@@ -46,12 +46,14 @@ export const useAuth = () => {
         data.password
       );
 
-      const userData = {
+      const newUser = {
         name: data.displayName,
+        createdAt: Timestamp.now(),
+        id: user.uid,
       };
 
       // Aiciona o usuario ao banco de dados com o mesmo UID da Auth
-      await setDoc(doc(db, 'users', user.uid), userData);
+      await setDoc(doc(db, 'users', user.uid), newUser);
 
       setLoading(false);
     } catch (e) {
@@ -104,12 +106,13 @@ export const useAuth = () => {
   const updateUser = async (userData) => {};
 
   // Delete User
-  const removeUser = (userId) => {
+  const removeUser = async (userId) => {
     checkCancelled();
     setLoading(true);
 
     try {
-      deleteUser(userId);
+      // const user =
+      // deleteUser(user);
       setLoading(false);
     } catch (e) {
       setError(e.message);

@@ -40,6 +40,23 @@ export const useDeleteDocument = (docCollection) => {
     }
   };
 
+  const deleteUser = async (id) => {
+    checkCanceled();
+    setLoading(true);
+
+    try {
+      // Remover da FireStore
+      await deleteDoc(doc(db, docCollection, id));
+
+      // Remover da Auth
+
+      setLoading(false);
+    } catch (e) {
+      setError(e.message);
+      setLoading(false);
+    }
+  };
+
   // Ao sair da fução irá executar o cleanup
   useEffect(() => {
     return () => {
@@ -47,5 +64,5 @@ export const useDeleteDocument = (docCollection) => {
     };
   }, []);
 
-  return { deleteDocument, loading, error };
+  return { deleteDocument, deleteUser, loading, error };
 };

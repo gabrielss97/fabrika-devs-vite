@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import { v4 } from 'uuid';
 // Icons
 import { CgRemove } from 'react-icons/cg';
 import { AiOutlineEdit } from 'react-icons/ai';
@@ -39,7 +39,7 @@ const VideosList = () => {
           {categories &&
             categories &&
             categories.map((category) => (
-              <div key={category.id}>
+              <div key={v4()}>
                 <h1 className='text-cBlue text-2xl pl-4 uppercase font-bold'>
                   {category}
                 </h1>
@@ -48,7 +48,7 @@ const VideosList = () => {
                     if (video.category === category) {
                       return (
                         <div
-                          key={video.id}
+                          key={v4()}
                           className='flex justify-between items-center p-4 bg-cLtGray mb-2 rounded-md'>
                           <p className='w-1/2 text-cDkGray'>{video.title}</p>
                           <div className='flex gap-4 w-1/4 justify-end'>

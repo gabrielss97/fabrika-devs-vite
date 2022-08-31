@@ -8,6 +8,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 // Context
 import { AuthProvider } from './context/AuthContext';
+import { HomeVideoProvider } from './context/HomeVideoContext';
 
 // Hooks
 import { useAuth } from './hooks/useAuth';
@@ -18,15 +19,14 @@ import Header from './components/Header/Header';
 // Pages
 import Course from './pages/Course/Course';
 import Login from './pages/Login/Login';
-import Users from './components/AddUserForm/AddUserForm';
 import Profile from './pages/Profile/Profile';
 import EditProfile from './pages/EditProfile/EditProfile';
-import Videos from './pages/Videos/Videos';
-import { HomeVideoProvider } from './context/HomeVideoContext';
+import VideosPanel from './pages/VideosPanel/VideosPanel';
+import UsersPanel from './pages/UsersPanel/UsersPanel';
 
 function App() {
   const [user, setUser] = useState(undefined);
-  const [admin, setAdmin] = useState(true);
+  const [admin] = useState(true);
   const { auth } = useAuth();
 
   useEffect(() => {
@@ -73,14 +73,14 @@ function App() {
             />
             <Route
               path='/panel/users'
-              element={user && admin ? <Users /> : <Navigate to='/' />}
+              element={user && admin ? <UsersPanel /> : <Navigate to='/' />}
             />
             <Route
               path='/panel/videos'
-              element={user && admin ? <Videos /> : <Navigate to='/' />}
+              element={user && admin ? <VideosPanel /> : <Navigate to='/' />}
             />
             <Route
-              path='/panel/profile'
+              path='/panel/profile/'
               element={user && admin ? <Profile /> : <Navigate to='/' />}
             />
             <Route path='/*' element={<Navigate to='/' />} />

@@ -30,9 +30,12 @@ export const useFetchDocuments = (docCollection, search = null) => {
       const collectionRef = await collection(db, docCollection);
 
       try {
-        // let q;
-
-        const q = await query(collectionRef, orderBy('category', 'asc'));
+        let q;
+        if (docCollection === 'videos') {
+          q = await query(collectionRef, orderBy('category', 'asc'));
+        } else {
+          q = await query(collectionRef, orderBy('createdAt', 'desc'));
+        }
 
         await onSnapshot(q, (querySnapshot) => {
           setDocuments(

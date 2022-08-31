@@ -139,9 +139,12 @@ const AddVideoForm = ({ setActive }) => {
 
   return (
     <form onSubmit={handleSubmit} className='form'>
-      <div className='flex justify-between items-center  w-full mx-auto text-2xl  font-bold text-cBlue cursor-pointer'>
+      <div className='flex justify-between items-center  w-full mx-auto text-2xl  font-bold text-cBlue '>
         <h1 className=' text-center'>Enviar vídeo</h1>
-        <BiX className='font-medium' onClick={() => setActive(false)} />
+        <BiX
+          className='text-3xl cursor-pointer'
+          onClick={() => setActive(false)}
+        />
       </div>
       <label htmlFor='category' className='form-label'>
         <span>Categoria:</span>
