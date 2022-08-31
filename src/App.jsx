@@ -22,6 +22,7 @@ import Users from './components/AddUserForm/AddUserForm';
 import Profile from './pages/Profile/Profile';
 import EditProfile from './pages/EditProfile/EditProfile';
 import Videos from './pages/Videos/Videos';
+import { HomeVideoProvider } from './context/HomeVideoContext';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -50,40 +51,42 @@ function App() {
   }
   return (
     <div className='App'>
-      <AuthProvider value={{ user }}>
-        <Header admin={admin} />
-        <Routes>
-          <Route
-            path='/'
-            element={user ? <Course /> : <Navigate to='/login' />}
-          />
-          <Route
-            path='/login'
-            element={!user ? <Login /> : <Navigate to='/' />}
-          />
-          <Route
-            path='/profile'
-            element={user ? <Profile /> : <Navigate to='/login' />}
-          />
-          <Route
-            path='/profile/edit'
-            element={user ? <EditProfile /> : <Navigate to='/login' />}
-          />
-          <Route
-            path='/panel/users'
-            element={user && admin ? <Users /> : <Navigate to='/' />}
-          />
-          <Route
-            path='/panel/videos'
-            element={user && admin ? <Videos /> : <Navigate to='/' />}
-          />
-          <Route
-            path='/panel/profile'
-            element={user && admin ? <Profile /> : <Navigate to='/' />}
-          />
-          <Route path='/*' element={<Navigate to='/' />} />
-        </Routes>
-      </AuthProvider>
+      <HomeVideoProvider>
+        <AuthProvider value={{ user }}>
+          <Header admin={admin} />
+          <Routes>
+            <Route
+              path='/'
+              element={user ? <Course /> : <Navigate to='/login' />}
+            />
+            <Route
+              path='/login'
+              element={!user ? <Login /> : <Navigate to='/' />}
+            />
+            <Route
+              path='/profile'
+              element={user ? <Profile /> : <Navigate to='/login' />}
+            />
+            <Route
+              path='/profile/edit'
+              element={user ? <EditProfile /> : <Navigate to='/login' />}
+            />
+            <Route
+              path='/panel/users'
+              element={user && admin ? <Users /> : <Navigate to='/' />}
+            />
+            <Route
+              path='/panel/videos'
+              element={user && admin ? <Videos /> : <Navigate to='/' />}
+            />
+            <Route
+              path='/panel/profile'
+              element={user && admin ? <Profile /> : <Navigate to='/' />}
+            />
+            <Route path='/*' element={<Navigate to='/' />} />
+          </Routes>
+        </AuthProvider>
+      </HomeVideoProvider>
     </div>
   );
 }

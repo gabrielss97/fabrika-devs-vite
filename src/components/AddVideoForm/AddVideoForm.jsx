@@ -4,7 +4,7 @@ import { BiX } from 'react-icons/bi';
 
 // Hooks
 import { useEffect, useState } from 'react';
-import { useUpload } from '../../hooks/useUpload';
+import { useUploadDocument } from '../../hooks/useUploadDocument';
 import { useInsertDocument } from '../../hooks/useInsertDocument';
 
 // Context
@@ -27,7 +27,7 @@ const AddVideoForm = ({ setActive }) => {
 
   // Hook de Upload de arquivos
   const {
-    uploadFile,
+    uploadDocument,
     clearPaths,
     error: uploadError,
     message: uploadMessage,
@@ -35,7 +35,9 @@ const AddVideoForm = ({ setActive }) => {
     videoLoading,
     filePath,
     videoPath,
-  } = useUpload();
+    fileName,
+    videoName,
+  } = useUploadDocument();
 
   // Hook de inserir documento no banco de dados
   const {
@@ -46,12 +48,12 @@ const AddVideoForm = ({ setActive }) => {
 
   // quando o usuario apertar o botao ira inserir o arquivo no storage e retornara um URL
   const handleFileUpload = async () => {
-    uploadFile('files', fileUpload);
+    uploadDocument('files', fileUpload);
   };
 
   // quando o usuario apertar o botao ira inserir o arquivo no storage e retornara um URL
   const handleVideoUpload = () => {
-    uploadFile('videos', videoUpload);
+    uploadDocument('videos', videoUpload);
   };
 
   // Função de envio do form
@@ -90,6 +92,8 @@ const AddVideoForm = ({ setActive }) => {
       files: filePath,
       uid: user.uid,
       createdBy: user.email,
+      filename: fileName,
+      videoname: videoName,
     };
 
     insertDocument(video);
@@ -103,6 +107,7 @@ const AddVideoForm = ({ setActive }) => {
     clearPaths();
     document.getElementById('inputFile').value = '';
     document.getElementById('inputVideo').value = '';
+    setActive(false);
   };
 
   // Se houver algum erro ou mensagem no upload, atualiza o state com o erro ou msg do upload

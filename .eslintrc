@@ -19,6 +19,7 @@
     "jsx-a11y/click-events-have-key-events": "off",
     "arrow-body-style": "off",
     "no-useless-return":"off",
+    "array-callback-return":"off",
     "consistent-return":"off"
   }
 }

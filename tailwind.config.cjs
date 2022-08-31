@@ -22,9 +22,11 @@ module.exports = {
       cMdGray: '#d1d7dc',
       cDkGray: '#7a7a7a',
       cBlack: '#111111',
+      cBlackTransp: '#11111170',
       cGreen: '#62b132',
       cLtBlue: '#4294e6',
       cBlue: '#2d6aa9',
+      cRed: '#B30000',
     },
     borderWidth: {
       1: '1px',

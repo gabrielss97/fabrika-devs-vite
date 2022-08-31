@@ -8,7 +8,7 @@ import {
   getDownloadURL,
 } from 'firebase/storage';
 
-export const useUpload = () => {
+export const useUploadDocument = () => {
   // Message states
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
@@ -22,6 +22,10 @@ export const useUpload = () => {
   const [filePath, setFilePath] = useState('');
   const [videoPath, setVideoPath] = useState('');
 
+  // Name States
+  const [fileName, setFileName] = useState('');
+  const [videoName, setVideoName] = useState('');
+
   // Cleanup (Evita o memory leak)
   const [canceled, setCanceled] = useState(false);
   const checkCanceled = () => {
@@ -31,7 +35,7 @@ export const useUpload = () => {
   };
 
   // Função que envia o arquivo para a Storage do Firebase
-  const uploadFile = (collection, file) => {
+  const uploadDocument = (collection, file) => {
     checkCanceled();
     if (collection === 'files') {
       setFileLoading(true);
@@ -53,7 +57,9 @@ export const useUpload = () => {
     // Método do FB para acessar a storage
     const storage = getStorage();
     // Referencia da Storage, passando a coleção e o nome do arquivo que será inserido
-    const storageRef = ref(storage, `${collection}/${Date.now()}${v4()}`);
+    const generateName = `${collection}/${Date.now()}${v4()}`;
+    // Referencia da Storage, passando a coleção e o nome do arquivo que será inserido
+    const storageRef = ref(storage, generateName);
     // Método do FB para Enviar o arquivo, passando a referencia e o arquivo
     const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -112,9 +118,11 @@ export const useUpload = () => {
 
         if (collection === 'files') {
           setFilePath(res);
+          setFileName(generateName);
         }
         if (collection === 'videos') {
           setVideoPath(res);
+          setVideoName(generateName);
         }
 
         if (collection === 'files') {
@@ -140,7 +148,7 @@ export const useUpload = () => {
   }, []);
 
   return {
-    uploadFile,
+    uploadDocument,
     clearPaths,
     error,
     message,
@@ -149,5 +157,7 @@ export const useUpload = () => {
     videoLoading,
     filePath,
     videoPath,
+    fileName,
+    videoName,
   };
 };
