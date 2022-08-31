@@ -17,23 +17,25 @@ import { useAuthValue } from '../../context/AuthContext';
 // Assets
 import logo from '../../assets/logo-fabrica-devs.png';
 import userDefault from '../../assets/user.png';
-import { useFetchDocument } from '../../hooks/useFetchDocument';
+// import { useFetchDocument } from '../../hooks/useFetchDocument';
 
 const Header = ({ admin }) => {
   const { user } = useAuthValue();
-  const { document: userProfile } = useFetchDocument('users', user.uid);
+
+  // const { document: userProfile } = useFetchDocument('users', user.uid);
+
   const { logout } = useAuth();
 
   const [showModal, setShowModal] = useState(false);
-  const [userImage, setUserImage] = useState(false);
+  // const [userImage, setUserImage] = useState(false);
 
-  useEffect(() => {
-    if (userProfile) {
-      if (userProfile.userImage) {
-        setUserImage(userProfile.userImage);
-      }
-    }
-  }, [userProfile]);
+  // useEffect(() => {
+  //   if (userProfile) {
+  //     if (userProfile.userImage) {
+  //       setUserImage(userProfile.userImage);
+  //     }
+  //   }
+  // }, [userProfile]);
 
   return (
     <header>
@@ -48,10 +50,10 @@ const Header = ({ admin }) => {
             <div
               className='w-12 h-12 rounded-full text-cWhtie text-center cursor-pointer relative'
               onClick={() => setShowModal(!showModal)}>
-              {userImage && (
+              {/* {userImage && (
                 <img src={userImage} alt='user' className='rounded-full' />
               )}
-              {!userImage && <img src={userDefault} alt='user' />}
+              {!userImage && <img src={userDefault} alt='user' />} */}
               {/* MODAL */}
               {user && !admin && (
                 <ul
