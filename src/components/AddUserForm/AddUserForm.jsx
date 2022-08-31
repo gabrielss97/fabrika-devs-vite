@@ -30,6 +30,11 @@ const AddUserForm = ({ setActive }) => {
     }
 
     await createUser(user);
+    setDisplayName('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+    setActive(false);
   };
 
   useEffect(() => {

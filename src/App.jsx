@@ -1,17 +1,15 @@
-import { useState, useEffect } from 'react';
-
 // Router
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 // Auth
 import { onAuthStateChanged } from 'firebase/auth';
 
+// Hooks
+import { useState, useEffect } from 'react';
+import { useAuth } from './hooks/useAuth';
+
 // Context
 import { AuthProvider } from './context/AuthContext';
-import { HomeVideoProvider } from './context/HomeVideoContext';
-
-// Hooks
-import { useAuth } from './hooks/useAuth';
 
 // Components
 import Header from './components/Header/Header';
@@ -20,7 +18,6 @@ import Header from './components/Header/Header';
 import Course from './pages/Course/Course';
 import Login from './pages/Login/Login';
 import Profile from './pages/Profile/Profile';
-import EditProfile from './pages/EditProfile/EditProfile';
 import VideosPanel from './pages/VideosPanel/VideosPanel';
 import UsersPanel from './pages/UsersPanel/UsersPanel';
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
@@ -54,69 +51,55 @@ function App() {
   }
   return (
     <div className='App'>
-      <HomeVideoProvider>
-        <AuthProvider value={{ user }}>
-          <Header admin={admin} />
-          <Routes>
-            {admin ? (
-              <Route
-                path='/'
-                element={
-                  user ? (
-                    <AdminDashboard user={user} />
-                  ) : (
-                    <Navigate to='/login' />
-                  )
-                }
-              />
-            ) : (
-              <Route
-                path='/'
-                element={user ? <Course /> : <Navigate to='/login' />}
-              />
-            )}
+      <AuthProvider value={{ user }}>
+        <Header admin={admin} />
+        <Routes>
+          {admin ? (
             <Route
-              path='/login'
-              element={!user ? <Login /> : <Navigate to='/' />}
-            />
-            <Route
-              path='/profile'
+              path='/'
               element={
-                user ? <Profile user={user} /> : <Navigate to='/login' />
+                user ? <AdminDashboard user={user} /> : <Navigate to='/login' />
               }
             />
+          ) : (
             <Route
-              path='/profile/edit'
-              element={user ? <EditProfile /> : <Navigate to='/login' />}
+              path='/'
+              element={user ? <Course /> : <Navigate to='/login' />}
             />
-            <Route
-              path='/panel/admins'
-              element={user && admin ? <AdminsPanel /> : <Navigate to='/' />}
-            />
-            <Route
-              path='/panel/users'
-              element={user && admin ? <UsersPanel /> : <Navigate to='/' />}
-            />
-            <Route
-              path='/panel/videos'
-              element={user && admin ? <VideosPanel /> : <Navigate to='/' />}
-            />
-            <Route
-              path='/panel/categories'
-              element={
-                user && admin ? <CategoriesPanel /> : <Navigate to='/' />
-              }
-            />
-            <Route
-              path='/panel/profile/'
-              element={
-                user && admin ? <Profile user={user} /> : <Navigate to='/' />
-              }
-            />
-            <Route path='/*' element={<Navigate to='/' />} />
-          </Routes>
-        </AuthProvider>
-      </HomeVideoProvider>
+          )}
+          <Route
+            path='/login'
+            element={!user ? <Login /> : <Navigate to='/' />}
+          />
+          <Route
+            path='/profile'
+            element={user ? <Profile user={user} /> : <Navigate to='/login' />}
+          />
+          <Route
+            path='/panel/admins'
+            element={user && admin ? <AdminsPanel /> : <Navigate to='/' />}
+          />
+          <Route
+            path='/panel/users'
+            element={user && admin ? <UsersPanel /> : <Navigate to='/' />}
+          />
+          <Route
+            path='/panel/videos'
+            element={user && admin ? <VideosPanel /> : <Navigate to='/' />}
+          />
+          <Route
+            path='/panel/categories'
+            element={user && admin ? <CategoriesPanel /> : <Navigate to='/' />}
+          />
+          <Route
+            path='/panel/profile/'
+            element={
+              user && admin ? <Profile user={user} /> : <Navigate to='/' />
+            }
+          />
+          <Route path='/*' element={<Navigate to='/' />} />
+        </Routes>
+      </AuthProvider>
     </div>
   );
 }

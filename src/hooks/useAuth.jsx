@@ -9,9 +9,10 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  updateProfile,
   deleteUser,
   signOut,
+  updatePassword,
+  reauthenticateWithRedirect,
 } from 'firebase/auth';
 
 import { setDoc, doc, Timestamp } from 'firebase/firestore';
@@ -103,7 +104,23 @@ export const useAuth = () => {
 
   // Update User
 
-  const updateUser = async (userData) => {};
+  const updateUserPassword = async (user, userPassword) => {
+    checkCancelled();
+    setLoading(true);
+
+    try {
+      await updatePassword(user, userPassword);
+    } catch (e) {
+      if (e.message.includes('login')) {
+        setError(
+          'Autenticação expirada, faça login novamente para poder alterar a senha.'
+        );
+      } else {
+        setError('Ocorreu um erro, tente novamente mais tarde.');
+      }
+      setLoading(false);
+    }
+  };
 
   // Delete User
   const removeUser = async (userId) => {
@@ -133,7 +150,7 @@ export const useAuth = () => {
     loading,
     login,
     logout,
-    updateUser,
+    updateUserPassword,
     removeUser,
   };
 };
