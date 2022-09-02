@@ -5,29 +5,19 @@ import { CgRemove } from 'react-icons/cg';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
 
 // Hooks
-import React, { useEffect, useState } from 'react';
 import { useDeleteDocument } from '../../hooks/useDeleteDocument';
 import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 
 const VideosList = () => {
   // State de categorias
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
 
   // Fetch de todos os videos
   const { documents: videos, loading } = useFetchDocuments('videos');
+  const { documents: categories } = useFetchDocuments('categories');
 
   // Função de deletar documentos
   const { deleteVideo } = useDeleteDocument('videos');
-
-  // Quando houver um video, irá realizar um map e um set para pegar as categorias e não repeti-las
-  useEffect(() => {
-    if (videos) {
-      const categoriesMap = videos.map((video) => video.category);
-      const filterCategories = new Set(categoriesMap);
-
-      setCategories([...filterCategories]);
-    }
-  }, [videos]);
 
   if (loading) {
     return <p> carregando ...</p>;
@@ -38,45 +28,46 @@ const VideosList = () => {
       {videos && videos.length > 0 && (
         <div>
           {categories &&
-            categories &&
-            categories.map((category) => (
-              <div key={v4()}>
-                <h1 className='text-cBlue text-2xl pl-4 uppercase font-bold'>
-                  {category}
-                </h1>
-                {videos &&
-                  videos.map((video) => {
-                    if (video.category === category) {
-                      return (
-                        <div
-                          key={v4()}
-                          className='flex justify-between items-center p-4 bg-cLtGray mb-2 rounded-md'>
-                          <p className='w-1/2 text-cDkGray'>{video.title}</p>
-                          <div className='flex gap-4 w-1/4 justify-end'>
-                            <button
-                              type='button'
-                              className=' text-cGreen text-lg'>
-                              <HiOutlinePencilAlt />
-                            </button>
-                            <button
-                              type='button'
-                              className='text-cRed'
-                              onClick={() =>
-                                deleteVideo(
-                                  video.id,
-                                  video.videoname,
-                                  video.filename
-                                )
-                              }>
-                              <CgRemove />
-                            </button>
+            categories
+              .sort((a, b) => a.order - b.order)
+              .map((category) => (
+                <div key={v4()}>
+                  <h1 className='text-cBlue text-2xl pl-4 uppercase font-bold mt-2'>
+                    {category.name}
+                  </h1>
+                  {videos &&
+                    videos.map((video) => {
+                      if (video.category === category.name) {
+                        return (
+                          <div
+                            key={v4()}
+                            className='flex justify-between items-center p-4 bg-cLtGray mb-2 rounded-md'>
+                            <p className='w-3/4 text-cDkGray'>{video.title}</p>
+                            <div className='flex gap-4 w-1/4 justify-end'>
+                              <button
+                                type='button'
+                                className=' text-cGreen text-lg'>
+                                <HiOutlinePencilAlt />
+                              </button>
+                              <button
+                                type='button'
+                                className='text-cRed'
+                                onClick={() =>
+                                  deleteVideo(
+                                    video.id,
+                                    video.videoname,
+                                    video.filename
+                                  )
+                                }>
+                                <CgRemove />
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                      );
-                    }
-                  })}
-              </div>
-            ))}
+                        );
+                      }
+                    })}
+                </div>
+              ))}
         </div>
       )}
       {videos && videos.length === 0 && (

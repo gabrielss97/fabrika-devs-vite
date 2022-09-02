@@ -7,7 +7,7 @@ import { RiAdminLine } from 'react-icons/ri';
 
 const AdminDashboard = () => {
   return (
-    <nav className='heightCalc-noscroll mx-auto max-w-5xl p-4 flex flex-col gap-4 mt-8'>
+    <nav className=' mx-auto max-w-5xl p-4 flex flex-col gap-4 mt-8'>
       <Link
         to='/panel/admins'
         className='flex text-xl items-center gap-4 p-4 bg-cLtBlue rounded-lg text-cWhite font-bold shadow-lg'>
