@@ -2,12 +2,12 @@
 import { Link } from 'react-router-dom';
 
 // Icons
-import { CgFolderAdd, CgPlayButtonR, CgUserList } from 'react-icons/cg';
+import { CgFolder, CgPlayButtonR, CgUserList } from 'react-icons/cg';
 import { RiAdminLine } from 'react-icons/ri';
 
 const AdminDashboard = () => {
   return (
-    <nav className='heightCalc-noscroll md:w-1/5 bg-cLtGray shadow-md p-4 flex flex-col gap-4'>
+    <nav className='heightCalc-noscroll mx-auto max-w-5xl p-4 flex flex-col gap-4 mt-8'>
       <Link
         to='/panel/admins'
         className='flex text-xl items-center gap-4 p-4 bg-cLtBlue rounded-lg text-cWhite font-bold shadow-lg'>
@@ -29,7 +29,7 @@ const AdminDashboard = () => {
       <Link
         to='/panel/categories'
         className='flex text-xl items-center gap-4 p-4 bg-cLtBlue rounded-lg text-cWhite font-bold shadow-lg'>
-        <CgFolderAdd className='text-2xl' />
+        <CgFolder className='text-2xl' />
         Categorias
       </Link>
     </nav>

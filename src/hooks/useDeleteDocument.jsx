@@ -17,7 +17,7 @@ export const useDeleteDocument = (docCollection) => {
     }
   };
 
-  const deleteDocument = async (id, videoName, fileName = null) => {
+  const deleteVideo = async (id, videoName, fileName = null) => {
     checkCanceled();
     setLoading(true);
 
@@ -33,6 +33,23 @@ export const useDeleteDocument = (docCollection) => {
         const fileRef = ref(storage, fileName);
         await deleteObject(fileRef);
       }
+      setLoading(false);
+    } catch (e) {
+      setError(e.message);
+      setLoading(false);
+    }
+  };
+
+  const deleteDocument = async (id) => {
+    checkCanceled();
+    setLoading(true);
+
+    try {
+      // Remover da FireStore
+      await deleteDoc(doc(db, docCollection, id));
+
+      // Remover da Auth
+
       setLoading(false);
     } catch (e) {
       setError(e.message);
@@ -64,5 +81,5 @@ export const useDeleteDocument = (docCollection) => {
     };
   }, []);
 
-  return { deleteDocument, deleteUser, loading, error };
+  return { deleteDocument, deleteVideo, deleteUser, loading, error };
 };

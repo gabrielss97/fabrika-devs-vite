@@ -52,7 +52,7 @@ function App() {
   return (
     <div className='App'>
       <AuthProvider value={{ user }}>
-        <Header admin={admin} />
+        <Header admin={admin} user={user} />
         <Routes>
           {admin ? (
             <Route

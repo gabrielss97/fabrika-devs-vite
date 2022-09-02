@@ -6,11 +6,12 @@ import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { useState } from 'react';
 import { useInsertDocument } from '../../hooks/useInsertDocument';
 import { useFetchDocuments } from '../../hooks/useFetchDocuments';
+import { useDeleteDocument } from '../../hooks/useDeleteDocument';
 
 const CategoriesPanel = () => {
   const { documents: categories, loading } = useFetchDocuments('categories');
-  const { insertDocument, loading: insertLoading } =
-    useInsertDocument('categories');
+  const { insertDocument } = useInsertDocument('categories');
+  const { deleteDocument } = useDeleteDocument('categories');
 
   const [newCategory, setNewCategory] = useState('');
 
@@ -18,7 +19,7 @@ const CategoriesPanel = () => {
     e.preventDefault();
 
     const data = {
-      id: categories.length + 1,
+      order: categories.length + 1,
       name: newCategory,
     };
 
@@ -54,7 +55,7 @@ const CategoriesPanel = () => {
           <div className='flex flex-col gap-4 p-4 md:max-w-5xl mx-auto mt-16'>
             {categories.length > 0 &&
               categories
-                .sort((a, b) => a.id - b.id)
+                .sort((a, b) => a.order - b.order)
                 .map((category) => (
                   <div
                     key={category.id}
@@ -67,7 +68,10 @@ const CategoriesPanel = () => {
                         <HiOutlinePencilAlt className='text-cGreen' />
                       </button>
                       <button type='button'>
-                        <CgRemove className='text-cRed' />
+                        <CgRemove
+                          className='text-cRed'
+                          onClick={() => deleteDocument(category.id)}
+                        />
                       </button>
                     </div>
                   </div>

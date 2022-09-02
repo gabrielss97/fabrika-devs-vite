@@ -2,7 +2,7 @@ import { v4 } from 'uuid';
 
 // Icons
 import { CgRemove } from 'react-icons/cg';
-import { AiOutlineEdit } from 'react-icons/ai';
+import { HiOutlinePencilAlt } from 'react-icons/hi';
 
 // Hooks
 import React, { useEffect, useState } from 'react';
@@ -17,7 +17,7 @@ const VideosList = () => {
   const { documents: videos, loading } = useFetchDocuments('videos');
 
   // Função de deletar documentos
-  const { deleteDocument } = useDeleteDocument('videos');
+  const { deleteVideo } = useDeleteDocument('videos');
 
   // Quando houver um video, irá realizar um map e um set para pegar as categorias e não repeti-las
   useEffect(() => {
@@ -55,14 +55,14 @@ const VideosList = () => {
                           <div className='flex gap-4 w-1/4 justify-end'>
                             <button
                               type='button'
-                              className=' text-cBlue text-lg'>
-                              <AiOutlineEdit />
+                              className=' text-cGreen text-lg'>
+                              <HiOutlinePencilAlt />
                             </button>
                             <button
                               type='button'
                               className='text-cRed'
                               onClick={() =>
-                                deleteDocument(
+                                deleteVideo(
                                   video.id,
                                   video.videoname,
                                   video.filename

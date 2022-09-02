@@ -32,6 +32,9 @@
   .error {
     @apply mt-4 text-[#721c24] bg-[#f8d7da] border-1 border-[#f5c6cb] p-2 rounded text-center;
   }
+  .success {
+    @apply mt-4 text-[#24492c] bg-[#99fcaf] border-1 border-[#537c5c] p-2 rounded text-center;
+  }
 }
 
 * {
@@ -49,6 +52,7 @@ body {
 .heightCalc {
   min-height: calc(100vh - 80px);
   overflow-y: scroll;
+  color: #24492c;
 }
 
 .heightCalc-noscroll {

@@ -6,6 +6,7 @@ import { BiX } from 'react-icons/bi';
 import { useEffect, useState } from 'react';
 import { useUploadDocument } from '../../hooks/useUploadDocument';
 import { useInsertDocument } from '../../hooks/useInsertDocument';
+import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 
 // Context
 import { useAuthValue } from '../../context/AuthContext';
@@ -24,6 +25,9 @@ const AddVideoForm = ({ setActive }) => {
 
   // Pega os dados do usuário para inserir no objeto
   const { user } = useAuthValue();
+
+  // Pega os dados da collection de videos para retornar o length
+  const { documents: videos } = useFetchDocuments('videos');
 
   // Hook de Upload de arquivos
   const {
@@ -85,6 +89,7 @@ const AddVideoForm = ({ setActive }) => {
 
     // Cria o objeto que será inserido no banco de dados
     const video = {
+      order: videos.length + 1,
       category,
       title,
       description,

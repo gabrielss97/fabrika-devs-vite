@@ -12,7 +12,7 @@ import {
   deleteUser,
   signOut,
   updatePassword,
-  reauthenticateWithRedirect,
+  updateProfile,
 } from 'firebase/auth';
 
 import { setDoc, doc, Timestamp } from 'firebase/firestore';
@@ -106,6 +106,24 @@ export const useAuth = () => {
 
   // Update User
 
+  const updateUserImage = async (user, profileImage) => {
+    checkCancelled();
+    setLoading(true);
+
+    try {
+      await updateProfile(user, { photoURL: profileImage });
+    } catch (e) {
+      if (e.message.includes('login')) {
+        setError(
+          'Autenticação expirada, faça login novamente para poder alterar a imagem.'
+        );
+      } else {
+        setError('Ocorreu um erro, tente novamente mais tarde.');
+      }
+      setLoading(false);
+    }
+  };
+
   const updateUserPassword = async (user, userPassword) => {
     checkCancelled();
     setLoading(true);
@@ -153,6 +171,7 @@ export const useAuth = () => {
     login,
     logout,
     updateUserPassword,
+    updateUserImage,
     removeUser,
   };
 };
