@@ -8,7 +8,7 @@ import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { useDeleteDocument } from '../../hooks/useDeleteDocument';
 import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 
-const VideosList = () => {
+const VideosList = ({ setActive, setVideo }) => {
   // State de categorias
   // const [categories, setCategories] = useState([]);
 
@@ -18,6 +18,11 @@ const VideosList = () => {
 
   // Função de deletar documentos
   const { deleteVideo } = useDeleteDocument('videos');
+
+  const handleEdit = (video) => {
+    setActive(true);
+    setVideo(video);
+  };
 
   if (loading) {
     return <p> carregando ...</p>;
@@ -47,7 +52,9 @@ const VideosList = () => {
                               <button
                                 type='button'
                                 className=' text-cGreen text-lg'>
-                                <HiOutlinePencilAlt />
+                                <HiOutlinePencilAlt
+                                  onClick={() => handleEdit(video)}
+                                />
                               </button>
                               <button
                                 type='button'
