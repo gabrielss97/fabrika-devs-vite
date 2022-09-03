@@ -36,8 +36,8 @@ const VideosList = ({ setActive, setVideo }) => {
             categories
               .sort((a, b) => a.order - b.order)
               .map((category) => (
-                <div key={v4()}>
-                  <h1 className='text-cBlue text-2xl pl-4 uppercase font-bold mt-2'>
+                <div key={v4()} className='mb-8'>
+                  <h1 className='text-cBlue text-2xl pl-2 uppercase font-bold mb-2'>
                     {category.name}
                   </h1>
                   {videos &&
