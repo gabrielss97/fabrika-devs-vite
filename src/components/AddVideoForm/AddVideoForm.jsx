@@ -99,8 +99,8 @@ const AddVideoForm = ({ setActive }) => {
       videoUrl: videoPath,
       filename: fileName,
       videoname: videoName,
-      createdBy: user.email,
-      uid: user.uid,
+      createdBy: user.uid,
+      userEmail: user.email,
     };
 
     insertDocument(video);

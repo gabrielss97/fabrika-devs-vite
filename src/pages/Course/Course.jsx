@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable jsx-a11y/media-has-caption */
-import { v4 } from 'uuid';
 
 // Tabs
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -15,24 +14,13 @@ import { useWindowSize } from '../../hooks/useWindowSize';
 import ContentList from '../../components/ContentList/ContentList';
 
 const Course = () => {
-  // State de categorias
-  const [categories, setCategories] = useState([]);
   const [currentVideo, setCurrentVideo] = useState({});
 
   const size = useWindowSize();
 
   // Fetch de todos os videos
   const { documents: videos, loading } = useFetchDocuments('videos');
-
-  // Quando houver um video, irá realizar um map e um set para pegar as categorias e não repeti-las
-  useEffect(() => {
-    if (videos) {
-      const categoriesMap = videos.map((video) => video.category);
-      const filterCategories = new Set(categoriesMap);
-
-      setCategories([...filterCategories]);
-    }
-  }, [videos]);
+  const { documents: categories } = useFetchDocuments('categories');
 
   useEffect(() => {
     if (videos) {
@@ -40,6 +28,9 @@ const Course = () => {
     }
   }, [videos]);
 
+  if (categories === null) {
+    return;
+  }
   if (loading) {
     return <p> carregando ...</p>;
   }
@@ -77,16 +68,18 @@ const Course = () => {
             </div>
           )}
 
-          <div className='w-1/4 max-w-sm shadow-md heightCalc'>
+          <div className='w-1/4 max-w-sm shadow-md heightCalc bg-cLtGray'>
             {categories &&
-              categories.map((category) => (
-                <ContentList
-                  category={category}
-                  key={v4()}
-                  videos={videos}
-                  setCurrentVideo={setCurrentVideo}
-                />
-              ))}
+              categories
+                .sort((a, b) => a.order - b.order)
+                .map((category) => (
+                  <ContentList
+                    category={category.name}
+                    videos={videos}
+                    setCurrentVideo={setCurrentVideo}
+                    key={category.id}
+                  />
+                ))}
           </div>
         </div>
       )}
@@ -134,14 +127,16 @@ const Course = () => {
             </TabPanel>
             <TabPanel>
               {categories &&
-                categories.map((category) => (
-                  <ContentList
-                    category={category}
-                    key={v4()}
-                    videos={videos}
-                    setCurrentVideo={setCurrentVideo}
-                  />
-                ))}
+                categories
+                  .sort((a, b) => a.order - b.order)
+                  .map((category) => (
+                    <ContentList
+                      category={category.name}
+                      key={category.id}
+                      videos={videos}
+                      setCurrentVideo={setCurrentVideo}
+                    />
+                  ))}
             </TabPanel>
           </Tabs>
         </div>

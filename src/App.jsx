@@ -27,7 +27,7 @@ import Register from './pages/Register/Register';
 
 function App() {
   const [user, setUser] = useState(undefined);
-  const [admin] = useState(true);
+  const [admin] = useState(false);
   const { auth } = useAuth();
 
   useEffect(() => {
