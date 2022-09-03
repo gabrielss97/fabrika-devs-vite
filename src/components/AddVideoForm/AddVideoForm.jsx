@@ -13,7 +13,7 @@ import { useAuthValue } from '../../context/AuthContext';
 
 const AddVideoForm = ({ setActive }) => {
   // Form States
-  const [category, setCategory] = useState('html');
+  const [newCategory, setNewCategory] = useState('html');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [videoUpload, setVideoUpload] = useState(null);
@@ -28,6 +28,8 @@ const AddVideoForm = ({ setActive }) => {
 
   // Pega os dados da collection de videos para retornar o length
   const { documents: videos } = useFetchDocuments('videos');
+  // Pega as categorias
+  const { documents: categories } = useFetchDocuments('categories');
 
   // Hook de Upload de arquivos
   const {
@@ -66,14 +68,14 @@ const AddVideoForm = ({ setActive }) => {
 
     // Valida os campos
     if (
-      category === '' &&
+      newCategory === '' &&
       videoPath === '' &&
       title === '' &&
       description === ''
     ) {
       setError('Por favor preencha todos os campos.');
       return;
-    } else if (category === '') {
+    } else if (newCategory === '') {
       setError('Por escolha uma categoria.');
       return;
     } else if (title === '') {
@@ -90,15 +92,15 @@ const AddVideoForm = ({ setActive }) => {
     // Cria o objeto que será inserido no banco de dados
     const video = {
       order: videos.length + 1,
-      category,
+      category: newCategory,
       title,
       description,
-      videoUrl: videoPath,
       files: filePath,
-      uid: user.uid,
-      createdBy: user.email,
+      videoUrl: videoPath,
       filename: fileName,
       videoname: videoName,
+      createdBy: user.email,
+      uid: user.uid,
     };
 
     insertDocument(video);
@@ -152,22 +154,24 @@ const AddVideoForm = ({ setActive }) => {
         />
       </div>
       <label htmlFor='category' className='form-label'>
-        <span>Categoria:</span>
+        <span className='font-bold text-cBlue w-full'>Categoria:</span>
         <select
           name='category'
           className='form-input'
-          vaue={category}
-          onChange={(e) => setCategory(e.target.value)}>
-          <option value='html'>HTML</option>
-          <option value='css'>CSS</option>
-          <option value='javascript'>JavaScript</option>
-          <option value='reactjs'>React JS</option>
-          <option value='github'>GitHub</option>
-          <option value='linkedin'>Linkedin</option>
+          vaue={newCategory}
+          onChange={(e) => setNewCategory(e.target.value)}>
+          {categories &&
+            categories
+              .sort((a, b) => a.order - b.order)
+              .map((category) => (
+                <option key={category.id} value={category.name}>
+                  {category.name}
+                </option>
+              ))}
         </select>
       </label>
       <label htmlFor='title' className='form-label'>
-        <span>Título:</span>
+        <span className='font-bold text-cBlue w-full'>Título:</span>
         <input
           type='text'
           name='title'
@@ -179,7 +183,7 @@ const AddVideoForm = ({ setActive }) => {
         />
       </label>
       <label htmlFor='description' className='form-label '>
-        <span>Descrição:</span>
+        <span className='font-bold text-cBlue w-full'>Descrição:</span>
         <textarea
           type='text'
           name='description'
@@ -191,7 +195,7 @@ const AddVideoForm = ({ setActive }) => {
         />
       </label>
       <label htmlFor='file' className='form-label'>
-        <span>Material:</span>
+        <span className='font-bold text-cBlue w-full'>Material:</span>
         <div className='flex items-center'>
           <input
             type='file'
@@ -218,7 +222,7 @@ const AddVideoForm = ({ setActive }) => {
         </div>
       </label>
       <label htmlFor='video' className='form-label'>
-        <span>Vídeo:</span>
+        <span className='font-bold text-cBlue w-full'>Vídeo:</span>
 
         <div className='flex items-center'>
           <input

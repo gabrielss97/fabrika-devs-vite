@@ -1,5 +1,6 @@
 // Hooks
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
 const Login = () => {
@@ -74,6 +75,14 @@ const Login = () => {
           />
         )}
         {error && <p>{error}</p>}
+        <p>
+          Não possui uma conta?{' '}
+          <Link
+            to='/register'
+            className='text-cBlue font-bold hover:text-cLtBlue'>
+            Cadastre-se
+          </Link>
+        </p>
       </form>
     </div>
   );

@@ -23,6 +23,7 @@ import UsersPanel from './pages/UsersPanel/UsersPanel';
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 import CategoriesPanel from './pages/CategoriesPanel/CategoriesPanel';
 import AdminsPanel from './pages/AdminsPanel/AdminsPanel';
+import Register from './pages/Register/Register';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -70,6 +71,10 @@ function App() {
           <Route
             path='/login'
             element={!user ? <Login /> : <Navigate to='/' />}
+          />
+          <Route
+            path='/register'
+            element={!user ? <Register /> : <Navigate to='/' />}
           />
           <Route
             path='/profile'
