@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 
 const Register = () => {
   const [displayName, setDisplayName] = useState('');
@@ -10,6 +11,8 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const [error, setError] = useState('');
+
+  const { documents: users } = useFetchDocuments('mailslist');
 
   const { createUser, error: authError, loading } = useAuth();
 
@@ -22,6 +25,12 @@ const Register = () => {
       password,
     };
 
+    const validateMail = users.filter((usr) => usr.email === email);
+    if (validateMail.length === 0) {
+      setError('Seu e-mail não está incluido na lista de usuários permitidos');
+      return;
+    }
+
     if (password !== confirmPassword) {
       setError('As senhas precisam ser iguais.');
       return;
@@ -32,6 +41,7 @@ const Register = () => {
     setEmail('');
     setPassword('');
     setConfirmPassword('');
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -49,8 +59,10 @@ const Register = () => {
   }, [error]);
 
   return (
-    <form onSubmit={handleSubmit} className='form md:max-h-[500px]'>
-      <div className='   w-full mx-auto text-center'>
+    <form
+      onSubmit={handleSubmit}
+      className='form justify-start md:justify-center'>
+      <div className='w-full mx-auto text-center'>
         <h1 className='text-2xl  font-bold text-cBlue '>Cadastro</h1>
         <p>Entre para poder assistir as aulas!</p>
       </div>
@@ -113,11 +125,13 @@ const Register = () => {
         <input
           type='submit'
           value='Registrando...'
-          className='btn btn-disabled'
+          className='btn btn-disabled md:mt-8'
           disabled
         />
       )}
-      {!loading && <input type='submit' value='Registrar' className='btn' />}
+      {!loading && (
+        <input type='submit' value='Registrar' className='btn md:mt-8' />
+      )}
       {error && <p className='error'>{error}</p>}
       <p>
         Já possui uma conta?{' '}

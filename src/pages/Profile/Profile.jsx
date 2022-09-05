@@ -50,7 +50,7 @@ const Profile = ({ user }) => {
     }
 
     const data = {
-      userName,
+      name: userName,
     };
 
     updateDocument(user.uid, data);

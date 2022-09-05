@@ -5,7 +5,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 
 // Hooks
-import { useState, useEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { useAuth } from './hooks/useAuth';
 
 // Context
@@ -24,26 +24,29 @@ import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 import CategoriesPanel from './pages/CategoriesPanel/CategoriesPanel';
 import AdminsPanel from './pages/AdminsPanel/AdminsPanel';
 import Register from './pages/Register/Register';
+import { useFetchDocuments } from './hooks/useFetchDocuments';
 
 function App() {
   const [user, setUser] = useState(undefined);
-  const [admin] = useState(true);
+  const [admin, setAdmin] = useState(false);
   const { auth } = useAuth();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     onAuthStateChanged(auth, async (userParams) => {
-      // if (userParams) {
-      // console.log(userParams);
-      // await user.getIdTokenResult().then((idTokenResult) => {
-      //   setAdmin(idTokenResult.claims.admin);
-      // se for true  -> setAdmin(true)
-      //
-      // });
-      // }
-
       setUser(userParams);
     });
   }, [auth]);
+
+  const { documents: users } = useFetchDocuments('users');
+
+  useLayoutEffect(() => {
+    if (user && users) {
+      const check = users.filter((usr) => usr.id === user.uid);
+      if (check[0].admin === true) {
+        setAdmin(true);
+      }
+    }
+  }, [user, users]);
 
   const loadingUser = user === undefined;
 

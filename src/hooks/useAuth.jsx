@@ -48,7 +48,6 @@ export const useAuth = () => {
       );
 
       const newUser = {
-        id: user.uid,
         admin: false,
         name: data.displayName,
         email: data.email,

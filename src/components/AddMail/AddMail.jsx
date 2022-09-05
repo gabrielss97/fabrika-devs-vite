@@ -2,34 +2,52 @@
 import { BiX } from 'react-icons/bi';
 
 // Hooks
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useInsertDocument } from '../../hooks/useInsertDocument';
 
-const AddCategorieForm = ({ setActive, categories }) => {
-  const { insertDocument } = useInsertDocument('categories');
+const AddMail = ({ setActive, mails }) => {
+  const { insertDocument } = useInsertDocument('mailslist');
 
-  const [newCategory, setNewCategory] = useState('');
+  const [email, setEmail] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = {
-      order: categories.length + 1,
-      name: newCategory.toUpperCase(),
-    };
 
-    if (newCategory === '') {
-      setError('Insira uma categoria!');
+    if (mails) {
+      const allMails = mails.filter((mail) => mail === email);
+
+      if (allMails.length > 0) {
+        setError('E-mail já cadastrado!');
+        return;
+      }
+    }
+
+    if (email === '') {
+      setError('Insira uma e-mail!');
       return;
     }
 
-    if (newCategory !== '') {
+    const data = {
+      order: mails.length + 1,
+      email: email.toLowerCase(),
+    };
+
+    if (email !== '') {
       insertDocument(data);
     }
 
-    setNewCategory('');
+    setEmail('');
     setActive(false);
   };
+
+  useEffect(() => {
+    if (error !== '') {
+      setTimeout(() => {
+        setError('');
+      }, 3000);
+    }
+  }, [error]);
 
   useEffect(() => {
     if (error !== '') {
@@ -44,18 +62,18 @@ const AddCategorieForm = ({ setActive, categories }) => {
       onSubmit={handleSubmit}
       className='form max-h-72 mt-60 md:mt-0 max-w-[90%] md:w-[90%] md:max-w-5xl mx-auto rounded-md'>
       <div className='flex justify-between items-center  w-full mx-auto text-2xl  font-bold text-cBlue '>
-        <h1 className=' text-center'>Adicionar categoria</h1>
+        <h1 className=' text-center'>Adicionar e-mail</h1>
         <BiX
           className='text-3xl cursor-pointer'
           onClick={() => setActive(false)}
         />
       </div>
       <label htmlFor='newCategory' className='form-label'>
-        <span className='w-full font-bold text-cBlue'>Nova categoria:</span>
+        <span className='w-full font-bold text-cBlue'>Novo usuário:</span>
         <input
           type='text'
-          value={newCategory || ''}
-          onChange={(e) => setNewCategory(e.target.value)}
+          value={email || ''}
+          onChange={(e) => setEmail(e.target.value)}
           className='form-input'
         />
       </label>
@@ -65,4 +83,4 @@ const AddCategorieForm = ({ setActive, categories }) => {
   );
 };
 
-export default AddCategorieForm;
+export default AddMail;

@@ -4,22 +4,39 @@ import { BiX } from 'react-icons/bi';
 
 // Hooks
 import { useEffect, useState } from 'react';
+import { useUploadDocument } from '../../hooks/useUploadDocument';
+import { useUpdateDocument } from '../../hooks/useUpdateDocument';
 import { useFetchDocuments } from '../../hooks/useFetchDocuments';
+
+// Context
+import { useAuthValue } from '../../context/AuthContext';
 
 const EditVideoForm = ({ setActive, video }) => {
   // Form States
   const [newCategory, setNewCategory] = useState('html');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [videoUpload, setVideoUpload] = useState(null);
+  const [fileUpload, setFileUpload] = useState(null);
 
   // Messages States
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
 
+  // Pega os dados do usuário para inserir no objeto
+  const { user } = useAuthValue();
+
+  // Pega os dados da collection de videos para retornar o length
+  const { documents: videos } = useFetchDocuments('videos');
   // Pega as categorias
   const { documents: categories } = useFetchDocuments('categories');
 
-  // Hook de Upload de arquivos
+  // Hook de inserir documento no banco de dados
+  const {
+    updateDocument,
+    error: updateError,
+    loading: updateLoading,
+  } = useUpdateDocument('videos');
 
   // Função de envio do form
   const handleSubmit = async (e) => {
@@ -41,21 +58,33 @@ const EditVideoForm = ({ setActive, video }) => {
     }
 
     // Cria o objeto que será inserido no banco de dados
-    const videoData = {
+    const data = {
+      order: videos.length + 1,
       category: newCategory,
       title,
       description,
+      createdBy: user.uid,
+      userEmail: user.email,
     };
+
+    updateDocument(data);
 
     setError('');
     setMessage('');
     setDescription('');
     setTitle('');
+    setVideoUpload(null);
+    setFileUpload(null);
 
     setActive(false);
   };
 
   // Se houver algum erro ou mensagem no upload, atualiza o state com o erro ou msg do upload
+  useEffect(() => {
+    if (updateError) {
+      setError(updateError);
+    }
+  }, [updateError]);
 
   // Remove o erro da tela em 3s
   useEffect(() => {
@@ -121,6 +150,18 @@ const EditVideoForm = ({ setActive, video }) => {
           autoComplete='on'
         />
       </label>
+
+      {!error && !updateLoading && (
+        <input type='submit' value='Cadastrar vídeo' className='btn' />
+      )}
+      {updateLoading && (
+        <input
+          type='submit'
+          value='Cadastrando...'
+          className='btn  bg-cDkGray'
+          disabled
+        />
+      )}
 
       {error && <p className='error'>{error}</p>}
     </form>

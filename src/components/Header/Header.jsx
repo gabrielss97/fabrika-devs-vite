@@ -25,6 +25,11 @@ const Header = ({ admin, user }) => {
   const [showModal, setShowModal] = useState(false);
   const { logout } = useAuth();
 
+  const handleLogout = () => {
+    logout();
+    window.location.reload();
+  };
+
   return (
     <header>
       <div className='flex justify-between items-center bg-cWhite h-20 text-cWhite shadow-md p-4 md:p-8 border-b-1 border-cLtGray'>
@@ -68,7 +73,10 @@ const Header = ({ admin, user }) => {
                     Perfil
                   </li>
                 </NavLink>
-                <NavLink to='/' onClick={logout} className='hover:text-cBlue'>
+                <NavLink
+                  to='/'
+                  onClick={handleLogout}
+                  className='hover:text-cBlue'>
                   <li className='header-li border-none hover:text-cBlue px-16 py-2 w-full '>
                     <CgLogOut />
                     Sair
@@ -117,7 +125,10 @@ const Header = ({ admin, user }) => {
                     Perfil
                   </li>
                 </NavLink>
-                <NavLink to='/' onClick={logout} className='hover:text-cBlue'>
+                <NavLink
+                  to='/'
+                  onClick={handleLogout}
+                  className='hover:text-cBlue'>
                   <li className='header-li border-none hover:text-cBlue px-16 py-2 w-full '>
                     <CgLogOut />
                     Sair

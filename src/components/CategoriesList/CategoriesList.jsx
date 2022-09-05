@@ -5,8 +5,13 @@ import { HiOutlinePencilAlt } from 'react-icons/hi';
 // Hooks
 import { useDeleteDocument } from '../../hooks/useDeleteDocument';
 
-const CategoriesList = ({ categories }) => {
+const CategoriesList = ({ categories, setCategory, setActive }) => {
   const { deleteDocument } = useDeleteDocument('categories');
+
+  const handleEdit = (category) => {
+    setCategory(category);
+    setActive(true);
+  };
 
   if (categories === null) {
     return;
@@ -24,7 +29,10 @@ const CategoriesList = ({ categories }) => {
               <p className='text-xl font-bold text-cBlue'>{category.name}</p>
               <div className='flex gap-4 text-xl'>
                 <button type='button'>
-                  <HiOutlinePencilAlt className='text-cGreen' />
+                  <HiOutlinePencilAlt
+                    className='text-cGreen'
+                    onClick={() => handleEdit(category)}
+                  />
                 </button>
                 <button type='button'>
                   <CgRemove
