@@ -32,7 +32,7 @@ const Header = ({ admin, user }) => {
 
   return (
     <header>
-      <div className='flex justify-between items-center bg-cWhite h-20 text-cWhite shadow-md p-4 md:p-8 border-b-1 border-cLtGray'>
+      <div className='flex justify-between items-center  h-20 text-cWhite shadow-md p-4 md:p-8   bg-cLtBlue'>
         <Link to='/'>
           <img src={logo} alt='logo' className='w-12 md:w-14' />
         </Link>
@@ -107,16 +107,16 @@ const Header = ({ admin, user }) => {
                     Painel de Usuários
                   </li>
                 </NavLink>
-                <NavLink to='/panel/videos' className='hover:text-cBlue'>
-                  <li className='header-li'>
-                    <CgPlayButtonR />
-                    Painel de Vídeos
-                  </li>
-                </NavLink>
                 <NavLink to='/panel/categories' className='hover:text-cBlue'>
                   <li className='header-li'>
                     <CgFolder />
                     Categorias
+                  </li>
+                </NavLink>
+                <NavLink to='/panel/videos' className='hover:text-cBlue'>
+                  <li className='header-li'>
+                    <CgPlayButtonR />
+                    Painel de Vídeos
                   </li>
                 </NavLink>
                 <NavLink to='/panel/profile' className='hover:text-cBlue'>

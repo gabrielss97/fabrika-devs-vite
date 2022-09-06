@@ -4,7 +4,6 @@ import { BiX } from 'react-icons/bi';
 
 // Hooks
 import { useEffect, useState } from 'react';
-import { useUploadDocument } from '../../hooks/useUploadDocument';
 import { useUpdateDocument } from '../../hooks/useUpdateDocument';
 import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 
@@ -16,18 +15,14 @@ const EditVideoForm = ({ setActive, video }) => {
   const [newCategory, setNewCategory] = useState('html');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [videoUpload, setVideoUpload] = useState(null);
-  const [fileUpload, setFileUpload] = useState(null);
+  const [order, setOrder] = useState('');
 
   // Messages States
   const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
 
   // Pega os dados do usuário para inserir no objeto
   const { user } = useAuthValue();
 
-  // Pega os dados da collection de videos para retornar o length
-  const { documents: videos } = useFetchDocuments('videos');
   // Pega as categorias
   const { documents: categories } = useFetchDocuments('categories');
 
@@ -59,7 +54,7 @@ const EditVideoForm = ({ setActive, video }) => {
 
     // Cria o objeto que será inserido no banco de dados
     const data = {
-      order: videos.length + 1,
+      order,
       category: newCategory,
       title,
       description,
@@ -67,17 +62,24 @@ const EditVideoForm = ({ setActive, video }) => {
       userEmail: user.email,
     };
 
-    updateDocument(data);
+    updateDocument(video.id, data);
 
-    setError('');
-    setMessage('');
     setDescription('');
     setTitle('');
-    setVideoUpload(null);
-    setFileUpload(null);
+    setError('');
 
     setActive(false);
   };
+
+  // Preenche os dados dos inputs com o video atual
+  useEffect(() => {
+    if (video) {
+      setOrder(video.order);
+      setNewCategory(video.category);
+      setTitle(video.title);
+      setDescription(video.description);
+    }
+  }, [video]);
 
   // Se houver algum erro ou mensagem no upload, atualiza o state com o erro ou msg do upload
   useEffect(() => {
@@ -93,17 +95,12 @@ const EditVideoForm = ({ setActive, video }) => {
         setError('');
       }, 3000);
     }
-    if (message !== '') {
-      setTimeout(() => {
-        setMessage('');
-      }, 3000);
-    }
-  }, [error, message]);
+  }, [error]);
 
   return (
     <form onSubmit={handleSubmit} className='form'>
       <div className='flex justify-between items-center  w-full mx-auto text-2xl  font-bold text-cBlue '>
-        <h1 className=' text-center'>Enviar vídeo</h1>
+        <h1 className=' text-center'>Editar vídeo</h1>
         <BiX
           className='text-3xl cursor-pointer'
           onClick={() => setActive(false)}
@@ -114,7 +111,7 @@ const EditVideoForm = ({ setActive, video }) => {
         <select
           name='category'
           className='form-input'
-          vaue={newCategory}
+          value={newCategory}
           onChange={(e) => setNewCategory(e.target.value)}>
           {categories &&
             categories
@@ -150,20 +147,30 @@ const EditVideoForm = ({ setActive, video }) => {
           autoComplete='on'
         />
       </label>
+      <label htmlFor='order' className='form-label '>
+        <span className='font-bold text-cBlue w-full'>Ordem:</span>
+        <input
+          type='number'
+          name='order'
+          value={order || ''}
+          onChange={(e) => setOrder(e.target.value)}
+          placeholder='Digite a ordem desejada do seu vídeo'
+          className='form-input '
+          autoComplete='on'
+        />
+      </label>
 
-      {!error && !updateLoading && (
-        <input type='submit' value='Cadastrar vídeo' className='btn' />
+      {!updateLoading && (
+        <input type='submit' value='Alterar' className='btn' />
       )}
       {updateLoading && (
         <input
           type='submit'
-          value='Cadastrando...'
-          className='btn  bg-cDkGray'
+          value='Alterando...'
+          className='btn bg-cDkGray'
           disabled
         />
       )}
-
-      {error && <p className='error'>{error}</p>}
     </form>
   );
 };

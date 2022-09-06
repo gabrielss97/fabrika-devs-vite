@@ -21,16 +21,16 @@ const AdminDashboard = () => {
         Usuários
       </Link>
       <Link
-        to='/panel/videos'
-        className='flex text-xl items-center gap-4 p-4 bg-cLtBlue rounded-lg text-cWhite font-bold shadow-lg'>
-        <CgPlayButtonR className='text-2xl' />
-        Vídeos
-      </Link>
-      <Link
         to='/panel/categories'
         className='flex text-xl items-center gap-4 p-4 bg-cLtBlue rounded-lg text-cWhite font-bold shadow-lg'>
         <CgFolder className='text-2xl' />
         Categorias
+      </Link>
+      <Link
+        to='/panel/videos'
+        className='flex text-xl items-center gap-4 p-4 bg-cLtBlue rounded-lg text-cWhite font-bold shadow-lg'>
+        <CgPlayButtonR className='text-2xl' />
+        Vídeos
       </Link>
     </nav>
   );

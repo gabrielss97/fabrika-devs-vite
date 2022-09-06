@@ -9,9 +9,6 @@ import { useDeleteDocument } from '../../hooks/useDeleteDocument';
 import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 
 const VideosList = ({ setActive, setVideo }) => {
-  // State de categorias
-  // const [categories, setCategories] = useState([]);
-
   // Fetch de todos os videos
   const { documents: videos, loading } = useFetchDocuments('videos');
   const { documents: categories } = useFetchDocuments('categories');

@@ -158,7 +158,7 @@ const AddVideoForm = ({ setActive }) => {
         <select
           name='category'
           className='form-input'
-          vaue={newCategory}
+          value={newCategory}
           onChange={(e) => setNewCategory(e.target.value)}>
           {categories &&
             categories
