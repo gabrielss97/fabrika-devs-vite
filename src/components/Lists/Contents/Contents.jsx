@@ -12,7 +12,7 @@ const Contents = ({ category, videos, setCurrentVideo }) => {
     <div className='w-full md:max-w-7xl mx-auto'>
       <div
         onClick={() => setActive(!active)}
-        className=' flex justify-between  text-cBlue font-bold cursor-pointer p-2 '>
+        className=' flex justify-between  text-cBlue font-bold cursor-pointer p-2'>
         <p className=' text-lg uppercase font-bold'>{category}</p>
         <RiArrowDropDownLine
           className={`${active ? 'rotate-180' : ''} text-2xl`}

@@ -12,6 +12,7 @@ import { useWindowSize } from '../../hooks/useWindowSize';
 
 // Components
 import Contents from '../../components/Lists/Contents/Contents';
+import VideoPlayer from '../../components/VideoPlayer/VideoPlayer';
 
 const Content = () => {
   const [currentVideo, setCurrentVideo] = useState({});
@@ -41,14 +42,8 @@ const Content = () => {
         <div className='flex'>
           {currentVideo !== null && (
             <div className='w-full'>
-              <h1 className='font-bold text-3xl p-4'>{currentVideo.title}</h1>
               <div>
-                <iframe
-                  src={currentVideo.videoUrl}
-                  className='h-96 w-full'
-                  frameBorder='0'
-                  title={currentVideo.title}
-                />
+                <VideoPlayer video={currentVideo} />
               </div>
               <div className=' flex flex-col items-start gap-4 text-cDkGray p-4'>
                 {currentVideo.files && (
@@ -85,19 +80,7 @@ const Content = () => {
       )}
       {size[0] < 1024 && (
         <div>
-          {currentVideo !== null && (
-            <>
-              <h1 className='font-bold text-3xl p-4'>{currentVideo.title}</h1>
-              <div>
-                <iframe
-                  src={currentVideo.videoUrl}
-                  className='h-72 w-full'
-                  frameBorder='0'
-                  title={currentVideo.title}
-                />
-              </div>
-            </>
-          )}
+          {currentVideo !== null && <VideoPlayer video={currentVideo} />}
 
           <Tabs>
             <TabList>
