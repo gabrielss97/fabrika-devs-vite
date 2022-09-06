@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 // Router
 import { Routes, Route, Navigate } from 'react-router-dom';
 
@@ -27,6 +28,7 @@ import Admins from './pages/Dashboard/Admins/Admins';
 import Users from './pages/Dashboard/Users/Users';
 import Categories from './pages/Dashboard/Categories/Categories';
 import Videos from './pages/Dashboard/Videos/Videos';
+import NotFound from './pages/NotFound/NotFound';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -61,52 +63,27 @@ function App() {
         <Header admin={admin} user={user} />
         <Routes>
           {!user && <Route path='/' element={<Login />} />}
+          {user && admin && <Route path='/' element={<Panel user={user} />} />}
+          {user && !admin && <Route path='/' element={<Content />} />}
           <Route
             path='/register'
             element={!user ? <Register /> : <Navigate to='/' />}
           />
-
-          <Route
-            path='/'
-            element={user && !admin ? <Content /> : <Navigate to='/' />}
-          />
           <Route
             path='/profile'
-            element={
-              user && !admin ? <Profile user={user} /> : <Navigate to='/' />
-            }
+            element={user ? <Profile user={user} /> : <Navigate to='/' />}
           />
 
-          <Route
-            path='/'
-            element={
-              user && admin ? <Panel user={user} /> : <Navigate to='/' />
-            }
-          />
-          <Route
-            path='/profile'
-            element={
-              user && admin ? <Profile user={user} /> : <Navigate to='/' />
-            }
-          />
-          <Route
-            path='/admins'
-            element={user && admin ? <Admins /> : <Navigate to='/' />}
-          />
-          <Route
-            path='/users'
-            element={user && admin ? <Users /> : <Navigate to='/' />}
-          />
-          <Route
-            path='/categories'
-            element={user && admin ? <Categories /> : <Navigate to='/' />}
-          />
-          <Route
-            path='/videos'
-            element={user && admin ? <Videos /> : <Navigate to='/' />}
-          />
+          <Route path='/*' element={<NotFound />} />
 
-          <Route path='/*' element={<Navigate to='/' />} />
+          {user && admin && (
+            <>
+              <Route path='/admins' element={<Admins />} />
+              <Route path='/users' element={<Users />} />
+              <Route path='/categories' element={<Categories />} />
+              <Route path='/videos' element={<Videos />} />
+            </>
+          )}
         </Routes>
       </AuthProvider>
     </div>
