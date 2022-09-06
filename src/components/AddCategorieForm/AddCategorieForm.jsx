@@ -18,6 +18,17 @@ const AddCategorieForm = ({ setActive, categories }) => {
       name: newCategory.toUpperCase(),
     };
 
+    if (categories) {
+      const filter = categories.filter(
+        (category) => category.name === newCategory
+      );
+
+      if (filter.length >= 1) {
+        setError('Categoria já existe!');
+        return;
+      }
+    }
+
     if (newCategory === '') {
       setError('Insira uma categoria!');
       return;

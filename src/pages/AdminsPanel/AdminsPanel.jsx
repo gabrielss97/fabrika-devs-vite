@@ -1,7 +1,12 @@
-import React from 'react';
+// Components
+import AdminsList from '../../components/AdminsList/AdminsList';
 
 const AdminsPanel = () => {
-  return <div>AdminsPanel</div>;
+  return (
+    <div className='p-4 flex flex-col'>
+      <AdminsList />
+    </div>
+  );
 };
 
 export default AdminsPanel;
