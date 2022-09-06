@@ -32,7 +32,7 @@ import NotFound from './pages/NotFound/NotFound';
 
 function App() {
   const [user, setUser] = useState(undefined);
-  const [admin, setAdmin] = useState(false);
+  const [admin, setAdmin] = useState(null);
   const { auth } = useAuth();
 
   useLayoutEffect(() => {
@@ -48,15 +48,23 @@ function App() {
       const check = users.filter((usr) => usr.id === user.uid);
       if (check[0].admin === true) {
         setAdmin(true);
+      } else {
+        setAdmin(false);
       }
     }
-  }, [user, users]);
+  }, [users]);
 
   const loadingUser = user === undefined;
+  const loadingAdmin = user === null;
 
   if (loadingUser) {
     return <p>Carregando ...</p>;
   }
+
+  if (loadingAdmin) {
+    return <p>Carregando ...</p>;
+  }
+
   return (
     <div className='App'>
       <AuthProvider value={{ user }}>
