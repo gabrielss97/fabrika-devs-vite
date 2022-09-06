@@ -71,7 +71,13 @@ function App() {
           />
           <Route
             path='/profile'
-            element={user ? <Profile user={user} /> : <Navigate to='/' />}
+            element={
+              user ? (
+                <Profile user={user} />
+              ) : (
+                <Navigate to='/' replace={true} />
+              )
+            }
           />
 
           {user && (
@@ -83,19 +89,31 @@ function App() {
 
           <Route
             path='/admins'
-            element={user && admin ? <Admins /> : <Navigate to='/' />}
+            element={
+              user && admin ? <Admins /> : <Navigate to='/' replace={true} />
+            }
           />
           <Route
             path='/users'
-            element={user && admin ? <Users /> : <Navigate to='/' />}
+            element={
+              user && admin ? <Users /> : <Navigate to='/' replace={true} />
+            }
           />
           <Route
             path='/categories'
-            element={user && admin ? <Categories /> : <Navigate to='/' />}
+            element={
+              user && admin ? (
+                <Categories />
+              ) : (
+                <Navigate to='/' replace={true} />
+              )
+            }
           />
           <Route
             path='/videos'
-            element={user && admin ? <Videos /> : <Navigate to='/' />}
+            element={
+              user && admin ? <Videos /> : <Navigate to='/' replace={true} />
+            }
           />
 
           <Route path='/404' element={<NotFound />} />
