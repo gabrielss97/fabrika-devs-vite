@@ -98,7 +98,7 @@ function App() {
             element={user && admin ? <Videos /> : <Navigate to='/' />}
           />
 
-          <Route path='*' element={<NotFound />} />
+          <Route path='/404' element={<NotFound />} />
         </Routes>
       </AuthProvider>
     </div>
