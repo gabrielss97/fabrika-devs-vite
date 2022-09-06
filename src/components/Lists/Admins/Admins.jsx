@@ -33,7 +33,7 @@ const Admins = () => {
     <div className='w-full md:max-w-7xl mx-auto mt-8g'>
       {message && <p className='error mb-8'>{message}</p>}
 
-      <h1>Administradores</h1>
+      <h1 className='text-xl font-bold text-cBlue my-4'>Administradores</h1>
 
       {users &&
         users.length > 0 &&
