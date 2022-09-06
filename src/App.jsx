@@ -65,52 +65,47 @@ function App() {
             path='/register'
             element={!user ? <Register /> : <Navigate to='/' />}
           />
-          {user && !admin && (
-            <>
-              <Route
-                path='/'
-                element={user && !admin ? <Content /> : <Navigate to='/' />}
-              />
-              <Route
-                path='/profile'
-                element={
-                  user && !admin ? <Profile user={user} /> : <Navigate to='/' />
-                }
-              />
-            </>
-          )}
-          {user && admin && (
-            <>
-              <Route
-                path='/'
-                element={
-                  user && admin ? <Panel user={user} /> : <Navigate to='/' />
-                }
-              />
-              <Route
-                path='/profile'
-                element={
-                  user && admin ? <Profile user={user} /> : <Navigate to='/' />
-                }
-              />
-              <Route
-                path='/admins'
-                element={user && admin ? <Admins /> : <Navigate to='/' />}
-              />
-              <Route
-                path='/users'
-                element={user && admin ? <Users /> : <Navigate to='/' />}
-              />
-              <Route
-                path='/categories'
-                element={user && admin ? <Categories /> : <Navigate to='/' />}
-              />
-              <Route
-                path='/videos'
-                element={user && admin ? <Videos /> : <Navigate to='/' />}
-              />
-            </>
-          )}
+
+          <Route
+            path='/'
+            element={user && !admin ? <Content /> : <Navigate to='/' />}
+          />
+          <Route
+            path='/profile'
+            element={
+              user && !admin ? <Profile user={user} /> : <Navigate to='/' />
+            }
+          />
+
+          <Route
+            path='/'
+            element={
+              user && admin ? <Panel user={user} /> : <Navigate to='/' />
+            }
+          />
+          <Route
+            path='/profile'
+            element={
+              user && admin ? <Profile user={user} /> : <Navigate to='/' />
+            }
+          />
+          <Route
+            path='/admins'
+            element={user && admin ? <Admins /> : <Navigate to='/' />}
+          />
+          <Route
+            path='/users'
+            element={user && admin ? <Users /> : <Navigate to='/' />}
+          />
+          <Route
+            path='/categories'
+            element={user && admin ? <Categories /> : <Navigate to='/' />}
+          />
+          <Route
+            path='/videos'
+            element={user && admin ? <Videos /> : <Navigate to='/' />}
+          />
+
           <Route path='/*' element={<Navigate to='/' />} />
         </Routes>
       </AuthProvider>
