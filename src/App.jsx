@@ -32,7 +32,8 @@ import NotFound from './pages/NotFound/NotFound';
 
 function App() {
   const [user, setUser] = useState(undefined);
-  const [admin, setAdmin] = useState(null);
+
+  const [admin, setAdmin] = useState(false);
   const { auth } = useAuth();
 
   useLayoutEffect(() => {
@@ -48,20 +49,13 @@ function App() {
       const check = users.filter((usr) => usr.id === user.uid);
       if (check[0].admin === true) {
         setAdmin(true);
-      } else {
-        setAdmin(false);
       }
     }
   }, [users]);
 
   const loadingUser = user === undefined;
-  const loadingAdmin = user === null;
 
   if (loadingUser) {
-    return <p>Carregando ...</p>;
-  }
-
-  if (loadingAdmin) {
     return <p>Carregando ...</p>;
   }
 
@@ -71,8 +65,6 @@ function App() {
         <Header admin={admin} user={user} />
         <Routes>
           {!user && <Route path='/' element={<Login />} />}
-          {user && admin && <Route path='/' element={<Panel user={user} />} />}
-          {user && !admin && <Route path='/' element={<Content />} />}
           <Route
             path='/register'
             element={!user ? <Register /> : <Navigate to='/' />}
@@ -82,16 +74,31 @@ function App() {
             element={user ? <Profile user={user} /> : <Navigate to='/' />}
           />
 
-          <Route path='/*' element={<NotFound />} />
-
-          {user && admin && (
-            <>
-              <Route path='/admins' element={<Admins />} />
-              <Route path='/users' element={<Users />} />
-              <Route path='/categories' element={<Categories />} />
-              <Route path='/videos' element={<Videos />} />
-            </>
+          {user && (
+            <Route
+              path='/'
+              element={admin ? <Panel user={user} /> : <Content />}
+            />
           )}
+
+          <Route
+            path='/admins'
+            element={user && admin ? <Admins /> : <Navigate to='/' />}
+          />
+          <Route
+            path='/users'
+            element={user && admin ? <Users /> : <Navigate to='/' />}
+          />
+          <Route
+            path='/categories'
+            element={user && admin ? <Categories /> : <Navigate to='/' />}
+          />
+          <Route
+            path='/videos'
+            element={user && admin ? <Videos /> : <Navigate to='/' />}
+          />
+
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </AuthProvider>
     </div>

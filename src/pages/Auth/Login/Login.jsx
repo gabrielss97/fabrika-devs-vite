@@ -19,6 +19,7 @@ const Login = () => {
     };
 
     await login(user);
+    window.location.reload();
   };
 
   useEffect(() => {
