@@ -7,6 +7,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 // Hooks
 import { useState, useLayoutEffect } from 'react';
 import { useAuth } from './hooks/useAuth';
+import { useFetchDocuments } from './hooks/useFetchDocuments';
 
 // Context
 import { AuthProvider } from './context/AuthContext';
@@ -15,16 +16,17 @@ import { AuthProvider } from './context/AuthContext';
 import Header from './components/Header/Header';
 
 // Pages
-import Course from './pages/Course/Course';
-import Login from './pages/Login/Login';
+import Login from './pages/Auth/Login/Login';
+import Register from './pages/Auth/Register/Register';
 import Profile from './pages/Profile/Profile';
-import VideosPanel from './pages/VideosPanel/VideosPanel';
-import UsersPanel from './pages/UsersPanel/UsersPanel';
-import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
-import CategoriesPanel from './pages/CategoriesPanel/CategoriesPanel';
-import AdminsPanel from './pages/AdminsPanel/AdminsPanel';
-import Register from './pages/Register/Register';
-import { useFetchDocuments } from './hooks/useFetchDocuments';
+
+import Content from './pages/Content/Content';
+
+import Panel from './pages/Dashboard/Panel/Panel';
+import Admins from './pages/Dashboard/Admins/Admins';
+import Users from './pages/Dashboard/Users/Users';
+import Categories from './pages/Dashboard/Categories/Categories';
+import Videos from './pages/Dashboard/Videos/Videos';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -61,14 +63,12 @@ function App() {
           {admin ? (
             <Route
               path='/'
-              element={
-                user ? <AdminDashboard user={user} /> : <Navigate to='/login' />
-              }
+              element={user ? <Panel user={user} /> : <Navigate to='/login' />}
             />
           ) : (
             <Route
               path='/'
-              element={user ? <Course /> : <Navigate to='/login' />}
+              element={user ? <Content /> : <Navigate to='/login' />}
             />
           )}
           <Route
@@ -85,19 +85,19 @@ function App() {
           />
           <Route
             path='/panel/admins'
-            element={user && admin ? <AdminsPanel /> : <Navigate to='/' />}
+            element={user && admin ? <Admins /> : <Navigate to='/' />}
           />
           <Route
             path='/panel/users'
-            element={user && admin ? <UsersPanel /> : <Navigate to='/' />}
+            element={user && admin ? <Users /> : <Navigate to='/' />}
           />
           <Route
             path='/panel/videos'
-            element={user && admin ? <VideosPanel /> : <Navigate to='/' />}
+            element={user && admin ? <Videos /> : <Navigate to='/' />}
           />
           <Route
             path='/panel/categories'
-            element={user && admin ? <CategoriesPanel /> : <Navigate to='/' />}
+            element={user && admin ? <Categories /> : <Navigate to='/' />}
           />
           <Route
             path='/panel/profile/'
