@@ -13,6 +13,8 @@ const Mails = ({ mails }) => {
 
   return (
     <div className='w-full md:max-w-7xl mx-auto mt-8g'>
+      <h1 className='text-xl font-bold text-cBlue my-4'>E-mails permitidos</h1>
+
       {mails.length > 0 &&
         mails
           .sort((a, b) => a.order - b.order)

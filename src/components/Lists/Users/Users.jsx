@@ -42,6 +42,9 @@ const Users = () => {
 
   return (
     <div className='w-full md:max-w-7xl mx-auto mt-8g'>
+      <h1 className='text-xl font-bold text-cBlue my-4'>
+        Usuários Cadastrados
+      </h1>
       {users &&
         users.length > 0 &&
         users.map((user) => (

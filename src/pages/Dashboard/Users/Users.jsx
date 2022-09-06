@@ -25,11 +25,9 @@ const Users = () => {
       </button>
 
       <div>
-        <h1>E-mails permitidos</h1>
         <Mails mails={emails} />
       </div>
       <div>
-        <h1>Usuários Cadastrados</h1>
         <UsersList />
       </div>
 
