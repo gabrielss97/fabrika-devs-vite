@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 // Router
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 
 // Icons
 import {
@@ -27,6 +27,7 @@ const Header = ({ admin, user }) => {
 
   const handleLogout = () => {
     logout();
+    useNavigate('/');
     window.location.reload();
   };
 

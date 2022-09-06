@@ -60,7 +60,7 @@ function App() {
       <AuthProvider value={{ user }}>
         <Header admin={admin} user={user} />
         <Routes>
-          <Route path='/' element={<Login />} />
+          {!user && <Route path='/' element={<Login />} />}
           <Route
             path='/register'
             element={!user ? <Register /> : <Navigate to='/' />}
