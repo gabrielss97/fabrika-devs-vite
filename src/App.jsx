@@ -60,17 +60,7 @@ function App() {
       <AuthProvider value={{ user }}>
         <Header admin={admin} user={user} />
         <Routes>
-          {admin ? (
-            <Route
-              path='/'
-              element={user ? <Panel user={user} /> : <Navigate to='/login' />}
-            />
-          ) : (
-            <Route
-              path='/'
-              element={user ? <Content /> : <Navigate to='/login' />}
-            />
-          )}
+          {!user && <Route path='/' element={<Navigate to='/login' />} />}
           <Route
             path='/login'
             element={!user ? <Login /> : <Navigate to='/' />}
@@ -79,33 +69,23 @@ function App() {
             path='/register'
             element={!user ? <Register /> : <Navigate to='/' />}
           />
-          <Route
-            path='/profile'
-            element={user ? <Profile user={user} /> : <Navigate to='/login' />}
-          />
-          <Route
-            path='/panel/admins'
-            element={user && admin ? <Admins /> : <Navigate to='/' />}
-          />
-          <Route
-            path='/panel/users'
-            element={user && admin ? <Users /> : <Navigate to='/' />}
-          />
-          <Route
-            path='/panel/videos'
-            element={user && admin ? <Videos /> : <Navigate to='/' />}
-          />
-          <Route
-            path='/panel/categories'
-            element={user && admin ? <Categories /> : <Navigate to='/' />}
-          />
-          <Route
-            path='/panel/profile/'
-            element={
-              user && admin ? <Profile user={user} /> : <Navigate to='/' />
-            }
-          />
-          <Route path='/*' element={<Navigate to='/' />} />
+          {user && !admin && (
+            <>
+              <Route path='/' element={<Content />} />
+              <Route path='/profile' element={<Profile user={user} />} />
+            </>
+          )}
+          {user && admin && (
+            <>
+              <Route path='/' element={<Panel user={user} />} />
+              <Route path='/profile' element={<Profile user={user} />} />
+              <Route path='/admins' element={<Admins />} />
+              <Route path='/users' element={<Users />} />
+              <Route path='/categories' element={<Categories />} />
+              <Route path='/videos' element={<Videos />} />
+            </>
+          )}
+          <Route path='/*' element={<Navigate to='/404' />} />
         </Routes>
       </AuthProvider>
     </div>

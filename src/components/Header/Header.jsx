@@ -95,31 +95,31 @@ const Header = ({ admin, user }) => {
                     Home
                   </li>
                 </NavLink>
-                <NavLink to='/panel/admins' className='hover:text-cBlue'>
+                <NavLink to='/admins' className='hover:text-cBlue'>
                   <li className='header-li'>
                     <RiAdminLine />
                     Painel de Admins
                   </li>
                 </NavLink>
-                <NavLink to='/panel/users' className='hover:text-cBlue'>
+                <NavLink to='/users' className='hover:text-cBlue'>
                   <li className='header-li'>
                     <CgUserList />
                     Painel de Usuários
                   </li>
                 </NavLink>
-                <NavLink to='/panel/categories' className='hover:text-cBlue'>
+                <NavLink to='/categories' className='hover:text-cBlue'>
                   <li className='header-li'>
                     <CgFolder />
                     Categorias
                   </li>
                 </NavLink>
-                <NavLink to='/panel/videos' className='hover:text-cBlue'>
+                <NavLink to='/videos' className='hover:text-cBlue'>
                   <li className='header-li'>
                     <CgPlayButtonR />
                     Painel de Vídeos
                   </li>
                 </NavLink>
-                <NavLink to='/panel/profile' className='hover:text-cBlue'>
+                <NavLink to='/profile' className='hover:text-cBlue'>
                   <li className='header-li'>
                     <CgProfile />
                     Perfil
