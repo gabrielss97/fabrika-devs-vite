@@ -60,11 +60,7 @@ function App() {
       <AuthProvider value={{ user }}>
         <Header admin={admin} user={user} />
         <Routes>
-          {!user && <Route path='/' element={<Navigate to='/login' />} />}
-          <Route
-            path='/login'
-            element={!user ? <Login /> : <Navigate to='/' />}
-          />
+          <Route path='/' element={<Login />} />
           <Route
             path='/register'
             element={!user ? <Register /> : <Navigate to='/' />}
@@ -73,18 +69,12 @@ function App() {
             <>
               <Route
                 path='/'
-                element={
-                  user && !admin ? <Content /> : <Navigate to='/login' />
-                }
+                element={user && !admin ? <Content /> : <Navigate to='/' />}
               />
               <Route
                 path='/profile'
                 element={
-                  user && !admin ? (
-                    <Profile user={user} />
-                  ) : (
-                    <Navigate to='/login' />
-                  )
+                  user && !admin ? <Profile user={user} /> : <Navigate to='/' />
                 }
               />
             </>
@@ -94,44 +84,34 @@ function App() {
               <Route
                 path='/'
                 element={
-                  user && admin ? (
-                    <Panel user={user} />
-                  ) : (
-                    <Navigate to='/login' />
-                  )
+                  user && admin ? <Panel user={user} /> : <Navigate to='/' />
                 }
               />
               <Route
                 path='/profile'
                 element={
-                  user && admin ? (
-                    <Profile user={user} />
-                  ) : (
-                    <Navigate to='/login' />
-                  )
+                  user && admin ? <Profile user={user} /> : <Navigate to='/' />
                 }
               />
               <Route
                 path='/admins'
-                element={user && admin ? <Admins /> : <Navigate to='/login' />}
+                element={user && admin ? <Admins /> : <Navigate to='/' />}
               />
               <Route
                 path='/users'
-                element={user && admin ? <Users /> : <Navigate to='/login' />}
+                element={user && admin ? <Users /> : <Navigate to='/' />}
               />
               <Route
                 path='/categories'
-                element={
-                  user && admin ? <Categories /> : <Navigate to='/login' />
-                }
+                element={user && admin ? <Categories /> : <Navigate to='/' />}
               />
               <Route
                 path='/videos'
-                element={user && admin ? <Videos /> : <Navigate to='/login' />}
+                element={user && admin ? <Videos /> : <Navigate to='/' />}
               />
             </>
           )}
-          <Route path='/*' element={<Navigate to='/404' />} />
+          <Route path='/*' element={<Navigate to='/' />} />
         </Routes>
       </AuthProvider>
     </div>

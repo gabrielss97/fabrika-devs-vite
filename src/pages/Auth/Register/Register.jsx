@@ -135,7 +135,7 @@ const Register = () => {
       {error && <p className='error'>{error}</p>}
       <p>
         Já possui uma conta?{' '}
-        <Link to='/login' className='text-cBlue font-bold hover:text-cLtBlue'>
+        <Link to='/' className='text-cBlue font-bold hover:text-cLtBlue'>
           Entre
         </Link>
       </p>
