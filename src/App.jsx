@@ -65,20 +65,6 @@ function App() {
         <Header admin={admin} user={user} />
         <Routes>
           {!user && <Route path='/' element={<Login />} />}
-          <Route
-            path='/register'
-            element={!user ? <Register /> : <Navigate to='/' />}
-          />
-          <Route
-            path='/profile'
-            element={
-              user ? (
-                <Profile user={user} />
-              ) : (
-                <Navigate to='/' replace={true} />
-              )
-            }
-          />
 
           {user && (
             <Route
@@ -86,37 +72,33 @@ function App() {
               element={admin ? <Panel user={user} /> : <Content />}
             />
           )}
+          <Route
+            path='/register'
+            element={!user ? <Register /> : <Navigate to='/' />}
+          />
+          <Route
+            path='/profile'
+            element={user ? <Profile user={user} /> : <Navigate to='/' />}
+          />
 
           <Route
             path='/admins'
-            element={
-              user && admin ? <Admins /> : <Navigate to='/' replace={true} />
-            }
+            element={user && admin ? <Admins /> : <Navigate to='/' />}
           />
           <Route
             path='/users'
-            element={
-              user && admin ? <Users /> : <Navigate to='/' replace={true} />
-            }
+            element={user && admin ? <Users /> : <Navigate to='/' />}
           />
           <Route
             path='/categories'
-            element={
-              user && admin ? (
-                <Categories />
-              ) : (
-                <Navigate to='/' replace={true} />
-              )
-            }
+            element={user && admin ? <Categories /> : <Navigate to='/' />}
           />
           <Route
             path='/videos'
-            element={
-              user && admin ? <Videos /> : <Navigate to='/' replace={true} />
-            }
+            element={user && admin ? <Videos /> : <Navigate to='/' />}
           />
 
-          <Route path='/404' element={<NotFound />} />
+          <Route path='/*' element={<NotFound />} />
         </Routes>
       </AuthProvider>
     </div>
