@@ -75,7 +75,7 @@ const VideoPlayer = ({ video }) => {
       {playerState.playing === false && (
         <div className='w-full h-full absolute flex items-center justify-center bg-[#11111170] '>
           <h1 className='absolute top-0 left-0 text-2xl text-cWhite w-full bg-cBlack p-4 font-bold '>
-            {video.title}
+            {video && video.title}
           </h1>
           <div className='flex items-center justify-center p-8 text-xl bg-cBlue rounded-full text-cWhite '>
             <FaPlay />
@@ -84,7 +84,7 @@ const VideoPlayer = ({ video }) => {
       )}
       <video
         ref={$videoPlayer}
-        src={video.videoUrl}
+        src={video && video.videoUrl}
         onTimeUpdate={handleTimeUpdate}
         className='w-full xl:w-[80%] mx-auto'
         onClick={toggleVideoPlay}
@@ -98,7 +98,7 @@ const VideoPlayer = ({ video }) => {
           type='range'
           min='0'
           max='100'
-          value={playerState.percentage}
+          value={playerState.percentage || 0}
           onChange={handleChangeVideoPercentage}
         />
         <select

@@ -21,6 +21,8 @@ const Videos = ({ setActive, setVideo }) => {
     setVideo(video);
   };
 
+  // console.log(videos);
+
   if (loading) {
     return <p> carregando ...</p>;
   }
@@ -39,7 +41,7 @@ const Videos = ({ setActive, setVideo }) => {
                   </h1>
                   {videos &&
                     videos.map((video) => {
-                      if (video.category === category.name) {
+                      if (video.category === category.name.toLowerCase()) {
                         return (
                           <div
                             key={v4()}

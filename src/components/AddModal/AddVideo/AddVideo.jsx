@@ -95,12 +95,11 @@ const AddVideo = ({ setActive }) => {
       category: newCategory,
       title,
       description,
-      files: filePath,
+      fileUrl: filePath,
       videoUrl: videoPath,
       filename: fileName,
       videoname: videoName,
-      createdBy: user.uid,
-      userEmail: user.email,
+      createdBy: user.email,
     };
 
     insertDocument(video);

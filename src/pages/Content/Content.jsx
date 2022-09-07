@@ -14,7 +14,7 @@ import { useWindowSize } from '../../hooks/useWindowSize';
 import Contents from '../../components/Lists/Contents/Contents';
 import VideoPlayer from '../../components/VideoPlayer/VideoPlayer';
 
-const Content = () => {
+const Content = ({ user }) => {
   const [currentVideo, setCurrentVideo] = useState({});
 
   const size = useWindowSize();
@@ -46,8 +46,8 @@ const Content = () => {
                 <VideoPlayer video={currentVideo} />
               </div>
               <div className=' flex flex-col items-start gap-4 text-cDkGray p-4'>
-                {currentVideo.files && (
-                  <a href={currentVideo.files} target='_blank'>
+                {currentVideo && currentVideo.files && (
+                  <a href={currentVideo && currentVideo.files} target='_blank'>
                     <button
                       type='button'
                       className='download-btn cursor-pointer'>
@@ -58,7 +58,9 @@ const Content = () => {
                 <h2 className=' text-lg uppercase font-bold text-cBlack'>
                   Descrição:
                 </h2>
-                <p className='text-sm '>{currentVideo.description}</p>
+                <p className='text-sm '>
+                  {currentVideo && currentVideo.description}
+                </p>
               </div>
             </div>
           )}
@@ -72,6 +74,7 @@ const Content = () => {
                     category={category.name}
                     videos={videos}
                     setCurrentVideo={setCurrentVideo}
+                    user={user}
                     key={category.id}
                   />
                 ))}
@@ -90,10 +93,10 @@ const Content = () => {
 
             <TabPanel>
               <div className=' flex flex-col items-start gap-4 text-cDkGray p-4'>
-                {currentVideo.files && (
+                {currentVideo && currentVideo.files && (
                   <a
-                    href={currentVideo.files}
-                    download={currentVideo.title}
+                    href={currentVideo && currentVideo.files}
+                    download={currentVideo && currentVideo.title}
                     target='_blank'>
                     <button
                       type='button'
@@ -105,7 +108,9 @@ const Content = () => {
                 <h2 className=' text-lg uppercase font-bold text-cBlack'>
                   Descrição:
                 </h2>
-                <p className='text-sm '>{currentVideo.description}</p>
+                <p className='text-sm '>
+                  {currentVideo && currentVideo.description}
+                </p>
               </div>
             </TabPanel>
             <TabPanel>
@@ -117,6 +122,7 @@ const Content = () => {
                       category={category.name}
                       key={category.id}
                       videos={videos}
+                      user={user}
                       setCurrentVideo={setCurrentVideo}
                     />
                   ))}

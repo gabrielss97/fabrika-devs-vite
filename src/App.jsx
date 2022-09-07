@@ -69,7 +69,7 @@ function App() {
           {user && (
             <Route
               path='/'
-              element={admin ? <Panel user={user} /> : <Content />}
+              element={admin ? <Panel user={user} /> : <Content user={user} />}
             />
           )}
           <Route
