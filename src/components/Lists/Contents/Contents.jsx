@@ -2,23 +2,21 @@
 import { RiArrowDropDownLine } from 'react-icons/ri';
 
 // Hooks
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useUpdateDocument } from '../../../hooks/useUpdateDocument';
 import { useFetchDocument } from '../../../hooks/useFetchDocument';
 
 const Contents = ({ category, videos, setCurrentVideo, user }) => {
   // State para dimiuir e expandir os conteúdos
   const [active, setActive] = useState(true);
-  // console.log(videos, user);
 
   const { updateDocument } = useUpdateDocument('users');
   const { document } = useFetchDocument('users', user.uid);
-
-  console.log(document);
+  const [videosCheck, setVideosCheck] = useState(
+    (document && document.videosChecked) || []
+  );
 
   const handleCheckBox = (videoId) => {
-    // console.log(videoId, document);
-
     let videosChecked;
     if (
       document.videosChecked &&
@@ -28,15 +26,13 @@ const Contents = ({ category, videos, setCurrentVideo, user }) => {
       videosChecked = document.videosChecked.filter(
         (video) => video !== videoId
       );
-    }
-    if (
+    } else if (
       document.videosChecked &&
       document.videosChecked.length >= 1 &&
       !document.videosChecked.includes(videoId)
     ) {
       videosChecked = [...document.videosChecked, videoId];
-    }
-    if (document.videosChecked.length === 0) {
+    } else if (document.videosChecked.length === 0) {
       videosChecked = [videoId];
     }
 
@@ -44,8 +40,16 @@ const Contents = ({ category, videos, setCurrentVideo, user }) => {
       videosChecked,
     };
 
+    setVideosCheck(videosChecked);
+
     updateDocument(user.uid, data);
   };
+
+  useEffect(() => {
+    if (document) {
+      setVideosCheck(document.videosChecked);
+    }
+  }, [document, handleCheckBox]);
 
   return (
     <div className='w-full md:max-w-7xl mx-auto'>
@@ -66,7 +70,11 @@ const Contents = ({ category, videos, setCurrentVideo, user }) => {
               className={`flex gap-4 items-center py-2 px-4 cursor-pointer  ${
                 !active ? 'hidden' : ''
               }`}>
-              <input type='checkbox' onClick={() => handleCheckBox(video.id)} />
+              <input
+                type='checkbox'
+                onChange={() => handleCheckBox(video.id)}
+              />
+
               <button
                 type='button'
                 className='w-full text-start text-cblack'
