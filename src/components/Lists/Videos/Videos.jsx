@@ -21,8 +21,6 @@ const Videos = ({ setActive, setVideo }) => {
     setVideo(video);
   };
 
-  // console.log(videos);
-
   if (loading) {
     return <p> carregando ...</p>;
   }
@@ -58,13 +56,13 @@ const Videos = ({ setActive, setVideo }) => {
                               <button
                                 type='button'
                                 className='text-cRed'
-                                onClick={() =>
+                                onClick={() => {
                                   deleteVideo(
                                     video.id,
                                     video.videoname,
                                     video.filename
-                                  )
-                                }>
+                                  );
+                                }}>
                                 <CgRemove />
                               </button>
                             </div>

@@ -1,4 +1,5 @@
 /* eslint-disable no-else-return */
+
 // Icons
 import { BiX } from 'react-icons/bi';
 
@@ -61,6 +62,9 @@ const AddVideo = ({ setActive }) => {
   const handleVideoUpload = () => {
     uploadDocument('videos', videoUpload);
   };
+
+  // console.log(categories);
+  // console.log(videos);
 
   // Função de envio do form
   const handleSubmit = async (e) => {

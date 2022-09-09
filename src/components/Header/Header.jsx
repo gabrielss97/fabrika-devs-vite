@@ -19,7 +19,7 @@ import { useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 
 // Assets
-import logo from '../../assets/logo-fabrica-devs.png';
+import logo from '../../assets/logo-gray.png';
 
 const Header = ({ admin, user }) => {
   const [showModal, setShowModal] = useState(false);
@@ -33,9 +33,9 @@ const Header = ({ admin, user }) => {
 
   return (
     <header>
-      <div className='flex justify-between items-center  h-20 text-cWhite shadow-md p-4 md:p-8   bg-cLtBlue'>
+      <div className='flex justify-between items-center  h-20 text-cWhite shadow-md p-4 md:p-8   bg-cBlue'>
         <Link to='/'>
-          <img src={logo} alt='logo' className='w-12 md:w-14' />
+          <img src={logo} alt='logo' className='w-16' />
         </Link>
 
         {user !== null && (

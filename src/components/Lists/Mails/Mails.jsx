@@ -5,11 +5,15 @@ import { CgRemove } from 'react-icons/cg';
 import { useDeleteDocument } from '../../../hooks/useDeleteDocument';
 
 const Mails = ({ mails }) => {
-  const { deleteDocument } = useDeleteDocument('Mails');
+  const { deleteDocument } = useDeleteDocument('mailslist');
 
   if (mails === null) {
     return;
   }
+
+  const handleDelete = (id) => {
+    deleteDocument(id);
+  };
 
   return (
     <div className='w-full md:max-w-7xl mx-auto mt-8g'>
@@ -27,7 +31,9 @@ const Mails = ({ mails }) => {
                 <button type='button'>
                   <CgRemove
                     className='text-cRed'
-                    onClick={() => deleteDocument(mail.id)}
+                    onClick={() => {
+                      handleDelete(mail.id);
+                    }}
                   />
                 </button>
               </div>

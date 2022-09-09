@@ -47,9 +47,6 @@ export const useDeleteDocument = (docCollection) => {
     try {
       // Remover da FireStore
       await deleteDoc(doc(db, docCollection, id));
-
-      // Remover da Auth
-
       setLoading(false);
     } catch (e) {
       setError(e.message);
@@ -64,9 +61,6 @@ export const useDeleteDocument = (docCollection) => {
     try {
       // Remover da FireStore
       await deleteDoc(doc(db, docCollection, id));
-
-      // Remover da Auth
-
       setLoading(false);
     } catch (e) {
       setError(e.message);

@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 
 import { FaPause, FaPlay } from 'react-icons/fa';
+import { RiFullscreenLine } from 'react-icons/ri';
 
 function usePlayerState($videoPlayer) {
   const [playerState, setPlayerState] = useState({
@@ -43,6 +44,10 @@ function usePlayerState($videoPlayer) {
     $videoPlayer.current.playbackRate = e.target.value;
   };
 
+  const handleFullScreen = () => {
+    $videoPlayer.current.requestFullscreen();
+  };
+
   useEffect(() => {
     if (playerState.playing) {
       $videoPlayer.current.play();
@@ -57,6 +62,7 @@ function usePlayerState($videoPlayer) {
     handleTimeUpdate,
     handleChangeVideoPercentage,
     handleSpeed,
+    handleFullScreen,
   };
 }
 
@@ -68,6 +74,7 @@ const VideoPlayer = ({ video }) => {
     handleTimeUpdate,
     handleChangeVideoPercentage,
     handleSpeed,
+    handleFullScreen,
   } = usePlayerState($videoPlayer);
 
   return (
@@ -110,6 +117,11 @@ const VideoPlayer = ({ video }) => {
           <option value='1.75'>1.75x</option>
           <option value='2'>2x</option>
         </select>
+
+        <RiFullscreenLine
+          className='text-cBlue font-bold text-2xl'
+          onClick={handleFullScreen}
+        />
       </div>
     </div>
   );
