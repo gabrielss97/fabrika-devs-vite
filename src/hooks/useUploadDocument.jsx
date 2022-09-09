@@ -45,7 +45,7 @@ export const useUploadDocument = () => {
     } else if (collection === 'videos') {
       setVideoLoading(true);
     } else if (collection === 'usersProfileImage') {
-      setVideoLoading(true);
+      setProfilImageLoading(true);
     }
 
     // Se for vazio, retorna um erro
@@ -56,7 +56,7 @@ export const useUploadDocument = () => {
       } else if (collection === 'videos') {
         setVideoLoading(false);
       } else if (collection === 'usersProfileImage') {
-        setVideoLoading(false);
+        setProfilImageLoading(false);
       }
       return;
     }
