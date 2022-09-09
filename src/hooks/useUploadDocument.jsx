@@ -17,14 +17,17 @@ export const useUploadDocument = () => {
   // Loading States
   const [fileLoading, setFileLoading] = useState(false);
   const [videoLoading, setVideoLoading] = useState(false);
+  const [profileImageLoading, setProfilImageLoading] = useState(false);
 
   // Path States
   const [filePath, setFilePath] = useState('');
   const [videoPath, setVideoPath] = useState('');
+  const [profileImagePath, setProfileImagePath] = useState('');
 
   // Name States
   const [fileName, setFileName] = useState('');
   const [videoName, setVideoName] = useState('');
+  const [profileImageName, setProfileImageName] = useState('');
 
   // Cleanup (Evita o memory leak)
   const [canceled, setCanceled] = useState(false);
@@ -35,11 +38,13 @@ export const useUploadDocument = () => {
   };
 
   // Função que envia o arquivo para a Storage do Firebase
-  const uploadDocument = (collection, file) => {
+  const uploadDocument = (collection, file, user = null) => {
     checkCanceled();
     if (collection === 'files') {
       setFileLoading(true);
     } else if (collection === 'videos') {
+      setVideoLoading(true);
+    } else if (collection === 'usersProfileImage') {
       setVideoLoading(true);
     }
 
@@ -50,6 +55,8 @@ export const useUploadDocument = () => {
         setFileLoading(false);
       } else if (collection === 'videos') {
         setVideoLoading(false);
+      } else if (collection === 'usersProfileImage') {
+        setVideoLoading(false);
       }
       return;
     }
@@ -57,7 +64,12 @@ export const useUploadDocument = () => {
     // Método do FB para acessar a storage
     const storage = getStorage();
     // Referencia da Storage, passando a coleção e o nome do arquivo que será inserido
-    const generateName = `${collection}/${Date.now()}${v4()}`;
+    let generateName;
+    if (user) {
+      generateName = `${collection}/${user}/${Date.now()}${v4()}`;
+    } else {
+      generateName = `${collection}/${Date.now()}${v4()}`;
+    }
     // Referencia da Storage, passando a coleção e o nome do arquivo que será inserido
     const storageRef = ref(storage, generateName);
     // Método do FB para Enviar o arquivo, passando a referencia e o arquivo
@@ -92,6 +104,8 @@ export const useUploadDocument = () => {
               setFileLoading(false);
             } else if (collection === 'videos') {
               setVideoLoading(false);
+            } else if (collection === 'usersProfileImage') {
+              setProfilImageLoading(false);
             }
             break;
           case 'storage/canceled':
@@ -100,6 +114,8 @@ export const useUploadDocument = () => {
               setFileLoading(false);
             } else if (collection === 'videos') {
               setVideoLoading(false);
+            } else if (collection === 'usersProfileImage') {
+              setProfilImageLoading(false);
             }
             break;
           default:
@@ -108,6 +124,8 @@ export const useUploadDocument = () => {
               setFileLoading(false);
             } else if (collection === 'videos') {
               setVideoLoading(false);
+            } else if (collection === 'usersProfileImage') {
+              setProfilImageLoading(false);
             }
             break;
         }
@@ -124,11 +142,17 @@ export const useUploadDocument = () => {
           setVideoPath(res);
           setVideoName(generateName);
         }
+        if (collection === 'usersProfileImage') {
+          setProfileImagePath(res);
+          setProfileImageName(generateName);
+        }
 
         if (collection === 'files') {
           setFileLoading(false);
         } else if (collection === 'videos') {
           setVideoLoading(false);
+        } else if (collection === 'usersProfileImage') {
+          setProfilImageLoading(false);
         }
       }
     );
@@ -138,6 +162,7 @@ export const useUploadDocument = () => {
   const clearPaths = () => {
     setFilePath('');
     setVideoPath('');
+    setProfileImagePath('');
   };
 
   // Ao sair da fução irá executar o cleanup
@@ -159,5 +184,8 @@ export const useUploadDocument = () => {
     videoPath,
     fileName,
     videoName,
+    profileImageLoading,
+    profileImagePath,
+    profileImageName,
   };
 };

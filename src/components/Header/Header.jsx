@@ -46,7 +46,7 @@ const Header = ({ admin, user }) => {
               <img
                 src={user.photoURL}
                 alt='user'
-                className='rounded-full shadow-md border-[3px] border-cGreen'
+                className=' w-12 h-12 md:w-14 md:h-14  rounded-full shadow-md border-[3px] border-cGreen'
               />
             )}
             {!user.photoURL && (

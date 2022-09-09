@@ -6,20 +6,35 @@ import { useEffect, useState } from 'react';
 import { useFetchDocument } from '../../hooks/useFetchDocument';
 import { useAuth } from '../../hooks/useAuth';
 import { useUpdateDocument } from '../../hooks/useUpdateDocument';
+import { useUploadDocument } from '../../hooks/useUploadDocument';
 
 const Profile = ({ user }) => {
   const { document: userProfile } = useFetchDocument('users', user.uid);
   const { updateUserPassword, error: authError, updateUserImage } = useAuth();
   const { updateDocument, response } = useUpdateDocument('users');
+  const {
+    uploadDocument,
+    // clearPaths,
+    // error: uploadError,
+    // message: uploadMessage,
+    profileImageLoading,
+    profileImageName,
+    profileImagePath,
+  } = useUploadDocument();
 
   const [userImage, setUserImage] = useState('');
+  const [previewImage, setPreviewImage] = useState('');
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [message, setMessage] = useState('');
+  // const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+
+  const handleProfileImageUpload = async () => {
+    uploadDocument('usersProfileImage', userImage, user.uid);
+  };
 
   useEffect(() => {
     if (userProfile) {
@@ -51,19 +66,29 @@ const Profile = ({ user }) => {
 
     const data = {
       name: userName,
+      imageName: profileImageName,
     };
 
     updateDocument(user.uid, data);
 
-    if (userImage !== '') {
-      updateUserImage(user, userImage);
+    if (profileImagePath !== '') {
+      updateUserImage(user, profileImagePath);
     }
 
     if (password === confirmPassword) {
       updateUserPassword(user, password);
     }
 
-    setMessage('Dados atualizados com sucesso.');
+    // setMessage('Dados atualizados com sucesso.');
+    alert('Dados atualizados com sucesso.');
+
+    setUserImage('');
+    setUserName('');
+    setUserEmail('');
+    setPassword('');
+    setConfirmPassword('');
+    setError('');
+    window.location.reload();
   };
 
   // Remove o erro da tela em 3s
@@ -82,14 +107,21 @@ const Profile = ({ user }) => {
         className='w-full  flex flex-col  items-center  rounded-md p-4'
         // className='form min-h-[900px] justify-start'
       >
-        {userImage && (
+        {previewImage && (
+          <img
+            src={URL.createObjectURL(previewImage)}
+            alt='Preview'
+            className='w-32 h-32 md:w-60 md:h-60 rounded-full shadow-md'
+          />
+        )}
+        {userImage && !previewImage && (
           <img
             src={userImage}
             alt={userName}
-            className='w-32 md:w-60 rounded-full shadow-md'
+            className='w-32 h-32 md:w-60 md:h-60 rounded-full shadow-md'
           />
         )}
-        {!userImage && (
+        {!userImage && !previewImage && (
           <div className='w-32 h-32 md:w-60 md:h-60 rounded-full shadow-md flex justify-center items-center bg-cLtGray text-cDkGray'>
             <HiUser size={50} />
           </div>
@@ -107,15 +139,32 @@ const Profile = ({ user }) => {
         </label>
         <label className='form-label' htmlFor='image'>
           <span className='text-md font-bold text-cBlue '>Foto de perfil:</span>
-          <input
-            className='form-input bg-cLtGray mb-4 md:bg-cWhite'
-            name='image'
-            type='text'
-            value={userImage || ''}
-            placeholder='Insira o URL da imagem'
-            onChange={(e) => setUserImage(e.target.value)}
-            autoComplete='on'
-          />
+          <div className='flex items-center'>
+            <input
+              type='file'
+              name='file'
+              id='inputFile'
+              onChange={(e) => {
+                setPreviewImage(e.target.files[0]);
+                setUserImage(e.target.files[0]);
+              }}
+              className='form-input text-sm max-w-full'
+              disabled={profileImagePath !== '' && userImage !== null}
+            />
+            {profileImagePath === '' && (
+              <button
+                type='button'
+                onClick={handleProfileImageUpload}
+                className={`text-left px-2 py-1 font-bold ml-10 b-1 ${
+                  profileImageLoading
+                    ? 'bg-cDkGray'
+                    : ' bg-cLtBlue hover:bg-cBlue transition'
+                } rounded-3xl text-cWhite shadow-md border-1 border-cBlue`}>
+                {!profileImageLoading && 'Enviar'}
+                {profileImageLoading && 'Enviando...'}
+              </button>
+            )}
+          </div>
         </label>
 
         <label className='form-label' htmlFor='email'>
@@ -165,7 +214,7 @@ const Profile = ({ user }) => {
           />
         )}
         {error && <p className='error'>{error}</p>}
-        {message && <p className='success'>{message}</p>}
+        {/* {message && <p className='success'>{message}</p>} */}
       </form>
     </div>
   );
