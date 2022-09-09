@@ -77,6 +77,14 @@ const Login = () => {
         )}
         {error && <p>{error}</p>}
         <p>
+          Esqueceu sua senha?{' '}
+          <Link
+            to='/forgot-password'
+            className='text-cBlue font-bold hover:text-cLtBlue'>
+            Redefinir
+          </Link>
+        </p>
+        <p>
           Não possui uma conta?{' '}
           <Link
             to='/register'

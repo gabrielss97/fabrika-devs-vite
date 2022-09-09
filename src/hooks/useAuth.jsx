@@ -13,6 +13,7 @@ import {
   signOut,
   updatePassword,
   updateProfile,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 
 import { setDoc, doc, Timestamp } from 'firebase/firestore';
@@ -21,6 +22,7 @@ import { useEffect, useState } from 'react';
 
 export const useAuth = () => {
   const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(null);
 
   const auth = getAuth();
@@ -156,6 +158,22 @@ export const useAuth = () => {
     }
   };
 
+  const resetPassword = async (email) => {
+    checkCancelled();
+    setLoading(true);
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setMessage(
+        'E-mail de recuperação enviado com sucesso! Caso não encontre-o, olhe na caixa de spam.'
+      );
+      setLoading(false);
+    } catch (e) {
+      setError(e.message);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     return () => {
       setCancelled(true);
@@ -167,10 +185,12 @@ export const useAuth = () => {
     createUser,
     error,
     loading,
+    message,
     login,
     logout,
     updateUserPassword,
     updateUserImage,
     removeUser,
+    resetPassword,
   };
 };

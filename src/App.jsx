@@ -29,6 +29,7 @@ import Users from './pages/Dashboard/Users/Users';
 import Categories from './pages/Dashboard/Categories/Categories';
 import Videos from './pages/Dashboard/Videos/Videos';
 import NotFound from './pages/NotFound/NotFound';
+import ForgotPassword from './pages/Auth/ForgotPassword/ForgotPassword';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -72,10 +73,17 @@ function App() {
               element={admin ? <Panel user={user} /> : <Content user={user} />}
             />
           )}
+
           <Route
             path='/register'
             element={!user ? <Register /> : <Navigate to='/' />}
           />
+
+          <Route
+            path='/forgot-password'
+            element={!user ? <ForgotPassword /> : <Navigate to='/' />}
+          />
+
           <Route
             path='/profile'
             element={user ? <Profile user={user} /> : <Navigate to='/' />}
