@@ -5,6 +5,8 @@ import { useState, useRef, useEffect } from 'react';
 import { FaPause, FaPlay } from 'react-icons/fa';
 import { RiFullscreenLine } from 'react-icons/ri';
 
+import { useWindowSize } from '../../hooks/useWindowSize';
+
 function usePlayerState($videoPlayer) {
   const [playerState, setPlayerState] = useState({
     playing: false,
@@ -77,9 +79,11 @@ const VideoPlayer = ({ video }) => {
     handleFullScreen,
   } = usePlayerState($videoPlayer);
 
+  const size = useWindowSize();
+
   return (
     <div className='relative bg-cBlack'>
-      {playerState.playing === false && (
+      {playerState.playing === false && size[0] > 1024 && (
         <div className='w-full h-full absolute flex items-center justify-center bg-[#11111150] '>
           <h1 className='absolute top-0 left-0 text-2xl text-cWhite w-full bg-cBlack p-4 font-bold '>
             {video && video.title}
