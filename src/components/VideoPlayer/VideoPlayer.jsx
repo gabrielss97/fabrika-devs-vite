@@ -80,7 +80,7 @@ const VideoPlayer = ({ video }) => {
   return (
     <div className='relative bg-cBlack'>
       {playerState.playing === false && (
-        <div className='w-full h-full absolute flex items-center justify-center bg-[#11111170] '>
+        <div className='w-full h-full absolute flex items-center justify-center bg-[#11111150] '>
           <h1 className='absolute top-0 left-0 text-2xl text-cWhite w-full bg-cBlack p-4 font-bold '>
             {video && video.title}
           </h1>
@@ -119,7 +119,7 @@ const VideoPlayer = ({ video }) => {
         </select>
 
         <RiFullscreenLine
-          className='text-cBlue font-bold text-2xl'
+          className='text-cBlue font-bold text-2xl cursor-pointer'
           onClick={handleFullScreen}
         />
       </div>
