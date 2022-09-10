@@ -231,6 +231,7 @@ const AddVideo = ({ setActive }) => {
           <input
             type='file'
             id='inputVideo'
+            accept='video/*'
             name='video'
             onChange={(e) => setVideoUpload(e.target.files[0])}
             className='form-input text-sm max-w-full'

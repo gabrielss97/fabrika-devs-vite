@@ -84,6 +84,7 @@ export const useAuth = () => {
     try {
       await signInWithEmailAndPassword(auth, user.email, user.password);
       setLoading(false);
+      window.location.reload();
     } catch (e) {
       let systemErrorMsg;
 

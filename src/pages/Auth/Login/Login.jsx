@@ -19,7 +19,6 @@ const Login = () => {
     };
 
     await login(user);
-    window.location.reload();
   };
 
   useEffect(() => {
@@ -75,7 +74,7 @@ const Login = () => {
             className='btn w-full mt-4 bg-cDkGray text-cWhite transition-all'
           />
         )}
-        {error && <p>{error}</p>}
+        {error && <p className='error'>{error}</p>}
         <p>
           Esqueceu sua senha?{' '}
           <Link

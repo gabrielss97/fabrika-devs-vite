@@ -147,6 +147,7 @@ const Profile = ({ user }) => {
           <input
             type='file'
             name='file'
+            accept='image/*'
             id='inputFile'
             onChange={(e) => {
               setPreviewImage(e.target.files[0]);
