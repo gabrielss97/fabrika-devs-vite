@@ -2,15 +2,10 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../../hooks/useAuth';
 
-// Context
-import { useDarkMode } from '../../../context/DarkModeContext';
-
-const ForgotPassword = () => {
+const ForgotPassword = ({ darkMode }) => {
   const [email, setEmail] = useState();
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-
-  const { state } = useDarkMode();
 
   const {
     resetPassword,
@@ -52,15 +47,15 @@ const ForgotPassword = () => {
   return (
     <div
       className={`heightCalc flex flex-col items-center justify-center w-full p-4 ${
-        state.darkMode ? 'bg-cDkBlack' : 'bg-cWhite'
+        darkMode ? 'bg-cDkBlack' : 'bg-cWhite'
       }`}>
       <form
         onSubmit={sendPasswordResetEmail}
-        className={`form ${state.darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'}`}>
+        className={`form ${darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'}`}>
         <label htmlFor='email' className='form-label'>
           <span
             className={`text-2xl text-start mb-5 font-bold ${
-              state.darkMode ? 'text-cWhite' : 'text-cBlue'
+              darkMode ? 'text-cWhite' : 'text-cBlue'
             }`}>
             E-mail:
           </span>
@@ -68,9 +63,7 @@ const ForgotPassword = () => {
             type='email'
             name='email'
             className={`form-input ${
-              state.darkMode
-                ? 'bg-cDkBlack text-cWhite'
-                : 'bg-cWhite text-cDkBlack'
+              darkMode ? 'bg-cDkBlack text-cWhite' : 'bg-cWhite text-cDkBlack'
             }`}
             value={email || ''}
             onChange={(e) => setEmail(e.target.value)}

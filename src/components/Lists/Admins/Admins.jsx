@@ -6,15 +6,10 @@ import { useEffect, useState } from 'react';
 import { useFetchDocuments } from '../../../hooks/useFetchDocuments';
 import { useUpdateDocument } from '../../../hooks/useUpdateDocument';
 
-// Context
-import { useDarkMode } from '../../../context/DarkModeContext';
-
-const Admins = () => {
+const Admins = ({ darkMode }) => {
   // Fetch de todos os usuários
   const { documents: allUsers, loading } = useFetchDocuments('users');
   const { updateDocument } = useUpdateDocument('users');
-
-  const { state } = useDarkMode();
 
   const [users, setUsers] = useState([]);
   const [message, setMessage] = useState('');
@@ -40,7 +35,7 @@ const Admins = () => {
 
       <h1
         className={`text-xl font-bold my-4 ${
-          state.darkMode ? 'text-cWhite' : 'text-cBlue'
+          darkMode ? 'text-cWhite' : 'text-cBlue'
         }`}>
         Administradores
       </h1>
@@ -51,18 +46,14 @@ const Admins = () => {
           <div
             key={user.id}
             className={`flex justify-between items-center p-4 mb-2 rounded-md ${
-              state.darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'
+              darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'
             }`}>
             <p
-              className={`w-1/2 ${
-                state.darkMode ? 'text-cWhite' : 'text-cDkBlack'
-              }`}>
+              className={`w-1/2 ${darkMode ? 'text-cWhite' : 'text-cDkBlack'}`}>
               {user.name}
             </p>
             <p
-              className={`w-1/2 ${
-                state.darkMode ? 'text-cWhite' : 'text-cDkBlack'
-              }`}>
+              className={`w-1/2 ${darkMode ? 'text-cWhite' : 'text-cDkBlack'}`}>
               {user.email}
             </p>
             <div className='flex gap-4 w-1/4 justify-end'>

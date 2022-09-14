@@ -11,9 +11,8 @@ import { useFetchDocuments } from '../../../hooks/useFetchDocuments';
 
 // Context
 import { useAuthValue } from '../../../context/AuthContext';
-import { useDarkMode } from '../../../context/DarkModeContext';
 
-const AddVideo = ({ setActive }) => {
+const AddVideo = ({ setActive, darkMode }) => {
   // Form States
   const [newCategory, setNewCategory] = useState('html');
   const [title, setTitle] = useState('');
@@ -32,8 +31,6 @@ const AddVideo = ({ setActive }) => {
   const { documents: videos } = useFetchDocuments('videos');
   // Pega as categorias
   const { documents: categories } = useFetchDocuments('categories');
-
-  const { state } = useDarkMode();
 
   // Hook de Upload de arquivos
   const {
@@ -153,10 +150,10 @@ const AddVideo = ({ setActive }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className={`form ${state.darkMode ? 'bg-cLtBlack' : 'bg-cWhite'}`}>
+      className={`form ${darkMode ? 'bg-cLtBlack' : 'bg-cWhite'}`}>
       <div
         className={`flex justify-between items-center  w-full mx-auto text-2xl font-bold ${
-          state.darkMode ? 'text-cWhite' : 'text-cBlue'
+          darkMode ? 'text-cWhite' : 'text-cBlue'
         }`}>
         <h1 className='text-center'>Enviar vídeo</h1>
         <BiX
@@ -167,16 +164,14 @@ const AddVideo = ({ setActive }) => {
       <label htmlFor='category' className='form-label'>
         <span
           className={`w-full font-bold ${
-            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cBlue '
           }`}>
           Categoria:
         </span>
         <select
           name='category'
           className={`form-input ${
-            state.darkMode
-              ? 'bg-cDkBlack text-cWhite'
-              : 'bg-cDkWhite text-cDkBlack'
+            darkMode ? 'bg-cDkBlack text-cWhite' : 'bg-cDkWhite text-cDkBlack'
           }`}
           value={newCategory}
           onChange={(e) => setNewCategory(e.target.value)}>
@@ -193,7 +188,7 @@ const AddVideo = ({ setActive }) => {
       <label htmlFor='title' className='form-label'>
         <span
           className={`w-full font-bold ${
-            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cBlue '
           }`}>
           Título:
         </span>
@@ -204,9 +199,7 @@ const AddVideo = ({ setActive }) => {
           onChange={(e) => setTitle(e.target.value)}
           placeholder='Digite o título do seu vídeo'
           className={`form-input ${
-            state.darkMode
-              ? 'bg-cDkBlack text-cWhite'
-              : 'bg-cDkWhite text-cDkBlack'
+            darkMode ? 'bg-cDkBlack text-cWhite' : 'bg-cDkWhite text-cDkBlack'
           }`}
           autoComplete='on'
         />
@@ -214,7 +207,7 @@ const AddVideo = ({ setActive }) => {
       <label htmlFor='description' className='form-label '>
         <span
           className={`w-full font-bold ${
-            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cBlue '
           }`}>
           Descrição:
         </span>
@@ -225,9 +218,7 @@ const AddVideo = ({ setActive }) => {
           onChange={(e) => setDescription(e.target.value)}
           placeholder='Digite a descrição do seu vídeo'
           className={`form-input resize-none h-24 ${
-            state.darkMode
-              ? 'bg-cDkBlack text-cWhite'
-              : 'bg-cDkWhite text-cDkBlack'
+            darkMode ? 'bg-cDkBlack text-cWhite' : 'bg-cDkWhite text-cDkBlack'
           }`}
           autoComplete='on'
         />
@@ -235,7 +226,7 @@ const AddVideo = ({ setActive }) => {
       <label htmlFor='file' className='form-label'>
         <span
           className={`w-full font-bold ${
-            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cBlue '
           }`}>
           Material:
         </span>
@@ -247,7 +238,7 @@ const AddVideo = ({ setActive }) => {
             // onChange={(e) => uploadFile('files', e.target.files[0])}
             onChange={(e) => setFileUpload(e.target.files[0])}
             className={`form-input text-sm max-w-full ${
-              state.darkMode ? 'text-cWhite' : 'text-cLtBlack'
+              darkMode ? 'text-cWhite' : 'text-cLtBlack'
             }`}
             disabled={filePath !== '' && fileUpload !== null}
           />
@@ -269,7 +260,7 @@ const AddVideo = ({ setActive }) => {
       <label htmlFor='video' className='form-label'>
         <span
           className={`w-full font-bold ${
-            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cBlue '
           }`}>
           Vídeo:
         </span>
@@ -282,7 +273,7 @@ const AddVideo = ({ setActive }) => {
             name='video'
             onChange={(e) => setVideoUpload(e.target.files[0])}
             className={`form-input text-sm max-w-full ${
-              state.darkMode ? 'text-cWhite' : 'text-cLtBlack'
+              darkMode ? 'text-cWhite' : 'text-cLtBlack'
             }`}
             disabled={videoPath !== '' && videoUpload !== null}
           />

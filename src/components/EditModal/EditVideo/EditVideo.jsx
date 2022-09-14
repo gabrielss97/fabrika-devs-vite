@@ -9,9 +9,8 @@ import { useFetchDocuments } from '../../../hooks/useFetchDocuments';
 
 // Context
 import { useAuthValue } from '../../../context/AuthContext';
-import { useDarkMode } from '../../../context/DarkModeContext';
 
-const EditVideo = ({ setActive, video }) => {
+const EditVideo = ({ setActive, video, darkMode }) => {
   // Form States
   const [newCategory, setNewCategory] = useState('html');
   const [title, setTitle] = useState('');
@@ -26,8 +25,6 @@ const EditVideo = ({ setActive, video }) => {
 
   // Pega as categorias
   const { documents: categories } = useFetchDocuments('categories');
-
-  const { state } = useDarkMode();
 
   // Hook de inserir documento no banco de dados
   const {
@@ -103,10 +100,10 @@ const EditVideo = ({ setActive, video }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className={`form ${state.darkMode ? 'bg-cLtBlack' : 'bg-cWhite'}`}>
+      className={`form ${darkMode ? 'bg-cLtBlack' : 'bg-cWhite'}`}>
       <div
         className={`flex justify-between items-center  w-full mx-auto text-2xl font-bold ${
-          state.darkMode ? 'text-cWhite' : 'text-cBlue'
+          darkMode ? 'text-cWhite' : 'text-cBlue'
         }`}>
         <h1 className='text-center'>Editar vídeo</h1>
         <BiX
@@ -117,16 +114,14 @@ const EditVideo = ({ setActive, video }) => {
       <label htmlFor='category' className='form-label'>
         <span
           className={`w-full font-bold ${
-            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cBlue '
           }`}>
           Categoria:
         </span>
         <select
           name='category'
           className={`form-input ${
-            state.darkMode
-              ? 'bg-cDkBlack text-cWhite'
-              : 'bg-cDkWhite text-cDkBlack'
+            darkMode ? 'bg-cDkBlack text-cWhite' : 'bg-cDkWhite text-cDkBlack'
           }`}
           value={newCategory}
           onChange={(e) => setNewCategory(e.target.value)}>
@@ -143,7 +138,7 @@ const EditVideo = ({ setActive, video }) => {
       <label htmlFor='title' className='form-label'>
         <span
           className={`w-full font-bold ${
-            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cBlue '
           }`}>
           Título:
         </span>
@@ -154,9 +149,7 @@ const EditVideo = ({ setActive, video }) => {
           onChange={(e) => setTitle(e.target.value)}
           placeholder='Digite o título do seu vídeo'
           className={`form-input ${
-            state.darkMode
-              ? 'bg-cDkBlack text-cWhite'
-              : 'bg-cDkWhite text-cDkBlack'
+            darkMode ? 'bg-cDkBlack text-cWhite' : 'bg-cDkWhite text-cDkBlack'
           }`}
           autoComplete='on'
         />
@@ -164,7 +157,7 @@ const EditVideo = ({ setActive, video }) => {
       <label htmlFor='description' className='form-label '>
         <span
           className={`w-full font-bold ${
-            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cBlue '
           }`}>
           Descrição:
         </span>
@@ -175,9 +168,7 @@ const EditVideo = ({ setActive, video }) => {
           onChange={(e) => setDescription(e.target.value)}
           placeholder='Digite a descrição do seu vídeo'
           className={`form-input resize-none h-24 ${
-            state.darkMode
-              ? 'bg-cDkBlack text-cWhite'
-              : 'bg-cDkWhite text-cDkBlack'
+            darkMode ? 'bg-cDkBlack text-cWhite' : 'bg-cDkWhite text-cDkBlack'
           }`}
           autoComplete='on'
         />
@@ -185,7 +176,7 @@ const EditVideo = ({ setActive, video }) => {
       <label htmlFor='order' className='form-label '>
         <span
           className={`w-full font-bold ${
-            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cBlue '
           }`}>
           Ordem:
         </span>
@@ -196,9 +187,7 @@ const EditVideo = ({ setActive, video }) => {
           onChange={(e) => setOrder(e.target.value)}
           placeholder='Digite a ordem desejada do seu vídeo'
           className={`form-input ${
-            state.darkMode
-              ? 'bg-cDkBlack text-cWhite'
-              : 'bg-cDkWhite text-cDkBlack'
+            darkMode ? 'bg-cDkBlack text-cWhite' : 'bg-cDkWhite text-cDkBlack'
           }`}
           autoComplete='on'
         />

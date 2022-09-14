@@ -5,13 +5,8 @@ import { BiX } from 'react-icons/bi';
 import React, { useEffect, useState } from 'react';
 import { useUpdateDocument } from '../../../hooks/useUpdateDocument';
 
-// Context
-import { useDarkMode } from '../../../context/DarkModeContext';
-
-const EditCategory = ({ setActive, category }) => {
+const EditCategory = ({ setActive, category, darkMode }) => {
   const { updateDocument } = useUpdateDocument('categories');
-
-  const { state } = useDarkMode();
 
   const [newCategory, setNewCategory] = useState('');
   const [order, setOrder] = useState('');
@@ -56,11 +51,11 @@ const EditCategory = ({ setActive, category }) => {
     <form
       onSubmit={handleSubmit}
       className={`form  mt-60 md:mt-0 max-w-[90%] md:w-[90%] md:max-w-5xl mx-auto rounded-md ${
-        state.darkMode ? 'bg-cLtBlack' : 'bg-cWhite'
+        darkMode ? 'bg-cLtBlack' : 'bg-cWhite'
       }`}>
       <div
         className={`flex justify-between items-center  w-full mx-auto text-2xl  font-bold ${
-          state.darkMode ? 'text-cWhite' : 'text-cBlue '
+          darkMode ? 'text-cWhite' : 'text-cBlue '
         }`}>
         <h1 className=' text-center'>Editar categoria</h1>
         <BiX
@@ -71,7 +66,7 @@ const EditCategory = ({ setActive, category }) => {
       <label htmlFor='newCategory' className='form-label'>
         <span
           className={`w-full font-bold ${
-            state.darkMode ? 'text-cWhite' : 'text-cBlue'
+            darkMode ? 'text-cWhite' : 'text-cBlue'
           }`}>
           Nome da categoria:
         </span>
@@ -81,16 +76,14 @@ const EditCategory = ({ setActive, category }) => {
           value={newCategory || ''}
           onChange={(e) => setNewCategory(e.target.value)}
           className={`form-input ${
-            state.darkMode
-              ? 'bg-cDkBlack text-cWhite'
-              : 'bg-cDkWhite text-cDkBlack'
+            darkMode ? 'bg-cDkBlack text-cWhite' : 'bg-cDkWhite text-cDkBlack'
           }`}
         />
       </label>
       <label htmlFor='order' className='form-label'>
         <span
           className={`w-full font-bold ${
-            state.darkMode ? 'text-cWhite' : 'text-cBlue'
+            darkMode ? 'text-cWhite' : 'text-cBlue'
           }`}>
           Ordem:
         </span>
@@ -100,9 +93,7 @@ const EditCategory = ({ setActive, category }) => {
           value={order || ''}
           onChange={(e) => setOrder(e.target.value)}
           className={`form-input ${
-            state.darkMode
-              ? 'bg-cDkBlack text-cWhite'
-              : 'bg-cDkWhite text-cDkBlack'
+            darkMode ? 'bg-cDkBlack text-cWhite' : 'bg-cDkWhite text-cDkBlack'
           }`}
         />
       </label>

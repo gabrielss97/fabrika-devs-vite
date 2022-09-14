@@ -5,15 +5,10 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../../hooks/useAuth';
 
-// Context
-import { useDarkMode } from '../../../context/DarkModeContext';
-
-const Login = () => {
+const Login = ({ darkMode }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState('');
-
-  const { state } = useDarkMode();
 
   const { login, error: AuthError, loading } = useAuth();
 
@@ -37,22 +32,20 @@ const Login = () => {
   return (
     <div
       className={`heightCalc flex flex-col items-center justify-center w-full p-4 ${
-        state.darkMode ? 'bg-cDkBlack' : 'bg-cWhite'
+        darkMode ? 'bg-cDkBlack' : 'bg-cWhite'
       }`}>
       <form
         onSubmit={handleSubmit}
-        className={`form ${state.darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'}`}>
+        className={`form ${darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'}`}>
         <label htmlFor='email' className='form-label'>
           <h1
             className={`text-2xl text-center mb-5 font-bold ${
-              state.darkMode ? 'text-cWhite' : 'text-cBlue'
+              darkMode ? 'text-cWhite' : 'text-cBlue'
             }`}>
             Entre para assisistir as aulas!
           </h1>
           <span
-            className={`font-bold  ${
-              state.darkMode ? 'text-cWhite' : 'text-cBlue'
-            }`}>
+            className={`font-bold  ${darkMode ? 'text-cWhite' : 'text-cBlue'}`}>
             E-mail:
           </span>
           <input
@@ -62,18 +55,14 @@ const Login = () => {
             value={email || ''}
             onChange={(e) => setEmail(e.target.value)}
             className={`form-input ${
-              state.darkMode
-                ? 'bg-cDkBlack text-cWhite'
-                : 'bg-cWhite text-cDkBlack'
+              darkMode ? 'bg-cDkBlack text-cWhite' : 'bg-cWhite text-cDkBlack'
             }`}
             autoComplete='on'
           />
         </label>
         <label htmlFor='password' className='form-label'>
           <span
-            className={`font-bold  ${
-              state.darkMode ? 'text-cWhite' : 'text-cBlue'
-            }`}>
+            className={`font-bold  ${darkMode ? 'text-cWhite' : 'text-cBlue'}`}>
             Senha:
           </span>
           <input
@@ -83,9 +72,7 @@ const Login = () => {
             value={password || ''}
             onChange={(e) => setPassword(e.target.value)}
             className={`form-input ${
-              state.darkMode
-                ? 'bg-cDkBlack text-cWhite'
-                : 'bg-cWhite text-cDkBlack'
+              darkMode ? 'bg-cDkBlack text-cWhite' : 'bg-cWhite text-cDkBlack'
             }`}
             autoComplete='on'
           />
@@ -108,7 +95,7 @@ const Login = () => {
         {error && <p className='error'>{error}</p>}
         <p
           className={`flex gap-4 ${
-            state.darkMode ? 'text-cWhite' : 'text-cLtBlack'
+            darkMode ? 'text-cWhite' : 'text-cLtBlack'
           }`}>
           Esqueceu sua senha?
           <Link
@@ -119,7 +106,7 @@ const Login = () => {
         </p>
         <p
           className={`flex gap-4 ${
-            state.darkMode ? 'text-cWhite' : 'text-cLtBlack'
+            darkMode ? 'text-cWhite' : 'text-cLtBlack'
           }`}>
           Não possui uma conta?
           <Link

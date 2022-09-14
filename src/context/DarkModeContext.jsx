@@ -1,24 +1,13 @@
-import { useContext, createContext, useReducer } from 'react';
+import { useContext, createContext, useState } from 'react';
 
 const DarkModeContext = createContext();
 
-const initialState = { darkMode: true };
-
-const themeReducer = (state, action) => {
-  switch (action.type) {
-    case 'toggle':
-      return { darkMode: !state.darkMode };
-    default:
-      return state;
-  }
-};
-
 export function DarkModeProvider({ children }) {
-  const [state, dispatch] = useReducer(themeReducer, initialState);
+  const [darkMode, setDarkMode] = useState(true);
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <DarkModeContext.Provider value={{ state, dispatch }}>
+    <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
       {children}
     </DarkModeContext.Provider>
   );

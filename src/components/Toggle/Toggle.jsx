@@ -1,12 +1,8 @@
 import { RiSunFill, RiMoonFill } from 'react-icons/ri';
 
-import { useDarkMode } from '../../context/DarkModeContext';
-
-function Toggle() {
-  const { state, dispatch } = useDarkMode();
-
+function Toggle({ darkMode, setDarkMode }) {
   const handleClick = () => {
-    dispatch({ type: 'toggle' });
+    setDarkMode(!darkMode);
   };
 
   return (
@@ -17,7 +13,7 @@ function Toggle() {
       <RiSunFill className='w-4 h-4 text-cBlue' />
       <div
         className={`rounded-full absolute bg-cBlue w-4 h-4 ${
-          state.darkMode ? 'right-[2px]' : 'left-[2px]'
+          darkMode ? 'right-[2px]' : 'left-[2px]'
         }  `}
       />
     </div>

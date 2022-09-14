@@ -7,14 +7,11 @@ import { HiOutlinePencilAlt } from 'react-icons/hi';
 // Hooks
 import { useDeleteDocument } from '../../../hooks/useDeleteDocument';
 import { useFetchDocuments } from '../../../hooks/useFetchDocuments';
-import { useDarkMode } from '../../../context/DarkModeContext';
 
-const Videos = ({ setActive, setVideo }) => {
+const Videos = ({ setActive, setVideo, darkMode }) => {
   // Fetch de todos os videos
   const { documents: videos, loading } = useFetchDocuments('videos');
   const { documents: categories } = useFetchDocuments('categories');
-
-  const { state } = useDarkMode();
 
   // Função de deletar documentos
   const { deleteVideo } = useDeleteDocument('videos');
@@ -39,7 +36,7 @@ const Videos = ({ setActive, setVideo }) => {
                 <div key={v4()} className='mb-8'>
                   <h1
                     className={`text-2xl pl-2 uppercase font-bold mb-2 ${
-                      state.darkMode ? 'text-cWhite' : 'text-cBlue'
+                      darkMode ? 'text-cWhite' : 'text-cBlue'
                     }`}>
                     {category.name}
                   </h1>
@@ -50,11 +47,11 @@ const Videos = ({ setActive, setVideo }) => {
                           <div
                             key={v4()}
                             className={`flex justify-between items-center p-4 mb-2 rounded-md ${
-                              state.darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'
+                              darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'
                             }`}>
                             <p
                               className={`max-w-4/5 ${
-                                state.darkMode ? 'text-cWhite' : 'text-cDkBlack'
+                                darkMode ? 'text-cWhite' : 'text-cDkBlack'
                               }`}>
                               {video.title}
                             </p>

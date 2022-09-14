@@ -1,15 +1,11 @@
 // Icons
 import { CgRemove } from 'react-icons/cg';
 
-// Context
-import { useDarkMode } from '../../../context/DarkModeContext';
-
 // Hooks
 import { useDeleteDocument } from '../../../hooks/useDeleteDocument';
 
-const Mails = ({ mails }) => {
+const Mails = ({ mails, darkMode }) => {
   const { deleteDocument } = useDeleteDocument('mailslist');
-  const { state } = useDarkMode();
 
   if (mails === null) {
     return;
@@ -23,7 +19,7 @@ const Mails = ({ mails }) => {
     <div className='w-full md:max-w-7xl mx-auto mt-8g'>
       <h1
         className={`text-xl font-bold my-4 ${
-          state.darkMode ? 'text-cWhite' : 'text-cBlue'
+          darkMode ? 'text-cWhite' : 'text-cBlue'
         }`}>
         E-mails permitidos
       </h1>
@@ -35,11 +31,11 @@ const Mails = ({ mails }) => {
             <div
               key={mail.id}
               className={`flex justify-between items-center p-4 mb-2 rounded-md ${
-                state.darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'
+                darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'
               }`}>
               <p
                 className={`w-1/2 ${
-                  state.darkMode ? 'text-cWhite' : 'text-cDkBlack'
+                  darkMode ? 'text-cWhite' : 'text-cDkBlack'
                 }`}>
                 {mail.email}
               </p>

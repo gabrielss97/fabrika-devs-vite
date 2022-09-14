@@ -1,13 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const NotFound = () => {
+const NotFound = ({ darkMode }) => {
   return (
-    <div className='flex flex-col gap-10 items-center justify-center heightCalc min-w-full'>
+    <div
+      className={`flex flex-col gap-10 items-center justify-center heightCalc min-w-full ${
+        darkMode ? 'bg-cDkBlack' : ''
+      }`}>
       <h1 className='font-bold text-8xl text-cBlue'>404</h1>
-      <p>
+      <p className={` ${darkMode ? 'text-cWhite' : ''}`}>
         Página não encontrada, volte para o{' '}
-        <Link to='/' className=' font-bold text-cBlue'>
+        <Link to='/' className='font-bold text-cBlue'>
           início
         </Link>
       </p>

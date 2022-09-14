@@ -5,13 +5,8 @@ import { BiX } from 'react-icons/bi';
 import { useEffect, useState } from 'react';
 import { useInsertDocument } from '../../../hooks/useInsertDocument';
 
-// Context
-import { useDarkMode } from '../../../context/DarkModeContext';
-
-const AddMail = ({ setActive, mails }) => {
+const AddMail = ({ setActive, mails, darkMode }) => {
   const { insertDocument } = useInsertDocument('mailslist');
-
-  const { state } = useDarkMode();
 
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
@@ -66,11 +61,11 @@ const AddMail = ({ setActive, mails }) => {
     <form
       onSubmit={handleSubmit}
       className={`form mt-60 md:mt-0 max-w-[90%] md:w-[90%] md:max-w-5xl mx-auto rounded-md ${
-        state.darkMode ? 'bg-cLtBlack' : 'bg-cWhite'
+        darkMode ? 'bg-cLtBlack' : 'bg-cWhite'
       }`}>
       <div
         className={`flex justify-between items-center  w-full mx-auto text-2xl font-bold ${
-          state.darkMode ? 'text-cWhite' : 'text-cBlue'
+          darkMode ? 'text-cWhite' : 'text-cBlue'
         }`}>
         <h1 className=' text-center'>Adicionar e-mail</h1>
         <BiX
@@ -81,7 +76,7 @@ const AddMail = ({ setActive, mails }) => {
       <label htmlFor='newCategory' className='form-label'>
         <span
           className={`w-full font-bold ${
-            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cBlue '
           }`}>
           Novo usuário:
         </span>
@@ -90,9 +85,7 @@ const AddMail = ({ setActive, mails }) => {
           value={email || ''}
           onChange={(e) => setEmail(e.target.value)}
           className={`form-input ${
-            state.darkMode
-              ? 'bg-cDkBlack text-cWhite'
-              : 'bg-cDkWhite text-cDkBlack'
+            darkMode ? 'bg-cDkBlack text-cWhite' : 'bg-cDkWhite text-cDkBlack'
           }`}
         />
       </label>

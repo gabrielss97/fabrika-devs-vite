@@ -12,6 +12,7 @@ import { useFetchDocuments } from './hooks/useFetchDocuments';
 
 // Context
 import { AuthProvider } from './context/AuthContext';
+import { useDarkMode } from './context/DarkModeContext';
 
 // Components
 import Header from './components/Header/Header';
@@ -52,6 +53,8 @@ function App() {
     }
   }, [users]);
 
+  const { darkMode, setDarkMode } = useDarkMode();
+
   const loadingUser = user === undefined;
 
   if (loadingUser) {
@@ -61,50 +64,99 @@ function App() {
   return (
     <div className='App'>
       <AuthProvider value={{ user }}>
-        <Header admin={admin} user={user} />
+        <Header
+          admin={admin}
+          user={user}
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+        />
         <Routes>
-          {!user && <Route path='/' element={<Login />} />}
+          {!user && <Route path='/' element={<Login darkMode={darkMode} />} />}
 
           {user && (
             <Route
               path='/'
-              element={admin ? <Panel user={user} /> : <Content user={user} />}
+              element={
+                admin ? (
+                  <Panel user={user} darkMode={darkMode} />
+                ) : (
+                  <Content user={user} darkMode={darkMode} />
+                )
+              }
             />
           )}
 
           <Route
             path='/register'
-            element={!user ? <Register /> : <Navigate to='/' />}
+            element={
+              !user ? <Register darkMode={darkMode} /> : <Navigate to='/' />
+            }
           />
 
           <Route
             path='/forgot-password'
-            element={!user ? <ForgotPassword /> : <Navigate to='/' />}
+            element={
+              !user ? (
+                <ForgotPassword darkMode={darkMode} />
+              ) : (
+                <Navigate to='/' />
+              )
+            }
           />
 
           <Route
             path='/profile'
-            element={user ? <Profile user={user} /> : <Navigate to='/' />}
+            element={
+              user ? (
+                <Profile user={user} darkMode={darkMode} />
+              ) : (
+                <Navigate to='/' />
+              )
+            }
           />
 
           <Route
             path='/admins'
-            element={user && admin ? <Admins /> : <Navigate to='/' />}
+            element={
+              user && admin ? (
+                <Admins darkMode={darkMode} />
+              ) : (
+                <Navigate to='/' />
+              )
+            }
           />
           <Route
             path='/users'
-            element={user && admin ? <Users /> : <Navigate to='/' />}
+            element={
+              user && admin ? (
+                <Users darkMode={darkMode} />
+              ) : (
+                <Navigate to='/' />
+              )
+            }
           />
           <Route
             path='/categories'
-            element={user && admin ? <Categories /> : <Navigate to='/' />}
+            element={
+              user && admin ? (
+                <Categories darkMode={darkMode} />
+              ) : (
+                <Navigate to='/' />
+              )
+            }
           />
           <Route
             path='/videos'
-            element={user && admin ? <Videos /> : <Navigate to='/' />}
+            element={
+              user && admin ? (
+                <Videos darkMode={darkMode} />
+              ) : (
+                <Navigate to='/' />
+              )
+            }
           />
 
-          <Route path='/*' element={<NotFound />} />
+          <Route path='/*' element={<NotFound darkMode={darkMode} />} />
         </Routes>
       </AuthProvider>
     </div>

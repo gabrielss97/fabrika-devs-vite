@@ -9,15 +9,10 @@ import { useUpdateDocument } from '../../../hooks/useUpdateDocument';
 import { useDeleteDocument } from '../../../hooks/useDeleteDocument';
 import { useAuth } from '../../../hooks/useAuth';
 
-// Context
-import { useDarkMode } from '../../../context/DarkModeContext';
-
-const Users = () => {
+const Users = ({ darkMode }) => {
   // Fetch de todos os usuários
   const { documents: allUsers, loading } = useFetchDocuments('users');
   const { updateDocument } = useUpdateDocument('users');
-
-  const { state } = useDarkMode();
 
   const [users, setUsers] = useState([]);
 
@@ -49,7 +44,7 @@ const Users = () => {
     <div className='w-full md:max-w-7xl mx-auto mt-8'>
       <h1
         className={`text-xl font-bold my-4 ${
-          state.darkMode ? 'text-cWhite' : 'text-cBlue'
+          darkMode ? 'text-cWhite' : 'text-cBlue'
         }`}>
         Usuários Cadastrados
       </h1>
@@ -59,21 +54,21 @@ const Users = () => {
           <div
             key={user.id}
             className={`flex justify-between items-center p-4 mb-2 rounded-md ${
-              state.darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'
+              darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'
             }`}>
             <p
-              className={`max-w-2/5 ${
-                state.darkMode ? 'text-cWhite' : 'text-cDkBlack'
+              className={`max-w-[20%] text-[.8rem] md:text-[1rem] ${
+                darkMode ? 'text-cWhite' : 'text-cDkBlack'
               }`}>
               {user.name}
             </p>
             <p
-              className={`max-w-2/5 ${
-                state.darkMode ? 'text-cWhite' : 'text-cDkBlack'
+              className={`w-full text-[.7rem] text-center md:text-[1rem] md:text-left ${
+                darkMode ? 'text-cWhite' : 'text-cDkBlack'
               }`}>
               {user.email}
             </p>
-            <div className='flex gap-4 max-w-1/5 justify-end'>
+            <div className='flex flex-col md:flex-row gap-4 max-w-1/10 justify-end'>
               <button
                 type='button'
                 className='text-cBlue'

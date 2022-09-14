@@ -9,9 +9,6 @@ import { RiFullscreenLine } from 'react-icons/ri';
 import { useState, useRef, useEffect } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 
-// Context
-import { useDarkMode } from '../../context/DarkModeContext';
-
 function usePlayerState($videoPlayer) {
   const [playerState, setPlayerState] = useState({
     playing: false,
@@ -73,8 +70,7 @@ function usePlayerState($videoPlayer) {
   };
 }
 
-const VideoPlayer = ({ video }) => {
-  const { state } = useDarkMode();
+const VideoPlayer = ({ video, darkMode }) => {
   const $videoPlayer = useRef(null);
   const {
     playerState,
@@ -108,9 +104,7 @@ const VideoPlayer = ({ video }) => {
       />
       <div
         className={`flex p-4 items-center gap-4 border-b-1  ${
-          state.darkMode
-            ? 'bg-cDkBlack border-cLtBlack'
-            : 'bg-cMdWhite border-cWhite'
+          darkMode ? 'bg-cDkBlack border-cLtBlack' : 'bg-cMdWhite border-cWhite'
         }`}>
         <button type='button' onClick={toggleVideoPlay} className='text-cBlue'>
           {playerState.playing ? <FaPause /> : <FaPlay />}
@@ -125,7 +119,7 @@ const VideoPlayer = ({ video }) => {
         />
         <select
           className={`text-xs font-bold text-cBlue ${
-            state.darkMode ? 'bg-cDkBlack' : 'bg-cDkWhite'
+            darkMode ? 'bg-cDkBlack' : 'bg-cDkWhite'
           }`}
           onChange={handleSpeed}>
           <option value='1'>1x</option>

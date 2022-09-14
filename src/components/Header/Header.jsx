@@ -21,9 +21,8 @@ import { useAuth } from '../../hooks/useAuth';
 // Assets
 import logo from '../../assets/logo-gray.png';
 import Toggle from '../Toggle/Toggle';
-import { useDarkMode } from '../../context/DarkModeContext';
 
-const Header = ({ admin, user }) => {
+const Header = ({ admin, user, darkMode, setDarkMode }) => {
   const [showModal, setShowModal] = useState(false);
   const { logout } = useAuth();
 
@@ -33,17 +32,15 @@ const Header = ({ admin, user }) => {
     window.location.reload();
   };
 
-  const { state } = useDarkMode();
-
   return (
     <header>
       <div
         className={`flex justify-between items-center  h-20 text-cWhite shadow-md p-4 md:p-8 ${
-          state.darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'
+          darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'
         } `}>
         <Link to='/' className='flex w-32 justify-between items-center'>
           <img src={logo} alt='logo' className='w-16' />
-          <Toggle />
+          <Toggle darkMode={darkMode} setDarkMode={setDarkMode} />
         </Link>
         {user !== null && (
           <div
@@ -69,7 +66,7 @@ const Header = ({ admin, user }) => {
                 className={`${
                   showModal ? '' : 'hidden'
                 } relative w-80 right-72 shadow-lg border-1 font-bold rounded-md mt-1 z-10 ${
-                  state.darkMode
+                  darkMode
                     ? 'bg-cLtBlack text-cDkWhite border-cDkBlack'
                     : ' bg-cWhite text-cLtBlack border-cDkWhite'
                 }`}>
@@ -101,7 +98,7 @@ const Header = ({ admin, user }) => {
                 className={`${
                   showModal ? '' : 'hidden'
                 } relative w-80 right-72 shadow-lg border-1 font-bold rounded-md mt-1 z-10 ${
-                  state.darkMode
+                  darkMode
                     ? 'bg-cLtBlack text-cDkWhite border-cDkBlack'
                     : 'bg-cWhite text-cLtBlack border-cDkWhite'
                 }`}>

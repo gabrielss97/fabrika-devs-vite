@@ -8,11 +8,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useUpdateDocument } from '../../hooks/useUpdateDocument';
 import { useUploadDocument } from '../../hooks/useUploadDocument';
 
-// Context
-import { useDarkMode } from '../../context/DarkModeContext';
-
-const Profile = ({ user }) => {
-  const { state } = useDarkMode();
+const Profile = ({ user, darkMode }) => {
   const { document: userProfile } = useFetchDocument('users', user.uid);
   const { updateUserPassword, error: authError, updateUserImage } = useAuth();
   const { updateDocument, response } = useUpdateDocument('users');
@@ -113,7 +109,7 @@ const Profile = ({ user }) => {
   return (
     <div
       className={`w-full heightCalc  ${
-        state.darkMode ? 'bg-cDkBlack' : 'bg-cWhite'
+        darkMode ? 'bg-cDkBlack' : 'bg-cWhite'
       }`}>
       <form
         onSubmit={handleSubmit}
@@ -140,15 +136,13 @@ const Profile = ({ user }) => {
         <label className='form-label' htmlFor='username'>
           <span
             className={`w-full font-bold ${
-              state.darkMode ? 'text-cWhite' : 'text-cBlue '
+              darkMode ? 'text-cWhite' : 'text-cBlue '
             }`}>
             Nome:
           </span>
           <input
             className={`form-input ${
-              state.darkMode
-                ? 'bg-cLtBlack text-cWhite'
-                : 'bg-cDkWhite text-cDkBlack'
+              darkMode ? 'bg-cLtBlack text-cWhite' : 'bg-cDkWhite text-cDkBlack'
             }`}
             name='username'
             type='text'
@@ -160,7 +154,7 @@ const Profile = ({ user }) => {
         <label className='form-label' htmlFor='image'>
           <span
             className={`w-full font-bold ${
-              state.darkMode ? 'text-cWhite' : 'text-cBlue '
+              darkMode ? 'text-cWhite' : 'text-cBlue '
             }`}>
             Foto de perfil:
           </span>
@@ -175,7 +169,7 @@ const Profile = ({ user }) => {
                 setUserImage(e.target.files[0]);
               }}
               className={`form-input text-sm max-w-full ${
-                state.darkMode ? 'text-cWhite' : 'text-cLtBlack'
+                darkMode ? 'text-cWhite' : 'text-cLtBlack'
               }`}
               disabled={profileImagePath !== '' && userImage !== null}
             />
@@ -198,13 +192,13 @@ const Profile = ({ user }) => {
         <label className='form-label' htmlFor='email'>
           <span
             className={`w-full font-bold ${
-              state.darkMode ? 'text-cWhite' : 'text-cBlue '
+              darkMode ? 'text-cWhite' : 'text-cBlue '
             }`}>
             E-mail:
           </span>
           <input
             className={`form-input ${
-              state.darkMode ? 'bg-cDkWhite' : 'bg-cLtBlack text-cWhite'
+              darkMode ? 'bg-cDkWhite' : 'bg-cLtBlack text-cWhite'
             }`}
             name='email'
             type='email'
@@ -215,15 +209,13 @@ const Profile = ({ user }) => {
         <label className='form-label' htmlFor='password'>
           <span
             className={`w-full font-bold ${
-              state.darkMode ? 'text-cWhite' : 'text-cBlue '
+              darkMode ? 'text-cWhite' : 'text-cBlue '
             }`}>
             Alterar senha:
           </span>
           <input
             className={`form-input ${
-              state.darkMode
-                ? 'bg-cLtBlack text-cWhite'
-                : 'bg-cDkWhite text-cDkBlack'
+              darkMode ? 'bg-cLtBlack text-cWhite' : 'bg-cDkWhite text-cDkBlack'
             }`}
             name='password'
             type='password'
@@ -235,15 +227,13 @@ const Profile = ({ user }) => {
         <label className='form-label' htmlFor='confirmPassword'>
           <span
             className={`w-full font-bold ${
-              state.darkMode ? 'text-cWhite' : 'text-cBlue '
+              darkMode ? 'text-cWhite' : 'text-cBlue '
             }`}>
             Confirmar senha:
           </span>
           <input
             className={`form-input ${
-              state.darkMode
-                ? 'bg-cLtBlack text-cWhite'
-                : 'bg-cDkWhite text-cDkBlack'
+              darkMode ? 'bg-cLtBlack text-cWhite' : 'bg-cDkWhite text-cDkBlack'
             }`}
             name='confirmPassword'
             type='password'

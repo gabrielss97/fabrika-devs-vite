@@ -10,20 +10,15 @@ import AddMail from '../../../components/AddModal/AddMail/AddMail';
 import Mails from '../../../components/Lists/Mails/Mails';
 import UsersList from '../../../components/Lists/Users/Users';
 
-// Context
-import { useDarkMode } from '../../../context/DarkModeContext';
-
-const Users = () => {
+const Users = ({ darkMode }) => {
   const { documents: emails } = useFetchDocuments('mailslist');
-
-  const { state } = useDarkMode();
 
   const [active, setActive] = useState(false);
 
   return (
     <div
       className={`p-4 flex flex-col heightCalc ${
-        state.darkMode ? 'bg-cDkBlack' : 'bg-cWhite'
+        darkMode ? 'bg-cDkBlack' : 'bg-cWhite'
       }`}>
       <button
         type='button'
@@ -33,10 +28,10 @@ const Users = () => {
       </button>
 
       <div>
-        <Mails mails={emails} />
+        <Mails mails={emails} darkMode={darkMode} />
       </div>
       <div>
-        <UsersList />
+        <UsersList darkMode={darkMode} />
       </div>
 
       <div
@@ -45,7 +40,7 @@ const Users = () => {
             ? 'absolute w-full h-[100vh] bg-cBlackTransp transp top-0 left-0'
             : 'hidden'
         }`}>
-        <AddMail setActive={setActive} mails={emails} />
+        <AddMail setActive={setActive} mails={emails} darkMode={darkMode} />
       </div>
     </div>
   );

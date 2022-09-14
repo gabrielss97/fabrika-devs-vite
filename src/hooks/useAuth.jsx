@@ -170,7 +170,14 @@ export const useAuth = () => {
       );
       setLoading(false);
     } catch (e) {
-      setError(e.message);
+      let systemErrorMsg;
+
+      if (e.message.includes('user-not-found')) {
+        systemErrorMsg = 'Usuário não encontrado.';
+      } else {
+        systemErrorMsg = 'Ocorreu um erro, tente novamente mais tarde.';
+      }
+      setError(systemErrorMsg);
       setLoading(false);
     }
   };

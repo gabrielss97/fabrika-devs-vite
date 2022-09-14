@@ -10,17 +10,12 @@ import { useEffect, useState } from 'react';
 import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 import { useWindowSize } from '../../hooks/useWindowSize';
 
-// Context
-import { useDarkMode } from '../../context/DarkModeContext';
-
 // Components
 import Contents from '../../components/Lists/Contents/Contents';
 import VideoPlayer from '../../components/VideoPlayer/VideoPlayer';
 
-const Content = ({ user }) => {
+const Content = ({ user, darkMode }) => {
   const [currentVideo, setCurrentVideo] = useState({});
-
-  const { state } = useDarkMode();
 
   const size = useWindowSize();
 
@@ -44,14 +39,11 @@ const Content = ({ user }) => {
   return (
     <>
       {size[0] > 1024 && (
-        <div
-          className={`flex ${
-            state.darkMode ? ' bg-cMdBlack ' : 'bg-cMdWhite'
-          }`}>
+        <div className={`flex ${darkMode ? ' bg-cMdBlack ' : 'bg-cMdWhite'}`}>
           {currentVideo !== null && (
             <div className='w-full'>
               <div>
-                <VideoPlayer video={currentVideo} />
+                <VideoPlayer video={currentVideo} darkMode={darkMode} />
               </div>
               <div className='flex flex-col items-start gap-4 p-4'>
                 {currentVideo && currentVideo.files && (
@@ -65,13 +57,13 @@ const Content = ({ user }) => {
                 )}
                 <h2
                   className={`text-lg uppercase font-bold ${
-                    state.darkMode ? 'text-cDkWhite ' : ' text-cBlue'
+                    darkMode ? 'text-cDkWhite' : ' text-cBlue'
                   }`}>
                   Descrição:
                 </h2>
                 <p
                   className={`text-sm ${
-                    state.darkMode ? 'text-cDkWhite ' : ' text-cLtBlack'
+                    darkMode ? 'text-cDkWhite ' : ' text-cLtBlack'
                   }`}>
                   {currentVideo && currentVideo.description}
                 </p>
@@ -81,7 +73,7 @@ const Content = ({ user }) => {
 
           <div
             className={`w-1/4 max-w-sm shadow-md heightCalc ${
-              state.darkMode ? 'bg-cDkBlack' : 'bg-cWhite'
+              darkMode ? 'bg-cDkBlack' : 'bg-cWhite'
             }`}>
             {categories &&
               categories
@@ -93,6 +85,7 @@ const Content = ({ user }) => {
                     setCurrentVideo={setCurrentVideo}
                     user={user}
                     key={category.id}
+                    darkMode={darkMode}
                   />
                 ))}
           </div>
@@ -100,16 +93,16 @@ const Content = ({ user }) => {
       )}
       {size[0] < 1024 && (
         <div
-          className={` heightCalc ${
-            state.darkMode ? ' bg-cLtBlack' : 'bg-cWhite'
-          }`}>
-          {currentVideo !== null && <VideoPlayer video={currentVideo} />}
+          className={` heightCalc ${darkMode ? 'bg-cLtBlack' : 'bg-cWhite'}`}>
+          {currentVideo !== null && (
+            <VideoPlayer video={currentVideo} darkMode={darkMode} />
+          )}
 
           <Tabs>
             <TabList>
               <Tab
                 style={
-                  state.darkMode
+                  darkMode
                     ? { background: '#121212' }
                     : { background: '#ffffff' }
                 }>
@@ -117,7 +110,7 @@ const Content = ({ user }) => {
               </Tab>
               <Tab
                 style={
-                  state.darkMode
+                  darkMode
                     ? { background: '#121212' }
                     : { background: '#ffffff' }
                 }>
@@ -128,7 +121,7 @@ const Content = ({ user }) => {
             <TabPanel>
               <div
                 className={`flex flex-col items-start gap-4 p-4 ${
-                  state.darkMode ? 'text-cWhite' : 'text-cDkGray'
+                  darkMode ? 'text-cWhite' : 'text-cDkGray'
                 }`}>
                 {currentVideo && currentVideo.files && (
                   <a
@@ -161,6 +154,7 @@ const Content = ({ user }) => {
                       videos={videos}
                       user={user}
                       setCurrentVideo={setCurrentVideo}
+                      darkMode={darkMode}
                     />
                   ))}
             </TabPanel>

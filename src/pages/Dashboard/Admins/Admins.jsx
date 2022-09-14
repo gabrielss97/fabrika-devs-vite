@@ -1,18 +1,13 @@
 // Components
 import AdminsList from '../../../components/Lists/Admins/Admins';
 
-// Context
-import { useDarkMode } from '../../../context/DarkModeContext';
-
-const Admins = () => {
-  const { state } = useDarkMode();
-
+const Admins = ({ darkMode }) => {
   return (
     <div
       className={`p-4 flex flex-col heightCalc ${
-        state.darkMode ? 'bg-cDkBlack' : 'bg-cWhite'
+        darkMode ? 'bg-cDkBlack' : 'bg-cWhite'
       }`}>
-      <AdminsList />
+      <AdminsList darkMode={darkMode} />
     </div>
   );
 };
