@@ -1,10 +1,16 @@
+// Routes
+import { Link } from 'react-router-dom';
+
 // Hooks
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 import { useFetchDocuments } from '../../../hooks/useFetchDocuments';
 
+// Context
+import { useDarkMode } from '../../../context/DarkModeContext';
+
 const Register = () => {
+  const { state } = useDarkMode();
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -59,87 +65,132 @@ const Register = () => {
   }, [error]);
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className='form justify-start md:justify-center'>
-      <div className='w-full mx-auto text-center'>
-        <h1 className='text-2xl  font-bold text-cBlue '>Cadastro</h1>
-        <p>Entre para poder assistir as aulas!</p>
-      </div>
-      <label htmlFor='displayName' className='form-label'>
-        <span className='font-bold text-cBlue w-full'>Nome:</span>
-        <input
-          type='text'
-          name='displayName'
-          required
-          value={displayName || ''}
-          onChange={(e) => setDisplayName(e.target.value)}
-          placeholder='Digite seu nome'
-          className='form-input'
-          autoComplete='on'
-        />
-      </label>
-      <label htmlFor='email' className='form-label'>
-        <span className='font-bold text-cBlue w-full'>E-mail:</span>
-        <input
-          type='email'
-          name='email'
-          required
-          value={email || ''}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder='Digite seu e-mail'
-          className='form-input'
-          autoComplete='on'
-        />
-      </label>
-      <label htmlFor='password' className='form-label'>
-        <span className='font-bold text-cBlue w-full'>Senha:</span>
-        <input
-          type='password'
-          name='password'
-          required
-          value={password || ''}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder='Digite sua senha'
-          className='form-input'
-          autoComplete='on'
-        />
-      </label>
-      <label htmlFor='confirmPassword' className='form-label'>
-        <span className='font-bold text-cBlue w-full'>
-          Confirmação de senha:
-        </span>
+    <div
+      className={`heightCalc flex flex-col items-center justify-center w-full p-4 ${
+        state.darkMode ? 'bg-cDkBlack' : 'bg-cWhite'
+      }`}>
+      <form
+        onSubmit={handleSubmit}
+        className={`form ${state.darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'}`}>
+        <h1
+          className={`text-2xl text-center mb-5 font-bold ${
+            state.darkMode ? 'text-cWhite' : 'text-cBlue'
+          }`}>
+          Cadastre-se para acessar o conteúdo
+        </h1>
 
-        <input
-          type='password'
-          name='confirmPassword'
-          required
-          value={confirmPassword || ''}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          placeholder='Confirme sua senha'
-          className='form-input'
-          autoComplete='on'
-        />
-      </label>
-      {loading && (
-        <input
-          type='submit'
-          value='Registrando...'
-          className='btn btn-disabled md:mt-8'
-          disabled
-        />
-      )}
-      {!loading && (
-        <input type='submit' value='Registrar' className='btn md:mt-8' />
-      )}
-      {error && <p className='error'>{error}</p>}
-      <p>
-        Já possui uma conta?{' '}
-        <Link to='/' className='text-cBlue font-bold hover:text-cLtBlue'>
-          Entre
-        </Link>
-      </p>
-    </form>
+        <label htmlFor='displayName' className='form-label'>
+          <span
+            className={`font-bold  ${
+              state.darkMode ? 'text-cWhite' : 'text-cBlue'
+            }`}>
+            Nome:
+          </span>
+          <input
+            type='text'
+            name='displayName'
+            required
+            value={displayName || ''}
+            onChange={(e) => setDisplayName(e.target.value)}
+            placeholder='Digite seu nome'
+            className={`form-input ${
+              state.darkMode
+                ? 'bg-cDkBlack text-cWhite'
+                : 'bg-cWhite text-cDkBlack'
+            }`}
+            autoComplete='on'
+          />
+        </label>
+        <label htmlFor='email' className='form-label'>
+          <span
+            className={`font-bold  ${
+              state.darkMode ? 'text-cWhite' : 'text-cBlue'
+            }`}>
+            E-mail:
+          </span>
+          <input
+            type='email'
+            name='email'
+            required
+            value={email || ''}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder='Digite seu e-mail'
+            className={`form-input ${
+              state.darkMode
+                ? 'bg-cDkBlack text-cWhite'
+                : 'bg-cWhite text-cDkBlack'
+            }`}
+            autoComplete='on'
+          />
+        </label>
+        <label htmlFor='password' className='form-label'>
+          <span
+            className={`font-bold  ${
+              state.darkMode ? 'text-cWhite' : 'text-cBlue'
+            }`}>
+            Senha:
+          </span>
+          <input
+            type='password'
+            name='password'
+            required
+            value={password || ''}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder='Digite sua senha'
+            className={`form-input ${
+              state.darkMode
+                ? 'bg-cDkBlack text-cWhite'
+                : 'bg-cWhite text-cDkBlack'
+            }`}
+            autoComplete='on'
+          />
+        </label>
+        <label htmlFor='confirmPassword' className='form-label'>
+          <span
+            className={`font-bold  ${
+              state.darkMode ? 'text-cWhite' : 'text-cBlue'
+            }`}>
+            Confirmação de senha:
+          </span>
+
+          <input
+            type='password'
+            name='confirmPassword'
+            required
+            value={confirmPassword || ''}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder='Confirme sua senha'
+            className={`form-input ${
+              state.darkMode
+                ? 'bg-cDkBlack text-cWhite'
+                : 'bg-cWhite text-cDkBlack'
+            }`}
+            autoComplete='on'
+          />
+        </label>
+        {loading && (
+          <input
+            type='submit'
+            value='Registrando...'
+            className='btn btn-disabled md:mt-8'
+            disabled
+          />
+        )}
+        {!loading && (
+          <input type='submit' value='Registrar' className='btn md:mt-8' />
+        )}
+        {error && <p className='error'>{error}</p>}
+        <p
+          className={`flex gap-4 ${
+            state.darkMode ? 'text-cWhite' : 'text-cLtBlack'
+          }`}>
+          Já possui uma conta?
+          <Link to='/' className='text-cBlue font-bold hover:text-cCian'>
+            Entre
+          </Link>
+        </p>
+      </form>
+    </div>
   );
 };
 

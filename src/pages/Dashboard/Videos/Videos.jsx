@@ -9,13 +9,21 @@ import AddVideo from '../../../components/AddModal/AddVideo/AddVideo';
 import EditVideo from '../../../components/EditModal/EditVideo/EditVideo';
 import VideosList from '../../../components/Lists/Videos/Videos';
 
+// Context
+import { useDarkMode } from '../../../context/DarkModeContext';
+
 const Videos = () => {
   const [activeAdd, setActiveAdd] = useState(false);
   const [activeEdit, setActiveEdit] = useState(false);
   const [video, setVideo] = useState(false);
 
+  const { state } = useDarkMode();
+
   return (
-    <div className='p-4 flex flex-col'>
+    <div
+      className={`p-4 flex flex-col heightCalc ${
+        state.darkMode ? 'bg-cDkBlack' : 'bg-cWhite'
+      }`}>
       <button
         type='button'
         onClick={() => setActiveAdd(!activeAdd)}

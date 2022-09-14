@@ -6,11 +6,11 @@
 
 @layer components {
   .form {
-    @apply flex flex-col items-center justify-center gap-5 py-8 px-4 bg-cLtGray  rounded-t-md md:rounded w-full h-[100vh] shadow-md md:max-w-2xl md:max-h-[650px] md:my-0 md:mx-auto md:absolute md:top-28 md:right-0 md:left-0 md:z-10;
+    @apply flex flex-col items-center justify-center gap-5 p-8 bg-cDkWhite  rounded-t-md md:rounded w-full shadow-md md:max-w-2xl md:max-h-[650px] md:my-0 md:mx-auto md:absolute md:top-28 md:right-0 md:left-0 md:z-10;
   }
 
   .header-li {
-    @apply px-16 py-2 w-full border-b-1 border-cMdGray flex justify-start items-center gap-4 hover:text-cBlue;
+    @apply px-16 py-2 w-full border-b-1 border-cDkWhite flex justify-start items-center gap-4 hover:text-cBlue;
   }
 
   .download-btn {
@@ -18,7 +18,7 @@
   }
 
   .btn {
-    @apply p-2 bg-cBlue text-cWhite font-bold rounded-md shadow-lg cursor-pointer hover:bg-cLtBlue transition;
+    @apply p-2 bg-cBlue text-cWhite font-bold rounded-md shadow-lg cursor-pointer hover:bg-cCian transition;
   }
 
   .form-input {
@@ -62,11 +62,11 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #ffffff;
+  background: #121212;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d1d7dc;
+  background: #070707;
   border-radius: 1rem;
 }
 
@@ -87,9 +87,9 @@ body {
     color: #7a7a7a !important;
 
     &--selected {
-      border-color: #2d6aa9 !important;
+      border-color: #0097ee !important;
       font-weight: bold !important;
-      color: #2d6aa9 !important;
+      color: #0097ee !important;
     }
 
     &:focus {

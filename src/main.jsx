@@ -5,6 +5,9 @@ import ReactDOM from 'react-dom/client';
 // Router
 import { BrowserRouter } from 'react-router-dom';
 
+// Context
+import { DarkModeProvider } from './context/DarkModeContext';
+
 // Components
 import App from './App';
 
@@ -14,8 +17,10 @@ import './styles/main.scss';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <DarkModeProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </DarkModeProvider>
   </React.StrictMode>
 );

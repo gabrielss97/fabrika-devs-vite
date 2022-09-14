@@ -11,6 +11,7 @@ import { useFetchDocuments } from '../../../hooks/useFetchDocuments';
 
 // Context
 import { useAuthValue } from '../../../context/AuthContext';
+import { useDarkMode } from '../../../context/DarkModeContext';
 
 const AddVideo = ({ setActive }) => {
   // Form States
@@ -31,6 +32,8 @@ const AddVideo = ({ setActive }) => {
   const { documents: videos } = useFetchDocuments('videos');
   // Pega as categorias
   const { documents: categories } = useFetchDocuments('categories');
+
+  const { state } = useDarkMode();
 
   // Hook de Upload de arquivos
   const {
@@ -148,19 +151,33 @@ const AddVideo = ({ setActive }) => {
   }, [error, message]);
 
   return (
-    <form onSubmit={handleSubmit} className='form'>
-      <div className='flex justify-between items-center  w-full mx-auto text-2xl  font-bold text-cBlue '>
-        <h1 className=' text-center'>Enviar vídeo</h1>
+    <form
+      onSubmit={handleSubmit}
+      className={`form ${state.darkMode ? 'bg-cLtBlack' : 'bg-cWhite'}`}>
+      <div
+        className={`flex justify-between items-center  w-full mx-auto text-2xl font-bold ${
+          state.darkMode ? 'text-cWhite' : 'text-cBlue'
+        }`}>
+        <h1 className='text-center'>Enviar vídeo</h1>
         <BiX
           className='text-3xl cursor-pointer'
           onClick={() => setActive(false)}
         />
       </div>
       <label htmlFor='category' className='form-label'>
-        <span className='font-bold text-cBlue w-full'>Categoria:</span>
+        <span
+          className={`w-full font-bold ${
+            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+          }`}>
+          Categoria:
+        </span>
         <select
           name='category'
-          className='form-input'
+          className={`form-input ${
+            state.darkMode
+              ? 'bg-cDkBlack text-cWhite'
+              : 'bg-cDkWhite text-cDkBlack'
+          }`}
           value={newCategory}
           onChange={(e) => setNewCategory(e.target.value)}>
           {categories &&
@@ -174,31 +191,54 @@ const AddVideo = ({ setActive }) => {
         </select>
       </label>
       <label htmlFor='title' className='form-label'>
-        <span className='font-bold text-cBlue w-full'>Título:</span>
+        <span
+          className={`w-full font-bold ${
+            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+          }`}>
+          Título:
+        </span>
         <input
           type='text'
           name='title'
           value={title || ''}
           onChange={(e) => setTitle(e.target.value)}
           placeholder='Digite o título do seu vídeo'
-          className='form-input'
+          className={`form-input ${
+            state.darkMode
+              ? 'bg-cDkBlack text-cWhite'
+              : 'bg-cDkWhite text-cDkBlack'
+          }`}
           autoComplete='on'
         />
       </label>
       <label htmlFor='description' className='form-label '>
-        <span className='font-bold text-cBlue w-full'>Descrição:</span>
+        <span
+          className={`w-full font-bold ${
+            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+          }`}>
+          Descrição:
+        </span>
         <textarea
           type='text'
           name='description'
           value={description || ''}
           onChange={(e) => setDescription(e.target.value)}
           placeholder='Digite a descrição do seu vídeo'
-          className='form-input resize-none h-24'
+          className={`form-input resize-none h-24 ${
+            state.darkMode
+              ? 'bg-cDkBlack text-cWhite'
+              : 'bg-cDkWhite text-cDkBlack'
+          }`}
           autoComplete='on'
         />
       </label>
       <label htmlFor='file' className='form-label'>
-        <span className='font-bold text-cBlue w-full'>Material:</span>
+        <span
+          className={`w-full font-bold ${
+            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+          }`}>
+          Material:
+        </span>
         <div className='flex items-center'>
           <input
             type='file'
@@ -206,7 +246,9 @@ const AddVideo = ({ setActive }) => {
             id='inputFile'
             // onChange={(e) => uploadFile('files', e.target.files[0])}
             onChange={(e) => setFileUpload(e.target.files[0])}
-            className='form-input text-sm max-w-full'
+            className={`form-input text-sm max-w-full ${
+              state.darkMode ? 'text-cWhite' : 'text-cLtBlack'
+            }`}
             disabled={filePath !== '' && fileUpload !== null}
           />
           {filePath === '' && (
@@ -215,9 +257,9 @@ const AddVideo = ({ setActive }) => {
               onClick={handleFileUpload}
               className={`text-left px-2 py-1 font-bold ml-10 b-1 ${
                 fileLoading
-                  ? 'bg-cDkGray'
-                  : ' bg-cLtBlue hover:bg-cBlue transition'
-              } rounded-3xl text-cWhite shadow-md border-1 border-cBlue`}>
+                  ? 'bg-cDkWhite'
+                  : ' bg-cBlue hover:bg-cCian transition'
+              } rounded-3xl text-cWhite shadow-md `}>
               {!fileLoading && 'Enviar'}
               {fileLoading && 'Enviando...'}
             </button>
@@ -225,7 +267,12 @@ const AddVideo = ({ setActive }) => {
         </div>
       </label>
       <label htmlFor='video' className='form-label'>
-        <span className='font-bold text-cBlue w-full'>Vídeo:</span>
+        <span
+          className={`w-full font-bold ${
+            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+          }`}>
+          Vídeo:
+        </span>
 
         <div className='flex items-center'>
           <input
@@ -234,7 +281,9 @@ const AddVideo = ({ setActive }) => {
             accept='video/*'
             name='video'
             onChange={(e) => setVideoUpload(e.target.files[0])}
-            className='form-input text-sm max-w-full'
+            className={`form-input text-sm max-w-full ${
+              state.darkMode ? 'text-cWhite' : 'text-cLtBlack'
+            }`}
             disabled={videoPath !== '' && videoUpload !== null}
           />
           {videoPath === '' && (
@@ -243,9 +292,9 @@ const AddVideo = ({ setActive }) => {
               onClick={handleVideoUpload}
               className={`text-left px-2 py-1 font-bold ml-10 b-1 ${
                 videoLoading
-                  ? 'bg-cDkGray'
-                  : ' bg-cLtBlue hover:bg-cBlue transition'
-              } rounded-3xl text-cWhite shadow-md border-1 border-cBlue`}>
+                  ? 'bg-cDkWhite'
+                  : ' bg-cBlue hover:bg-cCian transition'
+              } rounded-3xl text-cWhite shadow-md `}>
               {!videoLoading && 'Enviar'}
               {videoLoading && 'Enviando...'}
             </button>

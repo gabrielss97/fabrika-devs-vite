@@ -5,8 +5,13 @@ import { BiX } from 'react-icons/bi';
 import React, { useEffect, useState } from 'react';
 import { useUpdateDocument } from '../../../hooks/useUpdateDocument';
 
+// Context
+import { useDarkMode } from '../../../context/DarkModeContext';
+
 const EditCategory = ({ setActive, category }) => {
   const { updateDocument } = useUpdateDocument('categories');
+
+  const { state } = useDarkMode();
 
   const [newCategory, setNewCategory] = useState('');
   const [order, setOrder] = useState('');
@@ -50,8 +55,13 @@ const EditCategory = ({ setActive, category }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className='form max-h-72 mt-60 md:mt-0 max-w-[90%] md:w-[90%] md:max-w-5xl mx-auto rounded-md'>
-      <div className='flex justify-between items-center  w-full mx-auto text-2xl  font-bold text-cBlue '>
+      className={`form  mt-60 md:mt-0 max-w-[90%] md:w-[90%] md:max-w-5xl mx-auto rounded-md ${
+        state.darkMode ? 'bg-cLtBlack' : 'bg-cWhite'
+      }`}>
+      <div
+        className={`flex justify-between items-center  w-full mx-auto text-2xl  font-bold ${
+          state.darkMode ? 'text-cWhite' : 'text-cBlue '
+        }`}>
         <h1 className=' text-center'>Editar categoria</h1>
         <BiX
           className='text-3xl cursor-pointer'
@@ -59,23 +69,41 @@ const EditCategory = ({ setActive, category }) => {
         />
       </div>
       <label htmlFor='newCategory' className='form-label'>
-        <span className='w-full font-bold text-cBlue'>Nome da categoria:</span>
+        <span
+          className={`w-full font-bold ${
+            state.darkMode ? 'text-cWhite' : 'text-cBlue'
+          }`}>
+          Nome da categoria:
+        </span>
         <input
           type='text'
           name='newCategory'
           value={newCategory || ''}
           onChange={(e) => setNewCategory(e.target.value)}
-          className='form-input'
+          className={`form-input ${
+            state.darkMode
+              ? 'bg-cDkBlack text-cWhite'
+              : 'bg-cDkWhite text-cDkBlack'
+          }`}
         />
       </label>
       <label htmlFor='order' className='form-label'>
-        <span className='w-full font-bold text-cBlue'>Ordem:</span>
+        <span
+          className={`w-full font-bold ${
+            state.darkMode ? 'text-cWhite' : 'text-cBlue'
+          }`}>
+          Ordem:
+        </span>
         <input
           type='text'
           name='order'
           value={order || ''}
           onChange={(e) => setOrder(e.target.value)}
-          className='form-input'
+          className={`form-input ${
+            state.darkMode
+              ? 'bg-cDkBlack text-cWhite'
+              : 'bg-cDkWhite text-cDkBlack'
+          }`}
         />
       </label>
       <input type='submit' value='Adicionar' className='btn' />

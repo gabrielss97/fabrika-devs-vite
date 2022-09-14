@@ -20,9 +20,7 @@ import Header from './components/Header/Header';
 import Login from './pages/Auth/Login/Login';
 import Register from './pages/Auth/Register/Register';
 import Profile from './pages/Profile/Profile';
-
 import Content from './pages/Content/Content';
-
 import Panel from './pages/Dashboard/Panel/Panel';
 import Admins from './pages/Dashboard/Admins/Admins';
 import Users from './pages/Dashboard/Users/Users';

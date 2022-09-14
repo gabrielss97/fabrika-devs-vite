@@ -5,8 +5,13 @@ import { BiX } from 'react-icons/bi';
 import { useEffect, useState } from 'react';
 import { useInsertDocument } from '../../../hooks/useInsertDocument';
 
+// Context
+import { useDarkMode } from '../../../context/DarkModeContext';
+
 const AddMail = ({ setActive, mails }) => {
   const { insertDocument } = useInsertDocument('mailslist');
+
+  const { state } = useDarkMode();
 
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
@@ -60,8 +65,13 @@ const AddMail = ({ setActive, mails }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className='form max-h-72 mt-60 md:mt-0 max-w-[90%] md:w-[90%] md:max-w-5xl mx-auto rounded-md'>
-      <div className='flex justify-between items-center  w-full mx-auto text-2xl  font-bold text-cBlue '>
+      className={`form mt-60 md:mt-0 max-w-[90%] md:w-[90%] md:max-w-5xl mx-auto rounded-md ${
+        state.darkMode ? 'bg-cLtBlack' : 'bg-cWhite'
+      }`}>
+      <div
+        className={`flex justify-between items-center  w-full mx-auto text-2xl font-bold ${
+          state.darkMode ? 'text-cWhite' : 'text-cBlue'
+        }`}>
         <h1 className=' text-center'>Adicionar e-mail</h1>
         <BiX
           className='text-3xl cursor-pointer'
@@ -69,12 +79,21 @@ const AddMail = ({ setActive, mails }) => {
         />
       </div>
       <label htmlFor='newCategory' className='form-label'>
-        <span className='w-full font-bold text-cBlue'>Novo usuário:</span>
+        <span
+          className={`w-full font-bold ${
+            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+          }`}>
+          Novo usuário:
+        </span>
         <input
-          type='text'
+          type='email'
           value={email || ''}
           onChange={(e) => setEmail(e.target.value)}
-          className='form-input'
+          className={`form-input ${
+            state.darkMode
+              ? 'bg-cDkBlack text-cWhite'
+              : 'bg-cDkWhite text-cDkBlack'
+          }`}
         />
       </label>
       <input type='submit' value='Adicionar' className='btn' />

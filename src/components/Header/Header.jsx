@@ -20,6 +20,8 @@ import { useAuth } from '../../hooks/useAuth';
 
 // Assets
 import logo from '../../assets/logo-gray.png';
+import Toggle from '../Toggle/Toggle';
+import { useDarkMode } from '../../context/DarkModeContext';
 
 const Header = ({ admin, user }) => {
   const [showModal, setShowModal] = useState(false);
@@ -31,13 +33,18 @@ const Header = ({ admin, user }) => {
     window.location.reload();
   };
 
+  const { state } = useDarkMode();
+
   return (
     <header>
-      <div className='flex justify-between items-center  h-20 text-cWhite shadow-md p-4 md:p-8   bg-cBlue'>
-        <Link to='/'>
+      <div
+        className={`flex justify-between items-center  h-20 text-cWhite shadow-md p-4 md:p-8 ${
+          state.darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'
+        } `}>
+        <Link to='/' className='flex w-32 justify-between items-center'>
           <img src={logo} alt='logo' className='w-16' />
+          <Toggle />
         </Link>
-
         {user !== null && (
           <div
             className='w-12 h-12 md:w-14 md:h-14 rounded-full text-cWhtie text-center cursor-pointer relative'
@@ -46,7 +53,7 @@ const Header = ({ admin, user }) => {
               <img
                 src={user.photoURL}
                 alt='user'
-                className=' w-12 h-12 md:w-14 md:h-14  rounded-full shadow-md border-[3px] border-cGreen'
+                className=' w-12 h-12 md:w-14 md:h-14  rounded-full shadow-md border-[3px] border-cBlue'
               />
             )}
             {!user.photoURL && (
@@ -61,7 +68,11 @@ const Header = ({ admin, user }) => {
               <ul
                 className={`${
                   showModal ? '' : 'hidden'
-                } relative w-64 right-56 bg-cWhite text-cBlack shadow-lg border-1 border-cLtGray font-bold rounded-md mt-1 z-10`}>
+                } relative w-80 right-72 shadow-lg border-1 font-bold rounded-md mt-1 z-10 ${
+                  state.darkMode
+                    ? 'bg-cLtBlack text-cDkWhite border-cDkBlack'
+                    : ' bg-cWhite text-cLtBlack border-cDkWhite'
+                }`}>
                 <NavLink to='/' className='hover:text-cBlue'>
                   <li className='header-li'>
                     <CgPlayButtonR />
@@ -89,7 +100,11 @@ const Header = ({ admin, user }) => {
               <ul
                 className={`${
                   showModal ? '' : 'hidden'
-                } relative w-80 right-72 bg-cWhite text-cBlack shadow-lg border-1 border-cLtGray font-bold rounded-md mt-1  z-10`}>
+                } relative w-80 right-72 shadow-lg border-1 font-bold rounded-md mt-1 z-10 ${
+                  state.darkMode
+                    ? 'bg-cLtBlack text-cDkWhite border-cDkBlack'
+                    : 'bg-cWhite text-cLtBlack border-cDkWhite'
+                }`}>
                 <NavLink to='/' className='hover:text-cBlue'>
                   <li className='header-li'>
                     <RiSettings3Fill />
@@ -130,7 +145,7 @@ const Header = ({ admin, user }) => {
                   to='/'
                   onClick={handleLogout}
                   className='hover:text-cBlue'>
-                  <li className='header-li border-none hover:text-cBlue px-16 py-2 w-full '>
+                  <li className='header-li border-none hover:text-cBlue px-16 py-2 w-full'>
                     <CgLogOut />
                     Sair
                   </li>

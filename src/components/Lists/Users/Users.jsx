@@ -9,10 +9,15 @@ import { useUpdateDocument } from '../../../hooks/useUpdateDocument';
 import { useDeleteDocument } from '../../../hooks/useDeleteDocument';
 import { useAuth } from '../../../hooks/useAuth';
 
+// Context
+import { useDarkMode } from '../../../context/DarkModeContext';
+
 const Users = () => {
   // Fetch de todos os usuários
   const { documents: allUsers, loading } = useFetchDocuments('users');
   const { updateDocument } = useUpdateDocument('users');
+
+  const { state } = useDarkMode();
 
   const [users, setUsers] = useState([]);
 
@@ -41,8 +46,11 @@ const Users = () => {
   }
 
   return (
-    <div className='w-full md:max-w-7xl mx-auto mt-8g'>
-      <h1 className='text-xl font-bold text-cBlue my-4'>
+    <div className='w-full md:max-w-7xl mx-auto mt-8'>
+      <h1
+        className={`text-xl font-bold my-4 ${
+          state.darkMode ? 'text-cWhite' : 'text-cBlue'
+        }`}>
         Usuários Cadastrados
       </h1>
       {users &&
@@ -50,13 +58,25 @@ const Users = () => {
         users.map((user) => (
           <div
             key={user.id}
-            className='flex justify-between items-center p-4 bg-cLtGray mb-2 rounded-md'>
-            <p className='w-1/2 text-cDkGray'>{user.name}</p>
-            <p className='w-1/2 text-cDkGray'>{user.email}</p>
-            <div className='flex gap-4 w-1/4 justify-end'>
+            className={`flex justify-between items-center p-4 mb-2 rounded-md ${
+              state.darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'
+            }`}>
+            <p
+              className={`max-w-2/5 ${
+                state.darkMode ? 'text-cWhite' : 'text-cDkBlack'
+              }`}>
+              {user.name}
+            </p>
+            <p
+              className={`max-w-2/5 ${
+                state.darkMode ? 'text-cWhite' : 'text-cDkBlack'
+              }`}>
+              {user.email}
+            </p>
+            <div className='flex gap-4 max-w-1/5 justify-end'>
               <button
                 type='button'
-                className='text-cGreen'
+                className='text-cBlue'
                 onClick={() => makeAdmin(user.id)}>
                 <RiAdminLine />
               </button>

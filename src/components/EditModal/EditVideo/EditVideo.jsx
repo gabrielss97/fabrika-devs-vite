@@ -9,6 +9,7 @@ import { useFetchDocuments } from '../../../hooks/useFetchDocuments';
 
 // Context
 import { useAuthValue } from '../../../context/AuthContext';
+import { useDarkMode } from '../../../context/DarkModeContext';
 
 const EditVideo = ({ setActive, video }) => {
   // Form States
@@ -25,6 +26,8 @@ const EditVideo = ({ setActive, video }) => {
 
   // Pega as categorias
   const { documents: categories } = useFetchDocuments('categories');
+
+  const { state } = useDarkMode();
 
   // Hook de inserir documento no banco de dados
   const {
@@ -98,19 +101,33 @@ const EditVideo = ({ setActive, video }) => {
   }, [error]);
 
   return (
-    <form onSubmit={handleSubmit} className='form'>
-      <div className='flex justify-between items-center  w-full mx-auto text-2xl  font-bold text-cBlue '>
-        <h1 className=' text-center'>Editar vídeo</h1>
+    <form
+      onSubmit={handleSubmit}
+      className={`form ${state.darkMode ? 'bg-cLtBlack' : 'bg-cWhite'}`}>
+      <div
+        className={`flex justify-between items-center  w-full mx-auto text-2xl font-bold ${
+          state.darkMode ? 'text-cWhite' : 'text-cBlue'
+        }`}>
+        <h1 className='text-center'>Editar vídeo</h1>
         <BiX
           className='text-3xl cursor-pointer'
           onClick={() => setActive(false)}
         />
       </div>
       <label htmlFor='category' className='form-label'>
-        <span className='font-bold text-cBlue w-full'>Categoria:</span>
+        <span
+          className={`w-full font-bold ${
+            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+          }`}>
+          Categoria:
+        </span>
         <select
           name='category'
-          className='form-input'
+          className={`form-input ${
+            state.darkMode
+              ? 'bg-cDkBlack text-cWhite'
+              : 'bg-cDkWhite text-cDkBlack'
+          }`}
           value={newCategory}
           onChange={(e) => setNewCategory(e.target.value)}>
           {categories &&
@@ -124,38 +141,65 @@ const EditVideo = ({ setActive, video }) => {
         </select>
       </label>
       <label htmlFor='title' className='form-label'>
-        <span className='font-bold text-cBlue w-full'>Título:</span>
+        <span
+          className={`w-full font-bold ${
+            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+          }`}>
+          Título:
+        </span>
         <input
           type='text'
           name='title'
           value={title || ''}
           onChange={(e) => setTitle(e.target.value)}
           placeholder='Digite o título do seu vídeo'
-          className='form-input'
+          className={`form-input ${
+            state.darkMode
+              ? 'bg-cDkBlack text-cWhite'
+              : 'bg-cDkWhite text-cDkBlack'
+          }`}
           autoComplete='on'
         />
       </label>
       <label htmlFor='description' className='form-label '>
-        <span className='font-bold text-cBlue w-full'>Descrição:</span>
+        <span
+          className={`w-full font-bold ${
+            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+          }`}>
+          Descrição:
+        </span>
         <textarea
           type='text'
           name='description'
           value={description || ''}
           onChange={(e) => setDescription(e.target.value)}
           placeholder='Digite a descrição do seu vídeo'
-          className='form-input resize-none h-24'
+          className={`form-input resize-none h-24 ${
+            state.darkMode
+              ? 'bg-cDkBlack text-cWhite'
+              : 'bg-cDkWhite text-cDkBlack'
+          }`}
           autoComplete='on'
         />
       </label>
       <label htmlFor='order' className='form-label '>
-        <span className='font-bold text-cBlue w-full'>Ordem:</span>
+        <span
+          className={`w-full font-bold ${
+            state.darkMode ? 'text-cWhite' : 'text-cBlue '
+          }`}>
+          Ordem:
+        </span>
         <input
           type='number'
           name='order'
           value={order || ''}
           onChange={(e) => setOrder(e.target.value)}
           placeholder='Digite a ordem desejada do seu vídeo'
-          className='form-input '
+          className={`form-input ${
+            state.darkMode
+              ? 'bg-cDkBlack text-cWhite'
+              : 'bg-cDkWhite text-cDkBlack'
+          }`}
           autoComplete='on'
         />
       </label>

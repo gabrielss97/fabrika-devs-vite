@@ -2,11 +2,15 @@
 import { CgRemove } from 'react-icons/cg';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
 
+// Context
+import { useDarkMode } from '../../../context/DarkModeContext';
+
 // Hooks
 import { useDeleteDocument } from '../../../hooks/useDeleteDocument';
 
 const Categories = ({ categories, setCategory, setActive }) => {
   const { deleteDocument } = useDeleteDocument('categories');
+  const { state } = useDarkMode();
 
   const handleEdit = (category) => {
     setCategory(category);
@@ -25,12 +29,19 @@ const Categories = ({ categories, setCategory, setActive }) => {
           .map((category) => (
             <div
               key={category.id}
-              className='flex justify-between items-center p-4 bg-cLtGray mb-2 rounded-md'>
-              <p className='text-xl font-bold text-cBlue'>{category.name}</p>
+              className={`flex justify-between items-center p-4 mb-2 rounded-md ${
+                state.darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'
+              }`}>
+              <p
+                className={`text-xl font-bold ${
+                  state.darkMode ? 'text-cWhite' : 'text-cBlue'
+                }`}>
+                {category.name}
+              </p>
               <div className='flex gap-4 text-xl'>
                 <button type='button'>
                   <HiOutlinePencilAlt
-                    className='text-cGreen'
+                    className='text-cBlue'
                     onClick={() => handleEdit(category)}
                   />
                 </button>

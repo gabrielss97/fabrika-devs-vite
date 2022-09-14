@@ -9,6 +9,9 @@ import {
 import { useState, useEffect } from 'react';
 import { useFetchDocuments } from '../../../hooks/useFetchDocuments';
 
+// Context
+import { useDarkMode } from '../../../context/DarkModeContext';
+
 // import { useUpdateDocument } from '../../../hooks/useUpdateDocument';
 // import { useFetchDocument } from '../../../hooks/useFetchDocument';
 
@@ -18,6 +21,8 @@ const Contents = ({ category, videos, setCurrentVideo, user }) => {
   const [active, setActive] = useState(true);
   const [categoryFilter, setCategoryFilter] = useState(true);
   const { documents } = useFetchDocuments('videos');
+
+  const { state } = useDarkMode();
 
   useEffect(() => {
     if (documents) {
@@ -75,13 +80,22 @@ const Contents = ({ category, videos, setCurrentVideo, user }) => {
   }
 
   return (
-    <div className='w-full md:max-w-7xl mx-auto'>
+    <div className='w-full mx-auto'>
       <div
         onClick={() => setActive(!active)}
-        className=' flex justify-between  text-cGreen font-bold cursor-pointer p-2'>
-        <p className=' text-lg uppercase font-bold'>{category}</p>
+        className={`flex justify-between  text-cWhite font-bold cursor-pointer p-4 ${
+          state.darkMode ? 'bg-cMdBlack' : 'bg-cMdWhite'
+        }`}>
+        <p
+          className={`text-lg uppercase font-bold ${
+            state.darkMode ? 'text-cWhite' : 'text-cBlue'
+          }`}>
+          {category}
+        </p>
         <RiArrowDropDownLine
-          className={`${active ? 'rotate-180' : ''} text-2xl`}
+          className={`${active ? 'rotate-180' : ''} ${
+            state.darkMode ? 'text-cWhite' : 'text-cBlue'
+          } text-2xl`}
         />
       </div>
 
@@ -90,7 +104,7 @@ const Contents = ({ category, videos, setCurrentVideo, user }) => {
           return (
             <div
               key={video.id}
-              className={`flex gap-4 items-center py-2 px-4 cursor-pointer  ${
+              className={`flex gap-4 items-center p-4 cursor-pointer  ${
                 !active ? 'hidden' : ''
               }`}>
               {/* {videosCheck && videosCheck.includes(video.id) ? (
@@ -101,7 +115,9 @@ const Contents = ({ category, videos, setCurrentVideo, user }) => {
 
               <button
                 type='button'
-                className='w-full text-start text-cblack'
+                className={`w-full text-start ${
+                  state.darkMode ? 'text-cWhite' : 'text-cLtBlack'
+                }`}
                 onClick={() => setCurrentVideo(video)}>
                 {video.title}
               </button>

@@ -10,12 +10,17 @@ import { useEffect, useState } from 'react';
 import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 import { useWindowSize } from '../../hooks/useWindowSize';
 
+// Context
+import { useDarkMode } from '../../context/DarkModeContext';
+
 // Components
 import Contents from '../../components/Lists/Contents/Contents';
 import VideoPlayer from '../../components/VideoPlayer/VideoPlayer';
 
 const Content = ({ user }) => {
   const [currentVideo, setCurrentVideo] = useState({});
+
+  const { state } = useDarkMode();
 
   const size = useWindowSize();
 
@@ -39,13 +44,16 @@ const Content = ({ user }) => {
   return (
     <>
       {size[0] > 1024 && (
-        <div className='flex'>
+        <div
+          className={`flex ${
+            state.darkMode ? ' bg-cMdBlack ' : 'bg-cMdWhite'
+          }`}>
           {currentVideo !== null && (
             <div className='w-full'>
               <div>
                 <VideoPlayer video={currentVideo} />
               </div>
-              <div className=' flex flex-col items-start gap-4 text-cDkGray p-4'>
+              <div className='flex flex-col items-start gap-4 p-4'>
                 {currentVideo && currentVideo.files && (
                   <a href={currentVideo && currentVideo.files} target='_blank'>
                     <button
@@ -55,17 +63,26 @@ const Content = ({ user }) => {
                     </button>
                   </a>
                 )}
-                <h2 className=' text-lg uppercase font-bold text-cBlack'>
+                <h2
+                  className={`text-lg uppercase font-bold ${
+                    state.darkMode ? 'text-cDkWhite ' : ' text-cBlue'
+                  }`}>
                   Descrição:
                 </h2>
-                <p className='text-sm '>
+                <p
+                  className={`text-sm ${
+                    state.darkMode ? 'text-cDkWhite ' : ' text-cLtBlack'
+                  }`}>
                   {currentVideo && currentVideo.description}
                 </p>
               </div>
             </div>
           )}
 
-          <div className='w-1/4 max-w-sm shadow-md heightCalc bg-cLtGray'>
+          <div
+            className={`w-1/4 max-w-sm shadow-md heightCalc ${
+              state.darkMode ? 'bg-cDkBlack' : 'bg-cWhite'
+            }`}>
             {categories &&
               categories
                 .sort((a, b) => a.order - b.order)
@@ -82,17 +99,37 @@ const Content = ({ user }) => {
         </div>
       )}
       {size[0] < 1024 && (
-        <div>
+        <div
+          className={` heightCalc ${
+            state.darkMode ? ' bg-cLtBlack' : 'bg-cWhite'
+          }`}>
           {currentVideo !== null && <VideoPlayer video={currentVideo} />}
 
           <Tabs>
             <TabList>
-              <Tab>Visão Geral</Tab>
-              <Tab>Aulas</Tab>
+              <Tab
+                style={
+                  state.darkMode
+                    ? { background: '#121212' }
+                    : { background: '#ffffff' }
+                }>
+                Visão Geral
+              </Tab>
+              <Tab
+                style={
+                  state.darkMode
+                    ? { background: '#121212' }
+                    : { background: '#ffffff' }
+                }>
+                Aulas
+              </Tab>
             </TabList>
 
             <TabPanel>
-              <div className=' flex flex-col items-start gap-4 text-cDkGray p-4'>
+              <div
+                className={`flex flex-col items-start gap-4 p-4 ${
+                  state.darkMode ? 'text-cWhite' : 'text-cDkGray'
+                }`}>
                 {currentVideo && currentVideo.files && (
                   <a
                     href={currentVideo && currentVideo.files}

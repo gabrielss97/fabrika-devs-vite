@@ -1,11 +1,16 @@
-/* eslint-disable no-param-reassign */
 /* eslint-disable jsx-a11y/media-has-caption */
-import { useState, useRef, useEffect } from 'react';
+/* eslint-disable no-param-reassign */
 
+// Icons
 import { FaPause, FaPlay } from 'react-icons/fa';
 import { RiFullscreenLine } from 'react-icons/ri';
 
+// Hooks
+import { useState, useRef, useEffect } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
+
+// Context
+import { useDarkMode } from '../../context/DarkModeContext';
 
 function usePlayerState($videoPlayer) {
   const [playerState, setPlayerState] = useState({
@@ -69,6 +74,7 @@ function usePlayerState($videoPlayer) {
 }
 
 const VideoPlayer = ({ video }) => {
+  const { state } = useDarkMode();
   const $videoPlayer = useRef(null);
   const {
     playerState,
@@ -82,10 +88,10 @@ const VideoPlayer = ({ video }) => {
   const size = useWindowSize();
 
   return (
-    <div className='relative bg-cBlack'>
+    <div className='relative bg-cMdBlack'>
       {playerState.playing === false && size[0] > 1024 && (
-        <div className='w-full h-full absolute flex items-center justify-center bg-[#11111150] '>
-          <h1 className='absolute top-0 left-0 text-2xl text-cWhite w-full bg-cBlack p-4 font-bold '>
+        <div className='w-full h-full absolute flex items-center justify-center bg-cBlackTransp '>
+          <h1 className='absolute top-0 left-0 text-2xl text-cWhite w-full p-4 font-bold '>
             {video && video.title}
           </h1>
           <div className='flex items-center justify-center p-8 text-xl bg-cBlue rounded-full text-cWhite '>
@@ -100,7 +106,12 @@ const VideoPlayer = ({ video }) => {
         className='w-full xl:w-[80%] mx-auto'
         onClick={toggleVideoPlay}
       />
-      <div className='flex p-4 bg-cLtGray items-center gap-4'>
+      <div
+        className={`flex p-4 items-center gap-4 border-b-1  ${
+          state.darkMode
+            ? 'bg-cDkBlack border-cLtBlack'
+            : 'bg-cMdWhite border-cWhite'
+        }`}>
         <button type='button' onClick={toggleVideoPlay} className='text-cBlue'>
           {playerState.playing ? <FaPause /> : <FaPlay />}
         </button>
@@ -113,7 +124,9 @@ const VideoPlayer = ({ video }) => {
           onChange={handleChangeVideoPercentage}
         />
         <select
-          className='bg-cLtGray text-xs font-bold text-cBlue'
+          className={`text-xs font-bold text-cBlue ${
+            state.darkMode ? 'bg-cDkBlack' : 'bg-cDkWhite'
+          }`}
           onChange={handleSpeed}>
           <option value='1'>1x</option>
           <option value='1.25'>1.25x</option>

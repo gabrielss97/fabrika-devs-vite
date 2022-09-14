@@ -1,11 +1,15 @@
 // Icons
 import { CgRemove } from 'react-icons/cg';
 
+// Context
+import { useDarkMode } from '../../../context/DarkModeContext';
+
 // Hooks
 import { useDeleteDocument } from '../../../hooks/useDeleteDocument';
 
 const Mails = ({ mails }) => {
   const { deleteDocument } = useDeleteDocument('mailslist');
+  const { state } = useDarkMode();
 
   if (mails === null) {
     return;
@@ -17,7 +21,12 @@ const Mails = ({ mails }) => {
 
   return (
     <div className='w-full md:max-w-7xl mx-auto mt-8g'>
-      <h1 className='text-xl font-bold text-cBlue my-4'>E-mails permitidos</h1>
+      <h1
+        className={`text-xl font-bold my-4 ${
+          state.darkMode ? 'text-cWhite' : 'text-cBlue'
+        }`}>
+        E-mails permitidos
+      </h1>
 
       {mails.length > 0 &&
         mails
@@ -25,8 +34,15 @@ const Mails = ({ mails }) => {
           .map((mail) => (
             <div
               key={mail.id}
-              className='flex justify-between items-center p-4 bg-cLtGray mb-2 rounded-md'>
-              <p className='w-1/2 text-cDkGray'>{mail.email}</p>
+              className={`flex justify-between items-center p-4 mb-2 rounded-md ${
+                state.darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'
+              }`}>
+              <p
+                className={`w-1/2 ${
+                  state.darkMode ? 'text-cWhite' : 'text-cDkBlack'
+                }`}>
+                {mail.email}
+              </p>
               <div className='flex gap-4 text-xl'>
                 <button type='button'>
                   <CgRemove

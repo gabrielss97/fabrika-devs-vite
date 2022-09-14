@@ -5,6 +5,9 @@ import { BsPlusLg } from 'react-icons/bs';
 import { useState } from 'react';
 import { useFetchDocuments } from '../../../hooks/useFetchDocuments';
 
+// Context
+import { useDarkMode } from '../../../context/DarkModeContext';
+
 // Components
 import AddCategory from '../../../components/AddModal/AddCategory/AddCategory';
 import EditCategory from '../../../components/EditModal/EditCategory/EditCategory';
@@ -12,6 +15,9 @@ import CategoriesList from '../../../components/Lists/Categories/Categories';
 
 const Categories = () => {
   const { documents: categories } = useFetchDocuments('categories');
+
+  const { state } = useDarkMode();
+
   const [activeAdd, setActiveAdd] = useState(false);
   const [activeEdit, setActiveEdit] = useState(false);
 
@@ -22,7 +28,10 @@ const Categories = () => {
   }
 
   return (
-    <div className='p-4 flex flex-col'>
+    <div
+      className={`p-4 flex flex-col heightCalc ${
+        state.darkMode ? 'bg-cDkBlack' : 'bg-cWhite'
+      }`}>
       <button
         type='button'
         onClick={() => setActiveAdd(!activeAdd)}

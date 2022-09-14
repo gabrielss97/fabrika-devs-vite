@@ -1,10 +1,16 @@
+// Hooks
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../../hooks/useAuth';
+
+// Context
+import { useDarkMode } from '../../../context/DarkModeContext';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState();
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+
+  const { state } = useDarkMode();
 
   const {
     resetPassword,
@@ -44,14 +50,28 @@ const ForgotPassword = () => {
   }, [error, message]);
 
   return (
-    <div className='flex items-center justify-center heightCalc'>
-      <form onSubmit={sendPasswordResetEmail} className='form h-72'>
+    <div
+      className={`heightCalc flex flex-col items-center justify-center w-full p-4 ${
+        state.darkMode ? 'bg-cDkBlack' : 'bg-cWhite'
+      }`}>
+      <form
+        onSubmit={sendPasswordResetEmail}
+        className={`form ${state.darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'}`}>
         <label htmlFor='email' className='form-label'>
-          <span>E-mail:</span>
+          <span
+            className={`text-2xl text-start mb-5 font-bold ${
+              state.darkMode ? 'text-cWhite' : 'text-cBlue'
+            }`}>
+            E-mail:
+          </span>
           <input
             type='email'
             name='email'
-            className='form-input'
+            className={`form-input ${
+              state.darkMode
+                ? 'bg-cDkBlack text-cWhite'
+                : 'bg-cWhite text-cDkBlack'
+            }`}
             value={email || ''}
             onChange={(e) => setEmail(e.target.value)}
           />

@@ -8,7 +8,11 @@ import { useAuth } from '../../hooks/useAuth';
 import { useUpdateDocument } from '../../hooks/useUpdateDocument';
 import { useUploadDocument } from '../../hooks/useUploadDocument';
 
+// Context
+import { useDarkMode } from '../../context/DarkModeContext';
+
 const Profile = ({ user }) => {
+  const { state } = useDarkMode();
   const { document: userProfile } = useFetchDocument('users', user.uid);
   const { updateUserPassword, error: authError, updateUserImage } = useAuth();
   const { updateDocument, response } = useUpdateDocument('users');
@@ -107,120 +111,164 @@ const Profile = ({ user }) => {
   }, [error]);
 
   return (
-    // <div className='p-4 flex flex-col  items-center mx-auto w-full md:bg-cLtGray md:w-[90%] md:max-w-5xl md:mt-4 md:rounded-md md:shadow-md'>
-    <form
-      onSubmit={handleSubmit}
-      className='w-full  flex flex-col  items-center  rounded-md p-4'>
-      {previewImage && (
-        <img
-          src={URL.createObjectURL(previewImage)}
-          alt='Preview'
-          className='w-32 h-32 md:w-56 md:h-56 rounded-full shadow-md'
-        />
-      )}
-      {userImage && !previewImage && (
-        <img
-          src={userImage}
-          alt={userName}
-          className='w-32 h-32  md:w-56 md:h-56 rounded-full shadow-md'
-        />
-      )}
-      {!userImage && !previewImage && (
-        <div className='w-32 h-32  md:w-56 md:h-56 rounded-full shadow-md flex justify-center items-center bg-cLtGray text-cDkGray'>
-          <HiUser size={50} />
-        </div>
-      )}
-      <label className='form-label' htmlFor='username'>
-        <span className='text-md font-bold text-cBlue '>Nome:</span>
-        <input
-          className='form-input mb-4 bg-cLtGray'
-          name='username'
-          type='text'
-          value={userName || ''}
-          onChange={(e) => setUserName(e.target.value)}
-          autoComplete='on'
-        />
-      </label>
-      <label className='form-label' htmlFor='image'>
-        <span className='text-md font-bold text-cBlue '>Foto de perfil:</span>
-        <div className='flex items-center'>
-          <input
-            type='file'
-            name='file'
-            accept='image/*'
-            id='inputFile'
-            onChange={(e) => {
-              setPreviewImage(e.target.files[0]);
-              setUserImage(e.target.files[0]);
-            }}
-            className='form-input text-sm max-w-full bg-cLtGray'
-            disabled={profileImagePath !== '' && userImage !== null}
+    <div
+      className={`w-full heightCalc  ${
+        state.darkMode ? 'bg-cDkBlack' : 'bg-cWhite'
+      }`}>
+      <form
+        onSubmit={handleSubmit}
+        className='max-w-5xl mx-auto flex flex-col gap-4 items-center rounded-md p-4'>
+        {previewImage && (
+          <img
+            src={URL.createObjectURL(previewImage)}
+            alt='Preview'
+            className='w-32 h-32 md:w-44 md:h-44 rounded-full shadow-md'
           />
-          {profileImagePath === '' && (
-            <button
-              type='button'
-              onClick={handleProfileImageUpload}
-              className={`text-left px-2 py-1 font-bold ml-10 b-1 ${
-                profileImageLoading
-                  ? 'bg-cDkGray'
-                  : ' bg-cBlue hover:bg-cLtBlue transition'
-              } rounded-md text-cWhite shadow-md `}>
-              {!profileImageLoading && 'Enviar'}
-              {profileImageLoading && 'Enviando...'}
-            </button>
-          )}
-        </div>
-      </label>
-
-      <label className='form-label' htmlFor='email'>
-        <span className='text-md font-bold text-cBlue '>E-mail:</span>
-        <input
-          className='form-input bg-cDkGray text-cWhite mb-4'
-          name='email'
-          type='email'
-          value={userEmail || ''}
-          disabled
-        />
-      </label>
-      <label className='form-label' htmlFor='password'>
-        <span className='text-md font-bold text-cBlue '>Alterar senha:</span>
-        <input
-          className='form-input bg-cLtGray mb-4'
-          name='password'
-          type='password'
-          value={password || ''}
-          onChange={(e) => setPassword(e.target.value)}
-          autoComplete='on'
-        />
-      </label>
-      <label className='form-label' htmlFor='confirmPassword'>
-        <span className='text-md font-bold text-cBlue '>Confirmar senha:</span>
-        <input
-          className='form-input bg-cLtGray mb-4'
-          name='confirmPassword'
-          type='password'
-          value={confirmPassword || ''}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          autoComplete='on'
-        />
-      </label>
-
-      {!response.loading && !profileImageLoading && (
-        <input type='submit' value='Atualizar dados' className='btn  mt-8' />
-      )}
-      {response.loading ||
-        (profileImageLoading && (
+        )}
+        {userImage && !previewImage && (
+          <img
+            src={userImage}
+            alt={userName}
+            className='w-32 h-32 md:w-44 md:h-44 rounded-full shadow-md'
+          />
+        )}
+        {!userImage && !previewImage && (
+          <div className='w-32 h-32 md:w-44 md:h-44 rounded-full shadow-md flex justify-center items-center bg-cLtGray text-cDkGray'>
+            <HiUser size={50} />
+          </div>
+        )}
+        <label className='form-label' htmlFor='username'>
+          <span
+            className={`w-full font-bold ${
+              state.darkMode ? 'text-cWhite' : 'text-cBlue '
+            }`}>
+            Nome:
+          </span>
           <input
-            className='btn bg-cDkGray'
-            type='submit'
-            value='Atualizando'
+            className={`form-input ${
+              state.darkMode
+                ? 'bg-cLtBlack text-cWhite'
+                : 'bg-cDkWhite text-cDkBlack'
+            }`}
+            name='username'
+            type='text'
+            value={userName || ''}
+            onChange={(e) => setUserName(e.target.value)}
+            autoComplete='on'
+          />
+        </label>
+        <label className='form-label' htmlFor='image'>
+          <span
+            className={`w-full font-bold ${
+              state.darkMode ? 'text-cWhite' : 'text-cBlue '
+            }`}>
+            Foto de perfil:
+          </span>
+          <div className='flex items-center'>
+            <input
+              type='file'
+              name='file'
+              accept='image/*'
+              id='inputFile'
+              onChange={(e) => {
+                setPreviewImage(e.target.files[0]);
+                setUserImage(e.target.files[0]);
+              }}
+              className={`form-input text-sm max-w-full ${
+                state.darkMode ? 'text-cWhite' : 'text-cLtBlack'
+              }`}
+              disabled={profileImagePath !== '' && userImage !== null}
+            />
+            {profileImagePath === '' && (
+              <button
+                type='button'
+                onClick={handleProfileImageUpload}
+                className={`text-left px-2 py-1 font-bold ml-10 b-1 ${
+                  profileImageLoading
+                    ? 'bg-cDkWhite'
+                    : 'bg-cBlue hover:bg-cCian transition'
+                } rounded-3xl text-cWhite shadow-md `}>
+                {!profileImageLoading && 'Enviar'}
+                {profileImageLoading && 'Enviando...'}
+              </button>
+            )}
+          </div>
+        </label>
+
+        <label className='form-label' htmlFor='email'>
+          <span
+            className={`w-full font-bold ${
+              state.darkMode ? 'text-cWhite' : 'text-cBlue '
+            }`}>
+            E-mail:
+          </span>
+          <input
+            className={`form-input ${
+              state.darkMode ? 'bg-cDkWhite' : 'bg-cLtBlack text-cWhite'
+            }`}
+            name='email'
+            type='email'
+            value={userEmail || ''}
             disabled
           />
-        ))}
-      {error && <p className='error'>{error}</p>}
-      {/* {message && <p className='success'>{message}</p>} */}
-    </form>
-    // </div>
+        </label>
+        <label className='form-label' htmlFor='password'>
+          <span
+            className={`w-full font-bold ${
+              state.darkMode ? 'text-cWhite' : 'text-cBlue '
+            }`}>
+            Alterar senha:
+          </span>
+          <input
+            className={`form-input ${
+              state.darkMode
+                ? 'bg-cLtBlack text-cWhite'
+                : 'bg-cDkWhite text-cDkBlack'
+            }`}
+            name='password'
+            type='password'
+            value={password || ''}
+            onChange={(e) => setPassword(e.target.value)}
+            autoComplete='on'
+          />
+        </label>
+        <label className='form-label' htmlFor='confirmPassword'>
+          <span
+            className={`w-full font-bold ${
+              state.darkMode ? 'text-cWhite' : 'text-cBlue '
+            }`}>
+            Confirmar senha:
+          </span>
+          <input
+            className={`form-input ${
+              state.darkMode
+                ? 'bg-cLtBlack text-cWhite'
+                : 'bg-cDkWhite text-cDkBlack'
+            }`}
+            name='confirmPassword'
+            type='password'
+            value={confirmPassword || ''}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            autoComplete='on'
+          />
+        </label>
+
+        {!response.loading && !profileImageLoading && (
+          <input type='submit' value='Atualizar dados' className='btn  mt-8' />
+        )}
+        {response.loading ||
+          (profileImageLoading && (
+            <input
+              className='btn bg-cDkGray'
+              type='submit'
+              value='Atualizando'
+              disabled
+            />
+          ))}
+        {error && <p className='error'>{error}</p>}
+        {/* {message && <p className='success'>{message}</p>} */}
+      </form>
+    </div>
   );
 };
 
