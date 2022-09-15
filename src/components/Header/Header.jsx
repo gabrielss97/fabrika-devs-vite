@@ -40,117 +40,121 @@ const Header = ({ admin, user, darkMode, setDarkMode }) => {
         } `}>
         <Link to='/' className='flex w-32 justify-between items-center'>
           <img src={logo} alt='logo' className='w-16' />
-          <Toggle darkMode={darkMode} setDarkMode={setDarkMode} />
         </Link>
-        {user !== null && (
-          <div
-            className='w-12 h-12 md:w-14 md:h-14 rounded-full text-cWhtie text-center cursor-pointer relative'
-            onClick={() => setShowModal(!showModal)}>
-            {user.photoURL && (
-              <img
-                src={user.photoURL}
-                alt='user'
-                className=' w-12 h-12 md:w-14 md:h-14  rounded-full shadow-md border-[3px] border-cBlue'
-              />
-            )}
-            {!user.photoURL && (
-              <div className='w-12 h-12 md:w-14 md:h-14 rounded-full shadow-sm flex justify-center items-center bg-cLtGray text-cDkGray'>
-                <HiUser size={25} />
-              </div>
-            )}
 
-            {/* MODAL */}
+        <div className='flex items-center gap-4'>
+          <Toggle darkMode={darkMode} setDarkMode={setDarkMode} />
 
-            {user && !admin && (
-              <ul
-                className={`${
-                  showModal ? '' : 'hidden'
-                } relative w-80 right-72 shadow-lg border-1 font-bold rounded-md mt-1 z-10 ${
-                  darkMode
-                    ? 'bg-cLtBlack text-cDkWhite border-cDkBlack'
-                    : ' bg-cWhite text-cLtBlack border-cDkWhite'
-                }`}>
-                <NavLink to='/' className='hover:text-cBlue'>
-                  <li className='header-li'>
-                    <CgPlayButtonR />
-                    Conteúdo
-                  </li>
-                </NavLink>
-                <NavLink to='/profile' className='hover:text-cBlue'>
-                  <li className='header-li'>
-                    <CgProfile />
-                    Perfil
-                  </li>
-                </NavLink>
-                <NavLink
-                  to='/'
-                  onClick={handleLogout}
-                  className='hover:text-cBlue'>
-                  <li className='header-li border-none hover:text-cBlue px-16 py-2 w-full '>
-                    <CgLogOut />
-                    Sair
-                  </li>
-                </NavLink>
-              </ul>
-            )}
-            {user && admin && (
-              <ul
-                className={`${
-                  showModal ? '' : 'hidden'
-                } relative w-80 right-72 shadow-lg border-1 font-bold rounded-md mt-1 z-10 ${
-                  darkMode
-                    ? 'bg-cLtBlack text-cDkWhite border-cDkBlack'
-                    : 'bg-cWhite text-cLtBlack border-cDkWhite'
-                }`}>
-                <NavLink to='/' className='hover:text-cBlue'>
-                  <li className='header-li'>
-                    <RiSettings3Fill />
-                    Home
-                  </li>
-                </NavLink>
-                <NavLink to='/admins' className='hover:text-cBlue'>
-                  <li className='header-li'>
-                    <RiAdminLine />
-                    Painel de Admins
-                  </li>
-                </NavLink>
-                <NavLink to='/users' className='hover:text-cBlue'>
-                  <li className='header-li'>
-                    <CgUserList />
-                    Painel de Usuários
-                  </li>
-                </NavLink>
-                <NavLink to='/categories' className='hover:text-cBlue'>
-                  <li className='header-li'>
-                    <CgFolder />
-                    Categorias
-                  </li>
-                </NavLink>
-                <NavLink to='/videos' className='hover:text-cBlue'>
-                  <li className='header-li'>
-                    <CgPlayButtonR />
-                    Painel de Vídeos
-                  </li>
-                </NavLink>
-                <NavLink to='/profile' className='hover:text-cBlue'>
-                  <li className='header-li'>
-                    <CgProfile />
-                    Perfil
-                  </li>
-                </NavLink>
-                <NavLink
-                  to='/'
-                  onClick={handleLogout}
-                  className='hover:text-cBlue'>
-                  <li className='header-li border-none hover:text-cBlue px-16 py-2 w-full'>
-                    <CgLogOut />
-                    Sair
-                  </li>
-                </NavLink>
-              </ul>
-            )}
-          </div>
-        )}
+          {user !== null && (
+            <div
+              className='w-12 h-12 md:w-14 md:h-14 rounded-full text-cWhtie text-center cursor-pointer relative'
+              onClick={() => setShowModal(!showModal)}>
+              {user.photoURL && (
+                <img
+                  src={user.photoURL}
+                  alt='user'
+                  className=' w-12 h-12 md:w-14 md:h-14  rounded-full shadow-md border-[3px] border-cBlue'
+                />
+              )}
+              {!user.photoURL && (
+                <div className='w-12 h-12 md:w-14 md:h-14 rounded-full shadow-sm flex justify-center items-center bg-cLtGray text-cDkGray'>
+                  <HiUser size={25} />
+                </div>
+              )}
+
+              {/* MODAL */}
+
+              {user && !admin && (
+                <ul
+                  className={`${
+                    showModal ? '' : 'hidden'
+                  } relative w-80 right-72 shadow-lg border-1 font-bold rounded-md mt-1 z-10 ${
+                    darkMode
+                      ? 'bg-cLtBlack text-cDkWhite border-cDkBlack'
+                      : ' bg-cWhite text-cLtBlack border-cDkWhite'
+                  }`}>
+                  <NavLink to='/' className='hover:text-cBlue'>
+                    <li className='header-li'>
+                      <CgPlayButtonR />
+                      Conteúdo
+                    </li>
+                  </NavLink>
+                  <NavLink to='/profile' className='hover:text-cBlue'>
+                    <li className='header-li'>
+                      <CgProfile />
+                      Perfil
+                    </li>
+                  </NavLink>
+                  <NavLink
+                    to='/'
+                    onClick={handleLogout}
+                    className='hover:text-cBlue'>
+                    <li className='header-li border-none hover:text-cBlue px-16 py-2 w-full '>
+                      <CgLogOut />
+                      Sair
+                    </li>
+                  </NavLink>
+                </ul>
+              )}
+              {user && admin && (
+                <ul
+                  className={`${
+                    showModal ? '' : 'hidden'
+                  } relative w-80 right-72 shadow-lg border-1 font-bold rounded-md mt-1 z-10 ${
+                    darkMode
+                      ? 'bg-cLtBlack text-cDkWhite border-cDkBlack'
+                      : 'bg-cWhite text-cLtBlack border-cDkWhite'
+                  }`}>
+                  <NavLink to='/' className='hover:text-cBlue'>
+                    <li className='header-li'>
+                      <RiSettings3Fill />
+                      Home
+                    </li>
+                  </NavLink>
+                  <NavLink to='/admins' className='hover:text-cBlue'>
+                    <li className='header-li'>
+                      <RiAdminLine />
+                      Painel de Admins
+                    </li>
+                  </NavLink>
+                  <NavLink to='/users' className='hover:text-cBlue'>
+                    <li className='header-li'>
+                      <CgUserList />
+                      Painel de Usuários
+                    </li>
+                  </NavLink>
+                  <NavLink to='/categories' className='hover:text-cBlue'>
+                    <li className='header-li'>
+                      <CgFolder />
+                      Categorias
+                    </li>
+                  </NavLink>
+                  <NavLink to='/videos' className='hover:text-cBlue'>
+                    <li className='header-li'>
+                      <CgPlayButtonR />
+                      Painel de Vídeos
+                    </li>
+                  </NavLink>
+                  <NavLink to='/profile' className='hover:text-cBlue'>
+                    <li className='header-li'>
+                      <CgProfile />
+                      Perfil
+                    </li>
+                  </NavLink>
+                  <NavLink
+                    to='/'
+                    onClick={handleLogout}
+                    className='hover:text-cBlue'>
+                    <li className='header-li border-none hover:text-cBlue px-16 py-2 w-full'>
+                      <CgLogOut />
+                      Sair
+                    </li>
+                  </NavLink>
+                </ul>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );
