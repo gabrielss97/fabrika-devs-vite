@@ -1,9 +1,14 @@
+import { useEffect } from 'react';
 import { RiSunFill, RiMoonFill } from 'react-icons/ri';
 
 function Toggle({ darkMode, setDarkMode }) {
   const handleClick = () => {
     setDarkMode(!darkMode);
   };
+
+  useEffect(() => {
+    localStorage.setItem('darkmode', darkMode);
+  });
 
   return (
     <div
