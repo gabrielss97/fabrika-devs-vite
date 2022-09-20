@@ -104,7 +104,7 @@ const Login = ({ darkMode }) => {
             Redefinir
           </Link>
         </p>
-        <p
+        {/* <p
           className={`flex gap-4 ${
             darkMode ? 'text-cWhite' : 'text-cLtBlack'
           }`}>
@@ -114,7 +114,7 @@ const Login = ({ darkMode }) => {
             className='text-cBlue font-bold hover:text-cCian'>
             Cadastre-se
           </Link>
-        </p>
+        </p> */}
       </form>
     </div>
   );
