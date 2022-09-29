@@ -36,6 +36,8 @@ const Content = ({ user, darkMode }) => {
     return <p> carregando ...</p>;
   }
 
+  console.log(currentVideo);
+
   return (
     <>
       {size[0] > 1024 && (
@@ -46,12 +48,14 @@ const Content = ({ user, darkMode }) => {
                 <VideoPlayer video={currentVideo} darkMode={darkMode} />
               </div>
               <div className='flex flex-col items-start gap-4 p-4'>
-                {currentVideo && currentVideo.files && (
-                  <a href={currentVideo && currentVideo.files} target='_blank'>
+                {currentVideo && currentVideo.fileUrl && (
+                  <a
+                    href={currentVideo && currentVideo.fileUrl}
+                    target='_blank'>
                     <button
                       type='button'
                       className='download-btn cursor-pointer'>
-                      Acessar Material
+                      Baixar Material
                     </button>
                   </a>
                 )}
@@ -123,9 +127,9 @@ const Content = ({ user, darkMode }) => {
                 className={`flex flex-col items-start gap-4 p-4 ${
                   darkMode ? 'text-cWhite' : 'text-cDkGray'
                 }`}>
-                {currentVideo && currentVideo.files && (
+                {currentVideo && currentVideo.fileUrl && (
                   <a
-                    href={currentVideo && currentVideo.files}
+                    href={currentVideo && currentVideo.fileUrl}
                     download={currentVideo && currentVideo.title}
                     target='_blank'>
                     <button
