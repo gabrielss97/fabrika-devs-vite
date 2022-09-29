@@ -47,7 +47,7 @@ const Header = ({ admin, user, darkMode, setDarkMode }) => {
 
           {user !== null && (
             <div
-              className='w-12 h-12 md:w-14 md:h-14 rounded-full text-cWhtie text-center cursor-pointer relative'
+              className='w-12 h-12 md:w-14 md:h-14 rounded-full text-cWhtie text-center cursor-pointer relative bg-cMdBlack'
               onClick={() => setShowModal(!showModal)}>
               {user.photoURL && (
                 <img
