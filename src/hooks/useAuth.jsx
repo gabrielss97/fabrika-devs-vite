@@ -14,6 +14,7 @@ import {
   updatePassword,
   updateProfile,
   sendPasswordResetEmail,
+  sendEmailVerification,
 } from 'firebase/auth';
 
 import { setDoc, doc, Timestamp } from 'firebase/firestore';
@@ -26,6 +27,10 @@ export const useAuth = () => {
   const [loading, setLoading] = useState(null);
 
   const auth = getAuth();
+  auth.languageCode = 'pt-BR';
+  const actionCodeSettings = {
+    url: 'http://fabricadevs.com.br',
+  };
 
   // Cleanup
   const [cancelled, setCancelled] = useState(false);
@@ -58,7 +63,7 @@ export const useAuth = () => {
 
       // Aiciona o usuario ao banco de dados com o mesmo UID da Auth
       await setDoc(doc(db, 'users', user.uid), newUser);
-
+      await user.sendEmailVerification();
       setLoading(false);
     } catch (e) {
       let systemErrorMsg;
@@ -164,9 +169,9 @@ export const useAuth = () => {
     setLoading(true);
 
     try {
-      await sendPasswordResetEmail(auth, email);
+      await sendPasswordResetEmail(auth, email, actionCodeSettings);
       setMessage(
-        'E-mail de recuperação enviado com sucesso! Caso não encontre-o, olhe na caixa de spam.'
+        'E-mail de recuperação enviado com sucesso! Por favor, verifique a caixa de entrada ou spam.'
       );
       setLoading(false);
     } catch (e) {
@@ -178,6 +183,21 @@ export const useAuth = () => {
         systemErrorMsg = 'Ocorreu um erro, tente novamente mais tarde.';
       }
       setError(systemErrorMsg);
+      setLoading(false);
+    }
+  };
+
+  const verifyEmail = async (user) => {
+    setLoading(true);
+
+    try {
+      await sendEmailVerification(user, actionCodeSettings);
+      setMessage(
+        'E-mail de validação reenviado com sucesso. Por favor verifique sua caixa de entrada ou spam.'
+      );
+      setLoading(false);
+    } catch (e) {
+      setError(e.message);
       setLoading(false);
     }
   };
@@ -200,5 +220,6 @@ export const useAuth = () => {
     updateUserImage,
     removeUser,
     resetPassword,
+    verifyEmail,
   };
 };
