@@ -19,7 +19,7 @@ import { useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 
 // Assets
-import logo from '../../assets/logo-gray.png';
+import logo from '../../assets/logo.png';
 import Toggle from '../Toggle/Toggle';
 
 const Header = ({ admin, user, darkMode, setDarkMode }) => {
@@ -38,8 +38,8 @@ const Header = ({ admin, user, darkMode, setDarkMode }) => {
         className={`flex justify-between items-center  h-20 text-cWhite shadow-md p-4 md:p-8 ${
           darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'
         } `}>
-        <Link to='/' className='flex w-32 justify-between items-center'>
-          <img src={logo} alt='logo' className='w-16' />
+        <Link to='/' className='flex w-48 justify-between items-center'>
+          <img src={logo} alt='logo' className='w-48' />
         </Link>
 
         <div className='flex items-center gap-4'>
@@ -53,7 +53,7 @@ const Header = ({ admin, user, darkMode, setDarkMode }) => {
                 <img
                   src={user.photoURL}
                   alt='user'
-                  className=' w-12 h-12 md:w-14 md:h-14  rounded-full shadow-md border-[3px] border-cBlue'
+                  className=' w-12 h-12 md:w-14 md:h-14  rounded-full shadow-md border-[3px] border-cGreen'
                 />
               )}
               {!user.photoURL && (
@@ -73,13 +73,13 @@ const Header = ({ admin, user, darkMode, setDarkMode }) => {
                       ? 'bg-cLtBlack text-cDkWhite border-cDkBlack'
                       : ' bg-cWhite text-cLtBlack border-cDkWhite'
                   }`}>
-                  <NavLink to='/' className='hover:text-cBlue'>
+                  <NavLink to='/' className='hover:text-cGreen'>
                     <li className='header-li'>
                       <CgPlayButtonR />
                       Conteúdo
                     </li>
                   </NavLink>
-                  <NavLink to='/profile' className='hover:text-cBlue'>
+                  <NavLink to='/profile' className='hover:text-cGreen'>
                     <li className='header-li'>
                       <CgProfile />
                       Perfil
@@ -88,8 +88,8 @@ const Header = ({ admin, user, darkMode, setDarkMode }) => {
                   <NavLink
                     to='/'
                     onClick={handleLogout}
-                    className='hover:text-cBlue'>
-                    <li className='header-li border-none hover:text-cBlue px-16 py-2 w-full '>
+                    className='hover:text-cGreen'>
+                    <li className='header-li border-none hover:text-cGreen px-16 py-2 w-full '>
                       <CgLogOut />
                       Sair
                     </li>
@@ -105,37 +105,37 @@ const Header = ({ admin, user, darkMode, setDarkMode }) => {
                       ? 'bg-cLtBlack text-cDkWhite border-cDkBlack'
                       : 'bg-cWhite text-cLtBlack border-cDkWhite'
                   }`}>
-                  <NavLink to='/' className='hover:text-cBlue'>
+                  <NavLink to='/' className='hover:text-cGreen'>
                     <li className='header-li'>
                       <RiSettings3Fill />
                       Home
                     </li>
                   </NavLink>
-                  <NavLink to='/admins' className='hover:text-cBlue'>
+                  <NavLink to='/admins' className='hover:text-cGreen'>
                     <li className='header-li'>
                       <RiAdminLine />
                       Painel de Admins
                     </li>
                   </NavLink>
-                  <NavLink to='/users' className='hover:text-cBlue'>
+                  <NavLink to='/users' className='hover:text-cGreen'>
                     <li className='header-li'>
                       <CgUserList />
                       Painel de Usuários
                     </li>
                   </NavLink>
-                  <NavLink to='/categories' className='hover:text-cBlue'>
+                  <NavLink to='/categories' className='hover:text-cGreen'>
                     <li className='header-li'>
                       <CgFolder />
                       Categorias
                     </li>
                   </NavLink>
-                  <NavLink to='/videos' className='hover:text-cBlue'>
+                  <NavLink to='/videos' className='hover:text-cGreen'>
                     <li className='header-li'>
                       <CgPlayButtonR />
                       Painel de Vídeos
                     </li>
                   </NavLink>
-                  <NavLink to='/profile' className='hover:text-cBlue'>
+                  <NavLink to='/profile' className='hover:text-cGreen'>
                     <li className='header-li'>
                       <CgProfile />
                       Perfil
@@ -144,8 +144,8 @@ const Header = ({ admin, user, darkMode, setDarkMode }) => {
                   <NavLink
                     to='/'
                     onClick={handleLogout}
-                    className='hover:text-cBlue'>
-                    <li className='header-li border-none hover:text-cBlue px-16 py-2 w-full'>
+                    className='hover:text-cGreen'>
+                    <li className='header-li border-none hover:text-cGreen px-16 py-2 w-full'>
                       <CgLogOut />
                       Sair
                     </li>

@@ -70,14 +70,16 @@ const Register = ({ darkMode }) => {
         className={`form ${darkMode ? 'bg-cLtBlack' : 'bg-cDkWhite'}`}>
         <h1
           className={`text-2xl text-center mb-5 font-bold ${
-            darkMode ? 'text-cWhite' : 'text-cBlue'
+            darkMode ? 'text-cWhite' : 'text-cGreen'
           }`}>
           Cadastre-se para acessar o conteúdo
         </h1>
 
         <label htmlFor='displayName' className='form-label'>
           <span
-            className={`font-bold  ${darkMode ? 'text-cWhite' : 'text-cBlue'}`}>
+            className={`font-bold  ${
+              darkMode ? 'text-cWhite' : 'text-cGreen'
+            }`}>
             Nome:
           </span>
           <input
@@ -95,7 +97,9 @@ const Register = ({ darkMode }) => {
         </label>
         <label htmlFor='email' className='form-label'>
           <span
-            className={`font-bold  ${darkMode ? 'text-cWhite' : 'text-cBlue'}`}>
+            className={`font-bold  ${
+              darkMode ? 'text-cWhite' : 'text-cGreen'
+            }`}>
             E-mail:
           </span>
           <input
@@ -113,7 +117,9 @@ const Register = ({ darkMode }) => {
         </label>
         <label htmlFor='password' className='form-label'>
           <span
-            className={`font-bold  ${darkMode ? 'text-cWhite' : 'text-cBlue'}`}>
+            className={`font-bold  ${
+              darkMode ? 'text-cWhite' : 'text-cGreen'
+            }`}>
             Senha:
           </span>
           <input
@@ -131,7 +137,9 @@ const Register = ({ darkMode }) => {
         </label>
         <label htmlFor='confirmPassword' className='form-label'>
           <span
-            className={`font-bold  ${darkMode ? 'text-cWhite' : 'text-cBlue'}`}>
+            className={`font-bold  ${
+              darkMode ? 'text-cWhite' : 'text-cGreen'
+            }`}>
             Confirmação de senha:
           </span>
 
@@ -165,7 +173,7 @@ const Register = ({ darkMode }) => {
             darkMode ? 'text-cWhite' : 'text-cLtBlack'
           }`}>
           Já possui uma conta?
-          <Link to='/' className='text-cBlue font-bold hover:text-cCian'>
+          <Link to='/' className='text-cGreen font-bold hover:text-cCian'>
             Entre
           </Link>
         </p>

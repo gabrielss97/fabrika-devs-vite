@@ -4,6 +4,11 @@
 // Icons
 import { FaPause, FaPlay } from 'react-icons/fa';
 import { RiFullscreenLine } from 'react-icons/ri';
+import {
+  BsVolumeDownFill,
+  BsVolumeMuteFill,
+  BsVolumeUpFill,
+} from 'react-icons/bs';
 
 // Hooks
 import { useState, useRef, useEffect } from 'react';
@@ -14,6 +19,7 @@ function usePlayerState($videoPlayer) {
     playing: false,
     percentage: 0,
   });
+  const [volumeState, setVolumeState] = useState(1);
 
   const toggleVideoPlay = () => {
     setPlayerState({
@@ -44,6 +50,12 @@ function usePlayerState($videoPlayer) {
     });
   };
 
+  const handleVolumePercentage = (e) => {
+    const currentPercentageValue = e.target.value;
+    $videoPlayer.current.volume = currentPercentageValue;
+    setVolumeState(currentPercentageValue);
+  };
+
   const handleSpeed = (e) => {
     $videoPlayer.current.playbackRate = e.target.value;
   };
@@ -67,6 +79,8 @@ function usePlayerState($videoPlayer) {
     handleChangeVideoPercentage,
     handleSpeed,
     handleFullScreen,
+    handleVolumePercentage,
+    volumeState,
   };
 }
 
@@ -74,12 +88,16 @@ const VideoPlayer = ({ video, darkMode }) => {
   const $videoPlayer = useRef(null);
   const {
     playerState,
+    volumeState,
     toggleVideoPlay,
     handleTimeUpdate,
     handleChangeVideoPercentage,
     handleSpeed,
     handleFullScreen,
+    handleVolumePercentage,
   } = usePlayerState($videoPlayer);
+
+  console.log(volumeState);
 
   const size = useWindowSize();
 
@@ -90,7 +108,7 @@ const VideoPlayer = ({ video, darkMode }) => {
           <h1 className='absolute top-0 left-0 text-2xl text-cWhite w-full p-4 font-bold '>
             {video && video.title}
           </h1>
-          <div className='flex items-center justify-center p-8 text-xl bg-cBlue rounded-full text-cWhite '>
+          <div className='flex items-center justify-center p-8 text-xl bg-cGreen rounded-full text-cWhite '>
             <FaPlay />
           </div>
         </div>
@@ -106,7 +124,7 @@ const VideoPlayer = ({ video, darkMode }) => {
         className={`flex p-4 items-center gap-4 border-b-1  ${
           darkMode ? 'bg-cDkBlack border-cLtBlack' : 'bg-cMdWhite border-cWhite'
         }`}>
-        <button type='button' onClick={toggleVideoPlay} className='text-cBlue'>
+        <button type='button' onClick={toggleVideoPlay} className='text-cGreen'>
           {playerState.playing ? <FaPause /> : <FaPlay />}
         </button>
         <input
@@ -115,10 +133,11 @@ const VideoPlayer = ({ video, darkMode }) => {
           min='0'
           max='100'
           value={playerState.percentage || 0}
+          step='0.01'
           onChange={handleChangeVideoPercentage}
         />
         <select
-          className={`text-xs font-bold text-cBlue ${
+          className={`text-xs font-bold text-cGreen ${
             darkMode ? 'bg-cDkBlack' : 'bg-cDkWhite'
           }`}
           onChange={handleSpeed}>
@@ -129,8 +148,25 @@ const VideoPlayer = ({ video, darkMode }) => {
           <option value='2'>2x</option>
         </select>
 
+        <div className='flex items-center gap-2 text-2xl'>
+          {volumeState <= 0 && <BsVolumeMuteFill className='text-cGreen' />}
+          {volumeState > 0 && volumeState <= 0.5 && (
+            <BsVolumeDownFill className='text-cGreen ' />
+          )}
+          {volumeState > 0.5 && <BsVolumeUpFill className='text-cGreen' />}
+          <input
+            className='w-full'
+            type='range'
+            min='0'
+            max='1'
+            value={volumeState || 0}
+            onChange={handleVolumePercentage}
+            step='0.01'
+          />
+        </div>
+
         <RiFullscreenLine
-          className='text-cBlue font-bold text-2xl cursor-pointer'
+          className='text-cGreen font-bold text-2xl cursor-pointer'
           onClick={handleFullScreen}
         />
       </div>

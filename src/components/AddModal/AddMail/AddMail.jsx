@@ -65,7 +65,7 @@ const AddMail = ({ setActive, mails, darkMode }) => {
       }`}>
       <div
         className={`flex justify-between items-center  w-full mx-auto text-2xl font-bold ${
-          darkMode ? 'text-cWhite' : 'text-cBlue'
+          darkMode ? 'text-cWhite' : 'text-cGreen'
         }`}>
         <h1 className=' text-center'>Adicionar e-mail</h1>
         <BiX
@@ -76,7 +76,7 @@ const AddMail = ({ setActive, mails, darkMode }) => {
       <label htmlFor='newCategory' className='form-label'>
         <span
           className={`w-full font-bold ${
-            darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cGreen '
           }`}>
           Novo usuário:
         </span>

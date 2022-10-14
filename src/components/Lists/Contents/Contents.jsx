@@ -3,6 +3,7 @@ import {
   RiArrowDropDownLine,
   // RiCheckboxFill,
   // RiCheckboxBlankLine,
+  RiPlayCircleFill,
 } from 'react-icons/ri';
 
 // Hooks
@@ -83,13 +84,13 @@ const Contents = ({ category, videos, setCurrentVideo, user, darkMode }) => {
         }`}>
         <p
           className={`text-lg uppercase font-bold ${
-            darkMode ? 'text-cWhite' : 'text-cBlue'
+            darkMode ? 'text-cWhite' : 'text-cGreen'
           }`}>
           {category}
         </p>
         <RiArrowDropDownLine
           className={`${active ? 'rotate-180' : ''} ${
-            darkMode ? 'text-cWhite' : 'text-cBlue'
+            darkMode ? 'text-cWhite' : 'text-cGreen'
           } text-2xl`}
         />
       </div>
@@ -110,11 +111,11 @@ const Contents = ({ category, videos, setCurrentVideo, user, darkMode }) => {
 
               <button
                 type='button'
-                className={`w-full text-start ${
+                className={`w-full text-start flex items-center gap-4 ${
                   darkMode ? 'text-cWhite' : 'text-cLtBlack'
                 }`}
                 onClick={() => setCurrentVideo(video)}>
-                {video.title}
+                <RiPlayCircleFill /> {video.title}
               </button>
             </div>
           );

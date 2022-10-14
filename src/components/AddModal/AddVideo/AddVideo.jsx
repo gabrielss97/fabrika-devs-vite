@@ -153,7 +153,7 @@ const AddVideo = ({ setActive, darkMode }) => {
       className={`form ${darkMode ? 'bg-cLtBlack' : 'bg-cWhite'}`}>
       <div
         className={`flex justify-between items-center  w-full mx-auto text-2xl font-bold ${
-          darkMode ? 'text-cWhite' : 'text-cBlue'
+          darkMode ? 'text-cWhite' : 'text-cGreen'
         }`}>
         <h1 className='text-center'>Enviar vídeo</h1>
         <BiX
@@ -164,7 +164,7 @@ const AddVideo = ({ setActive, darkMode }) => {
       <label htmlFor='category' className='form-label'>
         <span
           className={`w-full font-bold ${
-            darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cGreen '
           }`}>
           Categoria:
         </span>
@@ -188,7 +188,7 @@ const AddVideo = ({ setActive, darkMode }) => {
       <label htmlFor='title' className='form-label'>
         <span
           className={`w-full font-bold ${
-            darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cGreen '
           }`}>
           Título:
         </span>
@@ -207,7 +207,7 @@ const AddVideo = ({ setActive, darkMode }) => {
       <label htmlFor='description' className='form-label '>
         <span
           className={`w-full font-bold ${
-            darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cGreen '
           }`}>
           Descrição:
         </span>
@@ -226,7 +226,7 @@ const AddVideo = ({ setActive, darkMode }) => {
       <label htmlFor='file' className='form-label'>
         <span
           className={`w-full font-bold ${
-            darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cGreen '
           }`}>
           Material:
         </span>
@@ -249,7 +249,7 @@ const AddVideo = ({ setActive, darkMode }) => {
               className={`text-left px-2 py-1 font-bold ml-10 b-1 ${
                 fileLoading
                   ? 'bg-cDkWhite'
-                  : ' bg-cBlue hover:bg-cCian transition'
+                  : ' bg-cGreen hover:bg-cCian transition'
               } rounded-3xl text-cWhite shadow-md `}>
               {!fileLoading && 'Enviar'}
               {fileLoading && 'Enviando...'}
@@ -260,7 +260,7 @@ const AddVideo = ({ setActive, darkMode }) => {
       <label htmlFor='video' className='form-label'>
         <span
           className={`w-full font-bold ${
-            darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cGreen '
           }`}>
           Vídeo:
         </span>
@@ -284,7 +284,7 @@ const AddVideo = ({ setActive, darkMode }) => {
               className={`text-left px-2 py-1 font-bold ml-10 b-1 ${
                 videoLoading
                   ? 'bg-cDkWhite'
-                  : ' bg-cBlue hover:bg-cCian transition'
+                  : ' bg-cGreen hover:bg-cCian transition'
               } rounded-3xl text-cWhite shadow-md `}>
               {!videoLoading && 'Enviar'}
               {videoLoading && 'Enviando...'}

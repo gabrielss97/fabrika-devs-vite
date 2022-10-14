@@ -14,7 +14,7 @@ const Panel = ({ darkMode }) => {
       <Link
         to='/admins'
         className={`flex text-xl items-center gap-4 p-8 rounded-lg text-cWhite font-bold shadow-lg hover:bg-cLtBlue transition-all duration-300 ${
-          darkMode ? 'bg-cLtBlack' : 'bg-cBlue'
+          darkMode ? 'bg-cLtBlack' : 'bg-cGreen'
         }`}>
         <RiAdminLine className='text-2xl' />
         Administradores
@@ -22,7 +22,7 @@ const Panel = ({ darkMode }) => {
       <Link
         to='/users'
         className={`flex text-xl items-center gap-4 p-8 rounded-lg text-cWhite font-bold shadow-lg hover:bg-cLtBlue transition-all duration-300 ${
-          darkMode ? 'bg-cLtBlack' : 'bg-cBlue'
+          darkMode ? 'bg-cLtBlack' : 'bg-cGreen'
         }`}>
         <CgUserList className='text-2xl' />
         Usuários
@@ -30,7 +30,7 @@ const Panel = ({ darkMode }) => {
       <Link
         to='/categories'
         className={`flex text-xl items-center gap-4 p-8 rounded-lg text-cWhite font-bold shadow-lg hover:bg-cLtBlue transition-all duration-300 ${
-          darkMode ? 'bg-cLtBlack' : 'bg-cBlue'
+          darkMode ? 'bg-cLtBlack' : 'bg-cGreen'
         }`}>
         <CgFolder className='text-2xl' />
         Categorias
@@ -38,7 +38,7 @@ const Panel = ({ darkMode }) => {
       <Link
         to='/videos'
         className={`flex text-xl items-center gap-4 p-8 rounded-lg text-cWhite font-bold shadow-lg hover:bg-cLtBlue transition-all duration-300 ${
-          darkMode ? 'bg-cLtBlack' : 'bg-cBlue'
+          darkMode ? 'bg-cLtBlack' : 'bg-cGreen'
         }`}>
         <CgPlayButtonR className='text-2xl' />
         Vídeos

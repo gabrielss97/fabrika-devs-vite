@@ -61,7 +61,7 @@ const Content = ({ user, darkMode }) => {
                 )}
                 <h2
                   className={`text-lg uppercase font-bold ${
-                    darkMode ? 'text-cDkWhite' : ' text-cBlue'
+                    darkMode ? 'text-cDkWhite' : ' text-cGreen'
                   }`}>
                   Descrição:
                 </h2>

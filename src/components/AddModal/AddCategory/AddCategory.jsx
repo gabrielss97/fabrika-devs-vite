@@ -58,7 +58,7 @@ const AddCategory = ({ setActive, categories, darkMode }) => {
       }`}>
       <div
         className={`flex justify-between items-center  w-full mx-auto text-2xl  font-bold ${
-          darkMode ? 'text-cWhite' : 'text-cBlue '
+          darkMode ? 'text-cWhite' : 'text-cGreen '
         }`}>
         <h1 className='text-center'>Adicionar categoria</h1>
         <BiX
@@ -69,7 +69,7 @@ const AddCategory = ({ setActive, categories, darkMode }) => {
       <label htmlFor='newCategory' className='form-label'>
         <span
           className={`w-full font-bold ${
-            darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cGreen '
           }`}>
           Nova categoria:
         </span>
