@@ -25,7 +25,7 @@ module.exports = {
       cDkBlack: '#000000',
       cBlackTransp: '#11111170',
       cCian: '#56fddc',
-      cBlue: '#0097ee',
+      cGreen: '#55fddc',
       cRed: '#B30000',
       tPrimary: '#262626',
       tSecondary: '#ACACAC',

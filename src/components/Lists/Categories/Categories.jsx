@@ -30,14 +30,14 @@ const Categories = ({ categories, setCategory, setActive, darkMode }) => {
               }`}>
               <p
                 className={`text-xl font-bold ${
-                  darkMode ? 'text-cWhite' : 'text-cBlue'
+                  darkMode ? 'text-cWhite' : 'text-cGreen'
                 }`}>
                 {category.name}
               </p>
               <div className='flex gap-4 text-xl'>
                 <button type='button'>
                   <HiOutlinePencilAlt
-                    className='text-cBlue'
+                    className='text-cGreen'
                     onClick={() => handleEdit(category)}
                   />
                 </button>

@@ -12,12 +12,12 @@ function Toggle({ darkMode, setDarkMode }) {
 
   return (
     <div
-      className='relative flex justify-between rounded-2xl p-[2px] cursor-pointer gap-1 border-[2px] border-cBlue'
+      className='relative flex justify-between rounded-2xl p-[2px] cursor-pointer gap-1 border-[2px] border-cGreen'
       onClick={handleClick}>
-      <RiMoonFill className='w-4 h-4 text-cBlue' />
-      <RiSunFill className='w-4 h-4 text-cBlue' />
+      <RiMoonFill className='w-4 h-4 text-cGreen' />
+      <RiSunFill className='w-4 h-4 text-cGreen' />
       <div
-        className={`rounded-full absolute bg-cBlue w-4 h-4 ${
+        className={`rounded-full absolute bg-cGreen w-4 h-4 ${
           darkMode ? 'right-[2px]' : 'left-[2px]'
         }  `}
       />

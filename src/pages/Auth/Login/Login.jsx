@@ -40,12 +40,14 @@ const Login = ({ darkMode }) => {
         <label htmlFor='email' className='form-label'>
           <h1
             className={`text-2xl text-center mb-5 font-bold ${
-              darkMode ? 'text-cWhite' : 'text-cBlue'
+              darkMode ? 'text-cWhite' : 'text-cGreen'
             }`}>
             Entre para assisistir as aulas!
           </h1>
           <span
-            className={`font-bold  ${darkMode ? 'text-cWhite' : 'text-cBlue'}`}>
+            className={`font-bold  ${
+              darkMode ? 'text-cWhite' : 'text-cGreen'
+            }`}>
             E-mail:
           </span>
           <input
@@ -62,7 +64,9 @@ const Login = ({ darkMode }) => {
         </label>
         <label htmlFor='password' className='form-label'>
           <span
-            className={`font-bold  ${darkMode ? 'text-cWhite' : 'text-cBlue'}`}>
+            className={`font-bold  ${
+              darkMode ? 'text-cWhite' : 'text-cGreen'
+            }`}>
             Senha:
           </span>
           <input
@@ -100,7 +104,7 @@ const Login = ({ darkMode }) => {
           Esqueceu sua senha?
           <Link
             to='/forgot-password'
-            className='text-cBlue font-bold hover:text-cCian'>
+            className='text-cGreen font-bold hover:text-cCian'>
             Redefinir
           </Link>
         </p>
@@ -111,7 +115,7 @@ const Login = ({ darkMode }) => {
           Não possui uma conta?
           <Link
             to='/register'
-            className='text-cBlue font-bold hover:text-cCian'>
+            className='text-cGreen font-bold hover:text-cCian'>
             Cadastre-se
           </Link>
         </p>

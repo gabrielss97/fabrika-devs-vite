@@ -44,7 +44,7 @@ const Users = ({ darkMode }) => {
     <div className='w-full md:max-w-7xl mx-auto mt-8'>
       <h1
         className={`text-xl font-bold my-4 ${
-          darkMode ? 'text-cWhite' : 'text-cBlue'
+          darkMode ? 'text-cWhite' : 'text-cGreen'
         }`}>
         Usuários Cadastrados
       </h1>
@@ -71,7 +71,7 @@ const Users = ({ darkMode }) => {
             <div className='flex flex-col md:flex-row gap-4 max-w-1/10 justify-end'>
               <button
                 type='button'
-                className='text-cBlue'
+                className='text-cGreen'
                 onClick={() => makeAdmin(user.id)}>
                 <RiAdminLine />
               </button>

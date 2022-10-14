@@ -55,7 +55,7 @@ const ForgotPassword = ({ darkMode }) => {
         <label htmlFor='email' className='form-label'>
           <span
             className={`text-2xl text-start mb-5 font-bold ${
-              darkMode ? 'text-cWhite' : 'text-cBlue'
+              darkMode ? 'text-cWhite' : 'text-cGreen'
             }`}>
             E-mail:
           </span>

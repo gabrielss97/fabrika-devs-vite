@@ -136,7 +136,7 @@ const Profile = ({ user, darkMode }) => {
         <label className='form-label' htmlFor='username'>
           <span
             className={`w-full font-bold ${
-              darkMode ? 'text-cWhite' : 'text-cBlue '
+              darkMode ? 'text-cWhite' : 'text-cGreen '
             }`}>
             Nome:
           </span>
@@ -154,7 +154,7 @@ const Profile = ({ user, darkMode }) => {
         <label className='form-label' htmlFor='image'>
           <span
             className={`w-full font-bold ${
-              darkMode ? 'text-cWhite' : 'text-cBlue '
+              darkMode ? 'text-cWhite' : 'text-cGreen '
             }`}>
             Foto de perfil:
           </span>
@@ -180,7 +180,7 @@ const Profile = ({ user, darkMode }) => {
                 className={`text-left px-2 py-1 font-bold ml-10 b-1 ${
                   profileImageLoading
                     ? 'bg-cDkWhite'
-                    : 'bg-cBlue hover:bg-cCian transition'
+                    : 'bg-cGreen hover:bg-cCian transition'
                 } rounded-3xl text-cWhite shadow-md `}>
                 {!profileImageLoading && 'Enviar'}
                 {profileImageLoading && 'Enviando...'}
@@ -192,7 +192,7 @@ const Profile = ({ user, darkMode }) => {
         <label className='form-label' htmlFor='email'>
           <span
             className={`w-full font-bold ${
-              darkMode ? 'text-cWhite' : 'text-cBlue '
+              darkMode ? 'text-cWhite' : 'text-cGreen '
             }`}>
             E-mail:
           </span>
@@ -209,7 +209,7 @@ const Profile = ({ user, darkMode }) => {
         <label className='form-label' htmlFor='password'>
           <span
             className={`w-full font-bold ${
-              darkMode ? 'text-cWhite' : 'text-cBlue '
+              darkMode ? 'text-cWhite' : 'text-cGreen '
             }`}>
             Alterar senha:
           </span>
@@ -227,7 +227,7 @@ const Profile = ({ user, darkMode }) => {
         <label className='form-label' htmlFor='confirmPassword'>
           <span
             className={`w-full font-bold ${
-              darkMode ? 'text-cWhite' : 'text-cBlue '
+              darkMode ? 'text-cWhite' : 'text-cGreen '
             }`}>
             Confirmar senha:
           </span>

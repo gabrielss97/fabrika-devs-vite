@@ -36,7 +36,7 @@ const Videos = ({ setActive, setVideo, darkMode }) => {
                 <div key={v4()} className='mb-8'>
                   <h1
                     className={`text-2xl pl-2 uppercase font-bold mb-2 ${
-                      darkMode ? 'text-cWhite' : 'text-cBlue'
+                      darkMode ? 'text-cWhite' : 'text-cGreen'
                     }`}>
                     {category.name}
                   </h1>
@@ -58,7 +58,7 @@ const Videos = ({ setActive, setVideo, darkMode }) => {
                             <div className='flex gap-4 w-1/5 justify-end'>
                               <button
                                 type='button'
-                                className=' text-cBlue text-lg'>
+                                className=' text-cGreen text-lg'>
                                 <HiOutlinePencilAlt
                                   onClick={() => handleEdit(video)}
                                 />

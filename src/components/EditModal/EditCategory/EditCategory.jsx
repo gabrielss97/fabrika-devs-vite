@@ -55,7 +55,7 @@ const EditCategory = ({ setActive, category, darkMode }) => {
       }`}>
       <div
         className={`flex justify-between items-center  w-full mx-auto text-2xl  font-bold ${
-          darkMode ? 'text-cWhite' : 'text-cBlue '
+          darkMode ? 'text-cWhite' : 'text-cGreen '
         }`}>
         <h1 className=' text-center'>Editar categoria</h1>
         <BiX
@@ -66,7 +66,7 @@ const EditCategory = ({ setActive, category, darkMode }) => {
       <label htmlFor='newCategory' className='form-label'>
         <span
           className={`w-full font-bold ${
-            darkMode ? 'text-cWhite' : 'text-cBlue'
+            darkMode ? 'text-cWhite' : 'text-cGreen'
           }`}>
           Nome da categoria:
         </span>
@@ -83,7 +83,7 @@ const EditCategory = ({ setActive, category, darkMode }) => {
       <label htmlFor='order' className='form-label'>
         <span
           className={`w-full font-bold ${
-            darkMode ? 'text-cWhite' : 'text-cBlue'
+            darkMode ? 'text-cWhite' : 'text-cGreen'
           }`}>
           Ordem:
         </span>

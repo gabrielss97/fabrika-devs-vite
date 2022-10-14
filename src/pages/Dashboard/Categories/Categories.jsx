@@ -30,7 +30,7 @@ const Categories = ({ darkMode }) => {
       <button
         type='button'
         onClick={() => setActiveAdd(!activeAdd)}
-        className='cursor-pointer bg-cBlue text-cWhite px-8 w-40 py-2  shadow-md my-4 font-bold rounded-3xl flex items-center justify-between text-2xl self-end '>
+        className='cursor-pointer bg-cGreen text-cWhite px-8 w-40 py-2  shadow-md my-4 font-bold rounded-3xl flex items-center justify-between text-2xl self-end '>
         Nova <BsPlusLg className='text-xl font-bold' />
       </button>
 

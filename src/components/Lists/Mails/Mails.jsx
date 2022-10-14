@@ -19,7 +19,7 @@ const Mails = ({ mails, darkMode }) => {
     <div className='w-full md:max-w-7xl mx-auto mt-8g'>
       <h1
         className={`text-xl font-bold my-4 ${
-          darkMode ? 'text-cWhite' : 'text-cBlue'
+          darkMode ? 'text-cWhite' : 'text-cGreen'
         }`}>
         E-mails permitidos
       </h1>

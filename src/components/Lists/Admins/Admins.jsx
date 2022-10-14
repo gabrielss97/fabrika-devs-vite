@@ -35,7 +35,7 @@ const Admins = ({ darkMode }) => {
 
       <h1
         className={`text-xl font-bold my-4 ${
-          darkMode ? 'text-cWhite' : 'text-cBlue'
+          darkMode ? 'text-cWhite' : 'text-cGreen'
         }`}>
         Administradores
       </h1>

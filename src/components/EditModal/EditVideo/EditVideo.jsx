@@ -103,7 +103,7 @@ const EditVideo = ({ setActive, video, darkMode }) => {
       className={`form ${darkMode ? 'bg-cLtBlack' : 'bg-cWhite'}`}>
       <div
         className={`flex justify-between items-center  w-full mx-auto text-2xl font-bold ${
-          darkMode ? 'text-cWhite' : 'text-cBlue'
+          darkMode ? 'text-cWhite' : 'text-cGreen'
         }`}>
         <h1 className='text-center'>Editar vídeo</h1>
         <BiX
@@ -114,7 +114,7 @@ const EditVideo = ({ setActive, video, darkMode }) => {
       <label htmlFor='category' className='form-label'>
         <span
           className={`w-full font-bold ${
-            darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cGreen '
           }`}>
           Categoria:
         </span>
@@ -138,7 +138,7 @@ const EditVideo = ({ setActive, video, darkMode }) => {
       <label htmlFor='title' className='form-label'>
         <span
           className={`w-full font-bold ${
-            darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cGreen '
           }`}>
           Título:
         </span>
@@ -157,7 +157,7 @@ const EditVideo = ({ setActive, video, darkMode }) => {
       <label htmlFor='description' className='form-label '>
         <span
           className={`w-full font-bold ${
-            darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cGreen '
           }`}>
           Descrição:
         </span>
@@ -176,7 +176,7 @@ const EditVideo = ({ setActive, video, darkMode }) => {
       <label htmlFor='order' className='form-label '>
         <span
           className={`w-full font-bold ${
-            darkMode ? 'text-cWhite' : 'text-cBlue '
+            darkMode ? 'text-cWhite' : 'text-cGreen '
           }`}>
           Ordem:
         </span>
